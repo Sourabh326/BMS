@@ -9,8 +9,8 @@ const Raw_material_stock_report =()=> {
             </div>
             
             <div className="card-body">
-              <table id="example1" className="table table-bordered table-striped">
-                <thead className="thead-dark">
+              <table  className="table  table-striped bg-white">
+                <thead >
                 <tr>
                       <th style={{width:' 10px'}}>Product ID</th>
                       <th>Product name</th>

@@ -1,21 +1,21 @@
 import React from 'react'
 
-const Raw_material_stock =()=> {
+function Ready_material_stock() {
     return (
         <div className="main-footer">
             <div className="card bg-info">
             <div className="card-header">
-              <h3 className="card-title">Vendor Report</h3>
+              <h3 className="card-title">Ready Material Stock</h3>
             </div>
             
             <div className="card-body">
-              <table  className="table  table-striped bg-white">
-                <thead>
+              <table id="example1" className="table table-bordered table-striped bg-white">
+                <thead >
                     <tr>
-                      <th>Product Id</th>
+                      <th style={{width:'200px'}}>Product Category id</th>
                       <th>Product Name</th>
-                      <th>Unit</th>
-                       <th>Qty</th>
+                      <th>Qty</th>
+                       <th>Per Qty Selling  Cost</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,4 +35,4 @@ const Raw_material_stock =()=> {
     )
 }
 
-export default Raw_material_stock;
+export default Ready_material_stock;

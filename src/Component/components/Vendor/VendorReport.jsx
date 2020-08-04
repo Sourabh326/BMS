@@ -10,9 +10,9 @@ const VendorReport = () => {
             </div>
             
             <div className="card-body">
-              <table id="example1" className="table table-bordered table-striped">
-                <thead className="thead-dark">
-                <tr>
+              <table className="table  table-striped bg-white">
+                <thead >
+                    <tr>
                       <th style={{width:' 10px'}}>Vendor ID</th>
                       <th>Person Name</th>
                       <th>Company Name</th>
