@@ -1,7 +1,9 @@
 import React from 'react'
-
+import Navbar from '../../Navbar/Navbar'
 const Purchase_product_info=()=> {
     return (
+      <>
+      <Navbar />
         <div className="main-footer">
             <div className="card bg-info">
             <div className="card-header">
@@ -32,6 +34,7 @@ const Purchase_product_info=()=> {
            
           </div>
         </div>
+        </>
     )
 }
 

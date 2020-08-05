@@ -1,9 +1,10 @@
 import React from 'react';
-
+import Navbar from '../Navbar/Navbar'
 
 const DashboardComponent = () => {
     return(
         <>
+        <Navbar />
         <div className="main-footer">
    <div>
    <div className="row">

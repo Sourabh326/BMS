@@ -10,13 +10,15 @@ import Ready_material_stock from '../components/ReadyMaterial/Ready_material_sto
 import Purchase_info from '../components/Purchase/Purchase_info'
 import Purchase_product_info from '../components/Purchase/Purchase_product_info'
 import Production_info from '../components/Production/Production_info'
-
+import Login from '../../Login/Login'
 import { Switch, Route } from 'react-router-dom';
 const Dashboard = () => {
     return(
         <>
+       
          <Switch>
-           <Route exact path="/" component={DashboardComponent} />
+           <Route exact path="/" component={Login} />
+           <Route exact path="/dashboard" component={DashboardComponent} />
            <Route exact path="/vendor entry" component={VendorEntry} />
            <Route exact path="/payment given" component={PaymentGiven} />
            <Route exact path="/vendor report" component={VendorReport} />

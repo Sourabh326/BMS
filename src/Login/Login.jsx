@@ -1,60 +1,40 @@
 import React from 'react';
 import './Login.css';
-import {Link} from 'react-router-dom';
+
 
 const  App = () => {
   return (
-    <div className="App">
-
-<div className="container-contact100">
-		<div className="wrap-contact100">
-			<form className="contact100-form validate-form">
-				<span className="contact100-form-title">
-					Admin Login
-				</span>
-
-				<div className="wrap-input100 validate-input" data-validate="Name is required">
-					<span className="label-input100">Username</span>
-					<input className="input100" type="text" name="name" placeholder="Enter your username" />
-					<span className="focus-input100"></span>
-				</div>
-
-				<div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-					<span className="label-input100">Password</span>
-					<input className="input100" type="text" name="email" placeholder="Enter your password" />
-					<span className="focus-input100"></span>
-				</div>
-
-			<div className="container-contact100-form-btn">
-					<div className="wrap-contact100-form-btn">
-						<div className="contact100-form-bgbtn"></div>
-						<Link to="/dashboard">
-						<button className="contact100-form-btn">
-							<span>
-								Login
-								<i className="fas fa-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-						</button>
-						</Link>
-					</div>
-				</div>
-			</form>
-			<div className="container-contact100-form-btn">
-					<div className="wrap-contact100-form-btn">
-						<div className="contact100-form-bgbtn"></div>
-						<Link to="/register">
-						<button className="contact100-form-btn">
-							<span>
-								Create A New Account
-								<i className="fas fa-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-						</button>
-						</Link>
-					</div>
-				</div>
+    <>
+	
+	<div id="login" class="wrapper fadeInDown ">
+		<div className="company_info my-2">
+			<h2>Wellcome to Brick Industry Managment</h2>
 		</div>
-	</div>
+  <div id="formContent">
+    <div className="my-3">
+      <h3>Login</h3>
     </div>
+    <form className="mt-5">
+      <input type="text"  class="fadeIn third" name="email_id" placeholder="username or email" /><br/>
+	  <input type="text"  class="fadeIn third" name="password" placeholder="password" /><br/>
+      <select name="" id="">
+      <option value="" >Login As</option>
+        <option value="">Super Admin</option>
+        <option value="">Admin</option>
+        <option value="">Operator</option>
+      </select><br/>
+      <input type="submit" class="fadeIn fourth" value="Log In" />
+    </form>
+
+  
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+
+	</>
   );
 }
 

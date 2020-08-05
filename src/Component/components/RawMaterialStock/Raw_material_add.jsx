@@ -1,7 +1,10 @@
 import React from 'react'
+import Navbar from '../../Navbar/Navbar'
 
 function Raw_material_add() {
     return (
+      <>
+      <Navbar />
         <div className="main-footer">
             <div className="container-fluid" >
               <div className="card card-info" >
@@ -41,7 +44,7 @@ function Raw_material_add() {
               </div>
            </div>
           </div>
-        
+        </>
     )
 }
 

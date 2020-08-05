@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from '../../Navbar/Navbar'
 
 const VendorReport = () => {
     return(
         <>
+        <Navbar />
         <div className="main-footer">
         <div className="card bg-info">
             <div className="card-header">

@@ -1,7 +1,10 @@
 import React from 'react'
+import Navbar from '../../Navbar/Navbar'
 
 function Ready_material_stock() {
     return (
+      <>
+      <Navbar />
         <div className="main-footer">
             <div className="card bg-info">
             <div className="card-header">
@@ -32,6 +35,7 @@ function Ready_material_stock() {
            
           </div>
         </div>
+        </>
     )
 }
 
