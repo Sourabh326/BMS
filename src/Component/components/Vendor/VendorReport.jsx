@@ -2,17 +2,19 @@ import React from 'react';
 import Navbar from '../../Navbar/Navbar'
 
 const VendorReport = () => {
+const title = "Vendor Report"
+
     return(
         <>
         <Navbar />
         <div className="main-footer">
         <div className="card bg-info">
             <div className="card-header">
-              <h3 className="card-title">Vendor Report</h3>
+              <h3 className="card-title">{title} </h3>
             </div>
             
             <div className="card-body">
-              <table className="table  table-striped bg-white">
+              <table className="table table-responsive-xl  table-striped bg-white">
                 <thead >
                     <tr>
                       <th style={{width:' 10px'}}>Vendor ID</th>

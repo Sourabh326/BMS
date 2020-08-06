@@ -12,7 +12,7 @@ const  App = () => {
 		</div>
   <div id="formContent">
     <div className="my-3">
-      <h3>Login</h3>
+      <h3 className="text-white">Login</h3>
     </div>
     <form className="mt-5">
       <input type="text"  class="fadeIn third" name="email_id" placeholder="username or email" /><br/>

@@ -1,33 +1,32 @@
 import React, { useEffect } from 'react';
+import Navbar from '../../Navbar/Navbar';
 import EditModel from './EditModel'
 import $ from 'jquery';
-import Navbar from '../../Navbar/Navbar'
 
-const VendorEntry = () => {
 
+function Employee() {
 
 useEffect(()=>{
-  $('#add-vendor').hide();
-  $("#addVendorBtn").click(()=>{
-    $('#add-vendor').show("slow");
-  })
-  $(".cancle").click((e)=>{
-    e.preventDefault();
-    $('#add-vendor').hide("slow");
-  })
-
+    $('#add-vendor').hide();
+    $("#addVendorBtn").click(()=>{
+      $('#add-vendor').show("slow");
+    })
+    $(".cancle").click((e)=>{
+      e.preventDefault();
+      $('#add-vendor').hide("slow");
+    })
   
-})
-
-   return(
-       <>
-       <Navbar />
-       <div className="main-footer">
+    
+  })
+    return (
+        <>
+          <Navbar />
+          <div className="main-footer">
         <div className="container-fluid" >
-          <button className="btn btn-info  mb-5" id="addVendorBtn">Add New</button>
+          <button className="btn btn-info  mb-5" id="addVendorBtn">Add Employee</button>
          <div className="card card-info" id="add-vendor">
               <div className="card-header">
-                <h3 className="card-title">Vendor Entry</h3>
+                <h3 className="card-title">Employee Entry</h3>
               </div>
               
               <form className="form-horizontal" >
@@ -35,15 +34,18 @@ useEffect(()=>{
                   <div className="row">
                     <div className="col-md-6">
                     <div className="form-group row">
-                    <label for="person_name" className=" col-sm-10 col-form-label">Person Name</label>
+                    <label for="cat_id" className=" col-sm-10 col-form-label">Category Id</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="person_name" placeholder="Person Name" />
+                     <select name="category_name" style={{width:'100%',height:'40px',border:'1px solid #dae1e7',padding:'10px',borderRadius:'4px',color:'grey'}}>
+                       <option value="" >abc</option>
+                       <option value="">abc</option>
+                     </select>
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="company_name" className=" col-sm-10  col-form-label">Company Name</label>
+                    <label for="employee_name" className=" col-sm-10  col-form-label">Employee Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="company_name" placeholder="Company name" />
+                      <input type="text" className="form-control"  name="employee_name" placeholder="Company name" />
                     </div>
                   </div>
                   <div className="form-group row">
@@ -58,15 +60,9 @@ useEffect(()=>{
                       <input type="text" className="form-control"  name="address" placeholder="Address" />
                     </div>
                   </div>
+                    </div>
+             <div className="col-md-6">
                   
-                    </div>
-                    <div className="col-md-6">
-                  <div className="form-group row">
-                    <label for="email_id" className=" col-sm-10  col-form-label">Email</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="email_id" placeholder="Email" />
-                    </div>
-                  </div>
                   <div className="form-group row">
                     <label for="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
                     <div className="col-sm-10">
@@ -80,62 +76,54 @@ useEffect(()=>{
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="balance" className=" col-sm-10  col-form-label">Opening Balance</label>
+                    <label for="basic_salary" className=" col-sm-10  col-form-label">Basic Salary</label>
                     <div className="col-sm-10">
-                      <input type="Number" className="form-control" name="balance" placeholder="Ex: 199/-" />
+                      <input type="Number" className="form-control" name="basic_salary" placeholder="Basic Salary" />
                     </div>
                   </div>
                     </div>
                   </div>
-                 
                 </div>
-                
                 <div className="card-footer">
-                  <button type="submit" className="btn btn-info" >Add Vendor</button>
+                  <button type="submit" className="btn btn-info" >Add Employee</button>
                   <button type="submit" className="btn btn-default float-right cancle">Cancel</button>
                 </div>
-               
               </form>
             </div>
         </div>
-
 
 {/* Vendor Table */}
 <div className="container-fluid">
 <div className="row">
 <div className="col-md-12">
-            <div className="card">
-              <div className="card-header bg-info">
-                <h3 className="card-title">Vendor Table</h3>
+            <div className="card bg-info">
+              <div className="card-header ">
+                <h3 className="card-title">Employee Details</h3>
               </div>
               
               <div className="card-body">
-                <table className="table table-striped table-responsive-lg" id="vendorTable">
-                  <thead className="thead-dark">                  
+                <table className="table table-striped table-responsive-lg bg-white" id="vendorTable">
+                  <thead >                  
                     <tr>
-                      <th style={{width:' 10px'}}>Vendor ID</th>
-                      <th>Person Name</th>
-                      <th>Company Name</th>
+                      <th>Cat Id</th>
+                      <th>Employee Name</th>
                       <th>City</th>
                       <th>Address</th>
-                      <th>Email Id</th>
-                      <th>Contact</th>
-                      <th>Contact</th>
-                      <th>Balance</th>
+                      <th>Contact Number</th>
+                      <th>Alternate Number</th>
+                      <th>Basic Salary</th>
                       <th colSpan="2">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{width:' 10px'}}>123</td>
+                      <td>123</td>
                       <td>Person Name</td>
                       <td>Company Name</td>
                       <td>City</td>
                       <td>Address</td>
                       <td>Email Id</td>
                       <td>Contact</td>
-                      <td>Contact</td>
-                      <td>Balance</td>
                       <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal"> Edit</i></td>
                       <td><button className="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button></td>
 
@@ -160,19 +148,14 @@ useEffect(()=>{
           </div>
   </div>
   </div>
-
  </div>
 
-  {/*Update Popup Model */}
-   <EditModel />
 
+{/* Edit Model */}
+<EditModel /> 
 
-
-         </>
-
-   )
+  </>
+    )
 }
 
-
-
-export default VendorEntry;
+export default Employee;
