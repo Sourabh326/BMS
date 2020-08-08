@@ -1,9 +1,9 @@
 import React from 'react'
-import Navbar from '../../Navbar/Navbar'
+
 const Raw_material_stock =()=> {
     return (
       <>
-       <Navbar />
+      
         <div className="main-footer">
             <div className="card bg-info">
             <div className="card-header">
@@ -14,7 +14,6 @@ const Raw_material_stock =()=> {
               <table  className="table table-responsive-lg  table-striped bg-white">
                 <thead>
                     <tr>
-                      <th>Product Id</th>
                       <th>Product Name</th>
                       <th>Unit</th>
                       <th>Qty</th>
@@ -23,12 +22,11 @@ const Raw_material_stock =()=> {
                 </thead>
                 <tbody>
                 <tr>
-                     <td>1234</td>
                       <td>Cement</td>
                       <td>kg</td>
                       <td>39</td>
-                      <td><i class="fas fa-edit btn btn-success btn-sm" > Edit</i>
-                      <button className="btn btn-danger btn-sm ml-3"><i class="fas fa-trash"></i> Delete</button></td>
+                      <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#RawMaterialleModal"> Edit</i>
+                      <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button></td>
 
                 </tr>
                 </tbody>

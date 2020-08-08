@@ -174,23 +174,12 @@ const Navbar = () => {
             </a>
             <ul className="nav nav-treeview">
               <li className="nav-item">
-                <Link to="/vendor entry" className="nav-link">
+                <Link to="/vendor_entry" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
                   <p>Vendoe Entry</p>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/payment given" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Payment Given</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="vendor report" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Vendor Report</p>
-                </Link>
-              </li>
+             
             </ul>
           </li>
           <li className="nav-item has-treeview">
@@ -203,14 +192,9 @@ const Navbar = () => {
               </p>
             </a>
             <ul className="nav nav-treeview">
+              
               <li className="nav-item">
-                <Link to="/raw material stock" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Raw Material Stock</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/raw material add" className="nav-link">
+                <Link to="/raw_material_add" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
                   <p>Raw Material Stock Entry</p>
                 </Link>
@@ -227,9 +211,15 @@ const Navbar = () => {
             </a>
             <ul className="nav nav-treeview">
               <li className="nav-item">
-                <Link to="ready material stock" className="nav-link">
+                <Link to="/ready_material_stock" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
                   <p>Ready Material Stock</p>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/product_category" className="nav-link">
+                  <i className="far fa-circle nav-icon"></i>
+                  <p>Product Category</p>
                 </Link>
               </li>
               
@@ -244,14 +234,15 @@ const Navbar = () => {
               </p>
             </a>
             <ul className="nav nav-treeview">
+           
               <li className="nav-item">
-                <Link to="purchase info" className="nav-link">
+                <Link to="/purchase_info" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
                   <p>Purchase Info</p>
                 </Link>
               </li>
               <li className="nav-item">
-              <Link to="purchase product info" className="nav-link">
+              <Link to="/purchase_product_info" className="nav-link">
               <i className="far fa-circle nav-icon"></i>
               <p>
                 Purchase Product Info
@@ -260,7 +251,7 @@ const Navbar = () => {
               </Link>
              </li>
              <li className="nav-item">
-              <Link to="production info" className="nav-link">
+              <Link to="/production_info" className="nav-link">
               <i className="far fa-circle nav-icon"></i>
               <p>
                 Production Info
@@ -310,19 +301,7 @@ const Navbar = () => {
                   <p>Employee</p>
                 </Link>
               </li>
-              <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
-                </a>
-              </li>
               
-              <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Validation</p>
-                </a>
-              </li>
             </ul>
           </li>
           <li className="nav-item has-treeview">
@@ -335,23 +314,12 @@ const Navbar = () => {
             </a>
             <ul className="nav nav-treeview">
               <li className="nav-item">
-                <a href="pages/tables/simple.html" className="nav-link">
+                <Link to="/expense" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>Simple Tables</p>
-                </a>
+                  <p>Expense</p>
+                </Link>
               </li>
-              <li className="nav-item">
-                <a href="pages/tables/data.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/tables/jsgrid.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
           <li className="nav-item has-treeview">
@@ -369,23 +337,12 @@ const Navbar = () => {
                   <p>Customers</p>
                 </Link>
               </li>
-              <li className="nav-item">
-                <a href="pages/tables/data.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/tables/jsgrid.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>jsGrid</p>
-                </a>
-              </li>
+             
             </ul>
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-            <i class="fas fa-money-bill-alt nav-icon"></i>
+            <i class="fas fa-industry nav-icon"></i>
               <p>
                 Manufacturing
                 <i className="fas fa-angle-left right"></i>
@@ -401,67 +358,39 @@ const Navbar = () => {
               
             </ul>
           </li>
-          <li className="nav-header">Utilities</li>
-          
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-              <i className="nav-icon fas fa-book"></i>
+            <i class="fas fa-dolly nav-icon"></i>
               <p>
-                Quick Report
+                Transportaion
                 <i className="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul className="nav nav-treeview">
-              <li className="nav-item">
-                <a href="pages/examples/invoice.html" className="nav-link">
+            <li className="nav-item">
+                <Link to="/transportation_category" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>Invoice</p>
-                </a>
+                  <p>Transportaion Category</p>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="pages/examples/profile.html" className="nav-link">
+                <Link to="/purchase_transportation" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
+                  <p>Purchase Transportaion</p>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="pages/examples/e-commerce.html" className="nav-link">
+                <Link to="/sales_transportation" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>E-commerce</p>
-                </a>
+                  <p>Sales Transportaion</p>
+                </Link>
               </li>
-              <li className="nav-item">
-                <a href="pages/examples/projects.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Projects</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/examples/project-add.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Project Add</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/examples/project-edit.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Project Edit</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/examples/project-detail.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Project Detail</p>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a href="pages/examples/contacts.html" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Contacts</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
+          
+          
+          
           
         </ul>
       </nav>

@@ -2,28 +2,24 @@ import React, { useEffect } from 'react';
 import Navbar from '../../Navbar/Navbar';
 import EditModel from './EditModel'
 import $ from 'jquery';
+import Category_modal from './Category_modal';
 
 
 function Employee() {
 
-useEffect(()=>{
+  useEffect(()=>{
     $('#add-vendor').hide();
     $("#addVendorBtn").click(()=>{
-      $('#add-vendor').show("slow");
+      $('#add-vendor').slideToggle();
     })
-    $(".cancle").click((e)=>{
-      e.preventDefault();
-      $('#add-vendor').hide("slow");
-    })
-  
-    
+ 
   })
     return (
         <>
           <Navbar />
           <div className="main-footer">
         <div className="container-fluid" >
-          <button className="btn btn-info  mb-5" id="addVendorBtn">Add Employee</button>
+          <button className="btn btn-danger  mb-5" id="addVendorBtn">Add Employee</button>
          <div className="card card-info" id="add-vendor">
               <div className="card-header">
                 <h3 className="card-title">Employee Entry</h3>
@@ -34,10 +30,17 @@ useEffect(()=>{
                   <div className="row">
                     <div className="col-md-6">
                     <div className="form-group row">
+                    <div className="col-sm-10">
+                     <button type="button" className="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">Add Employee Category</button>
+                    </div>
+                    <Category_modal />
+                    </div>
+
+                    <div className="form-group row">
                     <label for="cat_id" className=" col-sm-10 col-form-label">Category Id</label>
                     <div className="col-sm-10">
-                     <select name="category_name" style={{width:'100%',height:'40px',border:'1px solid #dae1e7',padding:'10px',borderRadius:'4px',color:'grey'}}>
-                       <option value="" >abc</option>
+                     <select name="category_name" style={{width:'100%',height:'40px',border:'1px solid #dae1e7',padding:'10px',borderRadius:'4px',color:'grey',background:'white'}}>
+                       <option disabled>Choose Category</option>
                        <option value="">abc</option>
                      </select>
                     </div>
@@ -91,7 +94,7 @@ useEffect(()=>{
               </form>
             </div>
         </div>
-
+        
 {/* Vendor Table */}
 <div className="container-fluid">
 <div className="row">
@@ -124,8 +127,8 @@ useEffect(()=>{
                       <td>Address</td>
                       <td>Email Id</td>
                       <td>Contact</td>
-                      <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal"> Edit</i></td>
-                      <td><button className="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button></td>
+                      <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal"> Edit</i></td>
+                      <td><button className="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Delete</button></td>
 
                     </tr>
                    

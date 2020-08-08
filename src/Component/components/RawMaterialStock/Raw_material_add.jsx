@@ -1,13 +1,23 @@
-import React from 'react'
-import Navbar from '../../Navbar/Navbar'
+import React,{useEffect} from 'react'
+import $ from 'jquery';
 
-function Raw_material_add() {
+const  Raw_material_add =()=> {
+
+
+  useEffect(()=>{
+    $('#add-vendor').hide();
+    $("#addVendorBtn").click(()=>{
+      $('#add-vendor').slideToggle();
+    })
+ 
+  })  
     return (
       <>
-      <Navbar />
+      
         <div className="main-footer">
             <div className="container-fluid" >
-              <div className="card card-info" >
+            <button className="btn btn-danger  mb-5" id="addVendorBtn">Add New</button>
+              <div className="card card-info" id="add-vendor">
               <div className="card-header">
                 <h3 className="card-title">Raw Material Stock Entry</h3>
               </div>
@@ -44,8 +54,10 @@ function Raw_material_add() {
               </div>
            </div>
           </div>
+          
         </>
     )
 }
+
 
 export default Raw_material_add;

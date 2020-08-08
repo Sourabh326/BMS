@@ -2,23 +2,17 @@ import React, { useEffect } from 'react';
 import $ from 'jquery';
 
 const CustomerForm =()=> {
-
-useEffect(()=>{
-        $('#add-vendor').hide();
-        $("#addVendorBtn").click(()=>{
-          $('#add-vendor').show("slow");
-        })
-        $(".cancle").click((e)=>{
-          e.preventDefault();
-          $('#add-vendor').hide("slow");
-        })
-      
-        
- })    
+  useEffect(()=>{
+    $('#add-vendor').hide();
+    $("#addVendorBtn").click(()=>{
+      $('#add-vendor').slideToggle();
+    })
+ 
+  })    
     return (
         <>
          <div className="container-fluid" >
-          <button className="btn btn-info  mb-5" id="addVendorBtn">Add New</button>
+          <button className="btn btn-danger  mb-5" id="addVendorBtn">Add New</button>
          <div className="card card-info" id="add-vendor">
               <div className="card-header">
                 <h3 className="card-title">Customer Entry</h3>

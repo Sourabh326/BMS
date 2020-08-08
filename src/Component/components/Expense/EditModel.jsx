@@ -3,9 +3,9 @@ import React from 'react'
 const EditModel =()=> {
     return (
         <>
- <form action="">
-             {/*Update Popup Model */}
-<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           {/*Update Popup Model */}
+       <form action="">
+       <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-info">
@@ -32,9 +32,27 @@ const EditModel =()=> {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="address" className=" col-sm-10  col-form-label">Address</label>
+                    <label for="receipt_no" className=" col-sm-10  col-form-label">Receipt No.</label>
                     <div className="col-sm-10">
-                    <textarea type="text" className="form-control"  name="address" placeholder="Address" ></textarea>
+                    <input type="text" className="form-control"  name="receipt_no" placeholder="Receipt No.r" />
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label for="person_name" className=" col-sm-10  col-form-label">Person Name</label>
+                    <div className="col-sm-10">
+                    <input type="text" className="form-control"  name="person_name" placeholder="Person Name" />
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label for="amount" className=" col-sm-10  col-form-label">Amount</label>
+                    <div className="col-sm-10">
+                    <input type="Number" className="form-control"  name="amount" placeholder="Amount" />
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label for="description" className=" col-sm-10  col-form-label">Description</label>
+                    <div className="col-sm-10">
+                    <textarea type="Number" className="form-control"  name="description" placeholder="Description" ></textarea>
                     </div>
                   </div>
        </div>
@@ -48,9 +66,9 @@ const EditModel =()=> {
       </div>
     </div>
   </div>
-</div>  
-       
-   </form> </>
+</div>
+</form>  
+        </>
     )
 }
 

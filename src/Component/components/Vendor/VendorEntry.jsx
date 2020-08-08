@@ -6,18 +6,13 @@ import Navbar from '../../Navbar/Navbar'
 const VendorEntry = () => {
 
 
-useEffect(()=>{
-  $('#add-vendor').hide();
-  $("#addVendorBtn").click(()=>{
-    $('#add-vendor').show("slow");
+  useEffect(()=>{
+    $('#add-vendor').hide();
+    $("#addVendorBtn").click(()=>{
+      $('#add-vendor').slideToggle();
+    })
+ 
   })
-  $(".cancle").click((e)=>{
-    e.preventDefault();
-    $('#add-vendor').hide("slow");
-  })
-
-  
-})
 
    return(
        <>
@@ -145,8 +140,11 @@ useEffect(()=>{
                
                 </table>
               </div>
-           
+              
               <div className="card-footer clearfix">
+              <div className="download_file ">
+                <button className="btn btn-dark btn-sm">Download <i class="fa fa-download" aria-hidden="true"></i> </button>
+              </div>
                 <ul className="pagination pagination-sm m-0 float-right">
                   <li className="page-item"><a className="page-link" href="#">&laquo;</a></li>
                   <li className="page-item"><a className="page-link" href="#">1</a></li>

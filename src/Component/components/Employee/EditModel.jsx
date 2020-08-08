@@ -3,7 +3,8 @@ import React from 'react'
 const EditModel =()=> {
     return (
         <div>
-               {/*Update Popup Model */}
+ <form action="">
+                 {/*Update Popup Model */}
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -71,11 +72,12 @@ const EditModel =()=> {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info">Save changes</button>
+        <button type="button" class="btn btn-info">Update</button>
       </div>
     </div>
   </div>
 </div>
+ </form>
         </div>
     )
 }
