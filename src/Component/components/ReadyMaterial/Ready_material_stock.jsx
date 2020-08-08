@@ -29,28 +29,39 @@ function Ready_material_stock() {
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-6">
+                    
+                    <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+	                    <label for="default-outline-select" className=" col-sm-10 col-form-label">Product Category</label>
+	                    <select id="default-outline-select" name="product_category_id" class="form-control col-sm-10">
+	                  	 <option disabled>Select</option>
+	                  	 <option value="">1</option>
+                       <option value="1" >2</option>
+                    	</select>
+                      </div>
 
-                    <div className="form-group row">
-                    <label for="product_name" className=" col-sm-10 col-form-label">Product Name</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="product_name" placeholder="Category Name" />
-                    </div>
-                    </div>
+                      <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+	                    <label for="default-outline-select" className=" col-sm-10 col-form-label">Select Product Name</label>
+	                    <select id="default-outline-select" name="product_name" class="form-control col-sm-10">
+	                  	 <option disabled>Select</option>
+	                  	 <option value="">1</option>
+                       <option value="1" >2</option>
+                    	</select>
+                      </div>
+
                     <div className="form-group row">
                     <label for="unit" className=" col-sm-10 col-form-label">Unit</label>
                     <div className="col-sm-10">
                       <input type="text" className="form-control"  name="unit" placeholder="Unit" />
                     </div>
                     </div>
-                    <div className="form-group row">
+                  </div>  
+                  <div className="col-md-6">
+                  <div className="form-group row">
                     <label for="qty" className=" col-sm-10 col-form-label">Qty</label>
                     <div className="col-sm-10">
                       <input type="text" className="form-control"  name="qty" placeholder="Unit" />
                     </div>
                     </div>
-
-                  </div>  
-                  <div className="col-md-6">
                   <div className="form-group row">
                     <label for="standard_size" className=" col-sm-10 col-form-label">Standard Size</label>
                     <div className="col-sm-10">
@@ -63,12 +74,7 @@ function Ready_material_stock() {
                       <input type="text" className="form-control"  name="standard_weight" placeholder="Standard Size" />
                     </div>
                     </div>
-                    <div className="form-group row">
-                    <label for="total_weight" className=" col-sm-10 col-form-label">Total Weight</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="total_weight" placeholder="Total Weight" />
-                    </div>
-                    </div>
+                    
                   </div>
                   </div>
                 </div>
@@ -100,6 +106,7 @@ function Ready_material_stock() {
                       <th>Standart Size</th>
                       <th>Weight Per Unit</th>
                      <th>Total Weight</th>
+                     <th>Cost Per Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,6 +118,7 @@ function Ready_material_stock() {
                       <td>336</td>
                       <td>22</td>
                       <td>1234</td>
+                      <td>22rs</td>
                 </tr>
                 </tbody>
                

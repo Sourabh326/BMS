@@ -39,38 +39,33 @@ const Product_category =()=> {
        
 
         {/* Add Sub Category */}
-        <div className="container-fluid">
-         <div className="card card-info" id="add-vendor">
-              <div className="card-header">
-                <h3 className="card-title">Add Sub Category</h3>
-              </div>
-              
-              <form className="form-horizontal" >
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-md-6">
-
-                    <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
-	                    <label for="default-outline-select" className=" col-sm-10 col-form-label">Choose Sub Category</label>
-	                    <select id="default-outline-select" class="form-control col-sm-10">
-	                  	 <option disabled>Select</option>
-	                  	 <option value="">1</option>
-                       <option value="1" >2</option>
-                    	</select>
-                      </div>
-
-                  </div>  
-                  </div>
-                </div>
-                
-                <div className="card-footer">
-                  <button type="submit" className="btn btn-info" >Add</button>
-                  <button type="submit" className="btn btn-default ml-4 cancle">Cancel</button>
-                </div>
-               
-              </form>
+          {/* Material Table */}
+          <div className="card bg-info">
+            <div className="card-header">
+              <h3 className="card-title">Product Category</h3>
             </div>
-        </div>  
+            
+            <div className="card-body">
+              <table id="example1" className="table table-responsive-lg table-striped bg-white">
+                <thead >
+                    <tr>
+                      <th style={{width:'200px'}}>Sr. No.</th>
+                      <th>Product Category</th>
+                      <th>Sub Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                     <td>1</td>
+                     <td>Brick</td>
+                     <td className="d-inline-block font-weight-bold text-success">Map Here <i class="fas fa-plus    "></i></td>
+                </tr>
+                </tbody>
+               
+              </table>
+            </div>
+           
+          </div>
         </div>
         </>
     )

@@ -227,6 +227,26 @@ const Navbar = () => {
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
+              <i className="nav-icon fas fa-user"></i>
+              <p>
+                Production
+                <i className="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul className="nav nav-treeview">
+               <li className="nav-item">
+              <Link to="/production_info" className="nav-link">
+              <i className="far fa-circle nav-icon"></i>
+              <p>
+                Production Info
+                
+              </p>
+              </Link>
+             </li>
+            </ul>
+          </li>
+          <li className="nav-item has-treeview">
+            <a href="#" className="nav-link">
               <i className="nav-icon fas fa-building"></i>
               <p>
                 Purchase
@@ -250,15 +270,7 @@ const Navbar = () => {
               </p>
               </Link>
              </li>
-             <li className="nav-item">
-              <Link to="/production_info" className="nav-link">
-              <i className="far fa-circle nav-icon"></i>
-              <p>
-                Production Info
-                <i className="fas fa-angle-left right"></i>
-              </p>
-              </Link>
-             </li>
+            
              
              </ul>
           </li>
