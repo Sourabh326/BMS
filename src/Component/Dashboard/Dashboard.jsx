@@ -14,7 +14,7 @@ import Expense from '../components/Expense/Expense'
 import Transportation from '../components/Transportation/Transportation'
 import Sales_transportation from '../components/Transportation/Sales_transportation'
 import Transportation_category from '../components/Transportation/Transportation_category'
-
+import Sales from '../components/Sales/Sales'
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ const Dashboard = () => {
            <Route exact path="/purchase_transportation" component={Transportation} />
            <Route exact path="/sales_transportation" component={Sales_transportation} />
            <Route exact path="/transportation_category" component={Transportation_category} />
+           <Route exact path="/sales" component={Sales} />
            
          </Switch>
         </>
