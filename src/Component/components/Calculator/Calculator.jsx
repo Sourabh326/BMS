@@ -13,7 +13,7 @@ const onInput = (event) =>{
    var oneElectricityRate = 0.04;
    var oneMachineRate = 0.01;
    var oneWaterRate = 0.01;
-   var 
+   
 //    One Brick Quantity
    var oneFlyAsh = 1.08195;
    var oneLime = 0.25;
