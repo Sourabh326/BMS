@@ -3,8 +3,17 @@ import EditModel from './EditModel'
 import $ from 'jquery';
 import Navbar from '../../Navbar/Navbar'
 import axios from 'axios'
+
 const VendorEntry = () => {
-<<<<<<< Updated upstream
+
+  useEffect(()=>{
+    $('#add-vendor').hide();
+    $("#addVendorBtn").click(()=>{
+      $('#add-vendor').slideToggle();
+    })
+    loadTableData();
+  },[])
+ 
   
   const [formData, setFormData] = React.useState({});
   const [tableData,setTableDate] = React.useState([]);
@@ -15,28 +24,15 @@ const VendorEntry = () => {
   const loadTableData = ()=>{
     axios.get('/vendors').then((res)=>{
       const {vendors} = res.data;
+      console.log(vendors);
       setTableDate(vendors);
     })
   }
 
-  useEffect(()=>{
-=======
+  
 
-useEffect(()=>{
->>>>>>> Stashed changes
-    $('#add-vendor').hide();
-    $("#addVendorBtn").click(()=>{
-      $('#add-vendor').slideToggle();
-    })
-<<<<<<< Updated upstream
-    loadTableData();
-  },[])
 
-=======
  
-
-  })
->>>>>>> Stashed changes
 
   const Edit = (id)=>{
     setShow(true);
@@ -56,9 +52,11 @@ useEffect(()=>{
     axios.post('/vendors',{vendor:formData}).then((res)=>{
       loadTableData();
       $('#add-vendor').slideToggle();
+      setFormData({});
     }).catch((err)=>{
       console.log(err);
     }) 
+
   }
 
   let onChange = (e)=>{
@@ -85,54 +83,54 @@ useEffect(()=>{
                   <div className="row">
                     <div className="col-md-6">
                     <div className="form-group row">
-                    <label for="person_name" className=" col-sm-10 col-form-label">Person Name</label>
+                    <label htmlfor="person_name" className=" col-sm-10 col-form-label">Person Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="person_name" placeholder="Person Name" onChange={onChange}/>
+                      <input type="text" className="form-control" value={formData['person_name']||''}  name="person_name" placeholder="Person Name" onChange={onChange}/>
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="company_name" className=" col-sm-10  col-form-label">Company Name</label>
+                    <label htmlfor="company_name" className=" col-sm-10  col-form-label">Company Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="company_name" placeholder="Company name"  onChange={onChange}/>
+                      <input type="text" className="form-control" value={formData['company_name']||''}  name="company_name" placeholder="Company name"  onChange={onChange}/>
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="city" className=" col-sm-10  col-form-label">City</label>
+                    <label htmlfor="city" className=" col-sm-10  col-form-label">City</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="city" placeholder="City Name" onChange={onChange} />
+                      <input type="text" className="form-control" value={formData['city']||''}  name="city" placeholder="City Name" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="address" className=" col-sm-10  col-form-label">Address</label>
+                    <label htmlfor="address" className=" col-sm-10  col-form-label">Address</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="address" placeholder="Address" onChange={onChange} />
+                      <input type="text" className="form-control" value={formData['address']||''}  name="address" placeholder="Address" onChange={onChange} />
                     </div>
                   </div>
                   
                     </div>
                     <div className="col-md-6">
                   <div className="form-group row">
-                    <label for="email_id" className=" col-sm-10  col-form-label">Email</label>
+                    <label htmlfor="email_id" className=" col-sm-10  col-form-label">Email</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="email_id" placeholder="Email"   onChange={onChange} />
+                      <input type="text" className="form-control" value={formData['email_id']||''}  name="email_id" placeholder="Email"   onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
+                    <label htmlfor="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" name="contact_one" placeholder="Contact Number" onChange={onChange} />
+                      <input type="text" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
+                    <label htmlfor="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
+                      <input type="text" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="balance" className=" col-sm-10  col-form-label">Opening Balance</label>
+                    <label htmlfor="balance" className=" col-sm-10  col-form-label">Opening Balance</label>
                     <div className="col-sm-10">
-                      <input type="Number" className="form-control" name="balance" placeholder="Ex: 199/-" onChange={onChange} />
+                      <input type="Number" className="form-control" value={formData['balance']||''} name="balance" placeholder="Ex: 199/-" onChange={onChange} />
                     </div>
                   </div>
                     </div>
@@ -176,10 +174,9 @@ useEffect(()=>{
                     </tr>
                   </thead>
                   <tbody>
-<<<<<<< Updated upstream
                     {
                       tableData.map((vendor)=>(
-                      <tr key={vendor.vendor_id}>
+                    <tr key={vendor.vendor_id}>
                       <td style={{width:' 10px'}}>{vendor.vendor_id}</td>
                       <td>{vendor.person_name}</td>
                       <td>{vendor.company_name}</td>
@@ -187,25 +184,11 @@ useEffect(()=>{
                       <td>{vendor.address}</td>
                       <td>{vendor.email_id}</td>
                       <td>{vendor.contact_one}</td>
-                      <td>{vendor.contatc_two}</td>
+                      <td>{vendor.contact_two}</td>
                       <td>{vendor.balance}</td>
-                      <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" onClick={()=>Edit(vendor.vendor_id)} > Edit</i></td>
-                      <td><button onClick={()=>deleteVendor(vendor.vendor_id)} className="btn btn-danger btn-sm"><i class="fas fa-trash" ></i> Delete</button></td>
-=======
-                    <tr>
-                      <td style={{width:' 10px'}}>123</td>
-                      <td>Person Name</td>
-                      <td>Company Name</td>
-                      <td>City</td>
-                      <td>Address</td>
-                      <td>Email Id</td>
-                      <td>Contact</td>
-                      <td>Contact</td>
-                      <td>Balance</td>
-                      <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal"> Edit</i>
-                      <button className="btn btn-danger btn-xs ml-2"><i class="fas fa-trash"></i> Delete</button></td>
-
->>>>>>> Stashed changes
+                      <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" onClick={()=>Edit(vendor.vendor_id)} > Edit</i></td>
+                      <td><button onClick={()=>deleteVendor(vendor.vendor_id)} className="btn btn-danger btn-xs"><i class="fas fa-trash" ></i> Delete</button></td>
+                   
                     </tr>
                       ))
                     }
@@ -231,6 +214,7 @@ useEffect(()=>{
   </div>
 
  </div>
+ 
 
 
  {/* <EditModel  vendor_id = {vendor_id} vendor={vendor} cb={loadTableData}/> */}
