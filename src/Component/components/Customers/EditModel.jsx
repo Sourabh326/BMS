@@ -1,6 +1,7 @@
 import React from 'react'
 
-const EditModel =()=> {
+const EditModel =({customer_id,customer})=> {
+  console.log(customer_id,customer);
     return (
         <>
  <form action="">
