@@ -2,18 +2,62 @@ import React, { useEffect } from 'react';
 import EditModel from './EditModel'
 import $ from 'jquery';
 import Navbar from '../../Navbar/Navbar'
-
+import axios from 'axios'
 const VendorEntry = () => {
+  
+  const [formData, setFormData] = React.useState({});
+  const [tableData,setTableDate] = React.useState([]);
+  const [vendor_id,setVendor_id] = React.useState(0);
+  const [vendor,setVendor] = React.useState({});
+  const [show,setShow] = React.useState(false);
 
+  const loadTableData = ()=>{
+    axios.get('/vendors').then((res)=>{
+      const {vendors} = res.data;
+      setTableDate(vendors);
+    })
+  }
 
   useEffect(()=>{
     $('#add-vendor').hide();
     $("#addVendorBtn").click(()=>{
       $('#add-vendor').slideToggle();
     })
- 
-  })
+    loadTableData();
+  },[])
 
+
+  const Edit = (id)=>{
+    setShow(true);
+    
+    setVendor_id(id);
+    setVendor(tableData.find((v)=>v.vendor_id===id));
+  }
+
+  let deleteVendor= (id)=>{
+    axios.delete(`/vendors/${id}`).then((res)=>{ console.log(res); loadTableData();  }).catch((err)=>{console.log(err);})
+  }
+
+
+  let onSubmit = (e)=>{
+    e.preventDefault();
+    console.log(formData);
+    axios.post('/vendors',{vendor:formData}).then((res)=>{
+      loadTableData();
+      $('#add-vendor').slideToggle();
+    }).catch((err)=>{
+      console.log(err);
+    }) 
+  }
+
+  let onChange = (e)=>{
+    let {name,value}  = e.currentTarget;
+    setFormData((state)=>({
+      ...state,
+      [name]:value
+    }))
+  }
+  
    return(
        <>
        <Navbar />
@@ -25,32 +69,32 @@ const VendorEntry = () => {
                 <h3 className="card-title">Vendor Entry</h3>
               </div>
               
-              <form className="form-horizontal" >
+              <form className="form-horizontal"  onSubmit={onSubmit}>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-6">
                     <div className="form-group row">
                     <label for="person_name" className=" col-sm-10 col-form-label">Person Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="person_name" placeholder="Person Name" />
+                      <input type="text" className="form-control"  name="person_name" placeholder="Person Name" onChange={onChange}/>
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="company_name" className=" col-sm-10  col-form-label">Company Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="company_name" placeholder="Company name" />
+                      <input type="text" className="form-control"  name="company_name" placeholder="Company name"  onChange={onChange}/>
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="city" className=" col-sm-10  col-form-label">City</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="city" placeholder="City Name" />
+                      <input type="text" className="form-control"  name="city" placeholder="City Name" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="address" className=" col-sm-10  col-form-label">Address</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="address" placeholder="Address" />
+                      <input type="text" className="form-control"  name="address" placeholder="Address" onChange={onChange} />
                     </div>
                   </div>
                   
@@ -59,25 +103,25 @@ const VendorEntry = () => {
                   <div className="form-group row">
                     <label for="email_id" className=" col-sm-10  col-form-label">Email</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="email_id" placeholder="Email" />
+                      <input type="text" className="form-control"  name="email_id" placeholder="Email"   onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" name="contact_one" placeholder="Contact Number" />
+                      <input type="text" className="form-control" name="contact_one" placeholder="Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" name="contact_two" placeholder="Alternet Contact Number" />
+                      <input type="text" className="form-control" name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
                     <label for="balance" className=" col-sm-10  col-form-label">Opening Balance</label>
                     <div className="col-sm-10">
-                      <input type="Number" className="form-control" name="balance" placeholder="Ex: 199/-" />
+                      <input type="Number" className="form-control" name="balance" placeholder="Ex: 199/-" onChange={onChange} />
                     </div>
                   </div>
                     </div>
@@ -121,26 +165,26 @@ const VendorEntry = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td style={{width:' 10px'}}>123</td>
-                      <td>Person Name</td>
-                      <td>Company Name</td>
-                      <td>City</td>
-                      <td>Address</td>
-                      <td>Email Id</td>
-                      <td>Contact</td>
-                      <td>Contact</td>
-                      <td>Balance</td>
-                      <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal"> Edit</i></td>
-                      <td><button className="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button></td>
-
+                    {
+                      tableData.map((vendor)=>(
+                      <tr key={vendor.vendor_id}>
+                      <td style={{width:' 10px'}}>{vendor.vendor_id}</td>
+                      <td>{vendor.person_name}</td>
+                      <td>{vendor.company_name}</td>
+                      <td>{vendor.city}</td>
+                      <td>{vendor.address}</td>
+                      <td>{vendor.email_id}</td>
+                      <td>{vendor.contact_one}</td>
+                      <td>{vendor.contatc_two}</td>
+                      <td>{vendor.balance}</td>
+                      <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" onClick={()=>Edit(vendor.vendor_id)} > Edit</i></td>
+                      <td><button onClick={()=>deleteVendor(vendor.vendor_id)} className="btn btn-danger btn-sm"><i class="fas fa-trash" ></i> Delete</button></td>
                     </tr>
-                   
+                      ))
+                    }
                   </tbody>
-               
                 </table>
               </div>
-              
               <div className="card-footer clearfix">
               <div className="download_file ">
                 <button className="btn btn-dark btn-sm">Download <i class="fa fa-download" aria-hidden="true"></i> </button>
@@ -161,13 +205,14 @@ const VendorEntry = () => {
 
  </div>
 
+
+ {/* <EditModel  vendor_id = {vendor_id} vendor={vendor} cb={loadTableData}/> */}
+
   {/*Update Popup Model */}
-   <EditModel />
-
-
-
+    {
+   show?<EditModel  vendor_id = {vendor_id} vendor={vendor} cb={loadTableData}/>:null
+    }
          </>
-
    )
 }
 
