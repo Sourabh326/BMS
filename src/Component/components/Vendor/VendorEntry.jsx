@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Navbar from '../../Navbar/Navbar'
 import axios from 'axios'
 const VendorEntry = () => {
+<<<<<<< Updated upstream
   
   const [formData, setFormData] = React.useState({});
   const [tableData,setTableDate] = React.useState([]);
@@ -19,13 +20,23 @@ const VendorEntry = () => {
   }
 
   useEffect(()=>{
+=======
+
+useEffect(()=>{
+>>>>>>> Stashed changes
     $('#add-vendor').hide();
     $("#addVendorBtn").click(()=>{
       $('#add-vendor').slideToggle();
     })
+<<<<<<< Updated upstream
     loadTableData();
   },[])
 
+=======
+ 
+
+  })
+>>>>>>> Stashed changes
 
   const Edit = (id)=>{
     setShow(true);
@@ -63,7 +74,7 @@ const VendorEntry = () => {
        <Navbar />
        <div className="main-footer">
         <div className="container-fluid" >
-          <button className="btn btn-info  mb-5" id="addVendorBtn">Add New</button>
+          <button className="btn btn-danger  mb-5" id="addVendorBtn">Add New</button>
          <div className="card card-info" id="add-vendor">
               <div className="card-header">
                 <h3 className="card-title">Vendor Entry</h3>
@@ -149,7 +160,7 @@ const VendorEntry = () => {
               </div>
               
               <div className="card-body">
-                <table className="table table-striped table-responsive-lg" id="vendorTable">
+                <table  className="table  table-striped table-responsive" id="vendorTable">
                   <thead className="thead-dark">                  
                     <tr>
                       <th style={{width:' 10px'}}>Vendor ID</th>
@@ -165,6 +176,7 @@ const VendorEntry = () => {
                     </tr>
                   </thead>
                   <tbody>
+<<<<<<< Updated upstream
                     {
                       tableData.map((vendor)=>(
                       <tr key={vendor.vendor_id}>
@@ -179,6 +191,21 @@ const VendorEntry = () => {
                       <td>{vendor.balance}</td>
                       <td><i class="fas fa-edit btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" onClick={()=>Edit(vendor.vendor_id)} > Edit</i></td>
                       <td><button onClick={()=>deleteVendor(vendor.vendor_id)} className="btn btn-danger btn-sm"><i class="fas fa-trash" ></i> Delete</button></td>
+=======
+                    <tr>
+                      <td style={{width:' 10px'}}>123</td>
+                      <td>Person Name</td>
+                      <td>Company Name</td>
+                      <td>City</td>
+                      <td>Address</td>
+                      <td>Email Id</td>
+                      <td>Contact</td>
+                      <td>Contact</td>
+                      <td>Balance</td>
+                      <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal"> Edit</i>
+                      <button className="btn btn-danger btn-xs ml-2"><i class="fas fa-trash"></i> Delete</button></td>
+
+>>>>>>> Stashed changes
                     </tr>
                       ))
                     }
