@@ -9,10 +9,10 @@ const ProductionTable =()=> {
             </div>
             
             <div className="card-body">
-              <table id="example1" className="table table-responsive-lg table-striped bg-white">
+              <table id="example1" className="table table-sm table-responsive table-striped bg-white">
                 <thead className="">
                     <tr>
-                      <th style={{width:'200px'}}>Product Category</th>
+                      <th>Product Category</th>
                       <th>Product Name</th>
                       <th>Unit</th>
                       <th>Qty</th>
@@ -23,6 +23,7 @@ const ProductionTable =()=> {
                       <th>Production Qty</th>
                       <th>Total Production Cost</th>
                       <th>Date</th>
+                     
                        </tr>
                 </thead>
                 <tbody>

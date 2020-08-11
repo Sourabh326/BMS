@@ -6,6 +6,7 @@ import Ready_material_stock from '../components/ReadyMaterial/Ready_material_sto
 import Purchase_info from '../components/Purchase/Purchase_info'
 import Purchase_product_info from '../components/Purchase/Purchase_product_info'
 import Product_category from '../components/ReadyMaterial/Product_category'
+import Product_sub_category from '../components/ReadyMaterial/Product_sub_category'
 import Production_info from '../components/Production/Production_info'
 import Login from '../../Login/Login'
 import Employee from '../components/Employee/Employee'
@@ -26,6 +27,7 @@ const Dashboard = () => {
        
          <Switch>
            <Route exact path="/" component={Login} />
+<<<<<<< Updated upstream
            <PrivateRoute exact path="/dashboard">
              <DashboardComponent/>
            </PrivateRoute>
@@ -44,6 +46,25 @@ const Dashboard = () => {
            <PrivateRoute exact path="/transportation_category" component={Transportation_category} />
            <PrivateRoute exact path="/sales" component={Sales} />
            <PrivateRoute exact path="/calculator" component={Calculator} />
+=======
+           <Route exact path="/dashboard" component={DashboardComponent} />
+           <Route exact path="/vendor_entry" component={VendorEntry} />
+           <Route exact path="/raw_material_add" component={Raw_material} />
+           <Route exact path="/ready_material_stock" component={Ready_material_stock} />
+           <Route exact path="/purchase_info" component={Purchase_info} />
+           <Route exact path="/purchase_product_info" component={Purchase_product_info} />
+           <Route exact path="/product_category" component={Product_category} />
+           <Route exact path="/product_sub_category" component={Product_sub_category} />   
+           <Route exact path="/production_info" component={Production_info} />
+           <Route exact path="/employee" component={Employee} />
+           <Route exact path="/customers" component={Customers} />
+           <Route exact path="/expense" component={Expense} />
+           <Route exact path="/purchase_transportation" component={Transportation} />
+           <Route exact path="/sales_transportation" component={Sales_transportation} />
+           <Route exact path="/transportation_category" component={Transportation_category} />
+           <Route exact path="/sales" component={Sales} />
+           <Route exact path="/calculator" component={Calculator} />
+>>>>>>> Stashed changes
            
          </Switch>
         </>

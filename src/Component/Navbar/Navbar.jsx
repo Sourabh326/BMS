@@ -127,6 +127,7 @@ const Navbar = () => {
           <i className="fas fa-th-large"></i>
         </a>
       </li>
+      
     </ul>
   </nav>
  
@@ -196,7 +197,7 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link to="/raw_material_add" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>Raw Material Stock Entry</p>
+                  <p>Raw Material Stock</p>
                 </Link>
               </li>
             </ul>
@@ -211,18 +212,23 @@ const Navbar = () => {
             </a>
             <ul className="nav nav-treeview">
               <li className="nav-item">
-                <Link to="/ready_material_stock" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Ready Material Stock</p>
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/product_category" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
                   <p>Product Category</p>
                 </Link>
               </li>
-              
+              <li className="nav-item">
+                <Link to="/product_sub_category" className="nav-link">
+                  <i className="far fa-circle nav-icon"></i>
+                  <p>Product Sub Category</p>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/ready_material_stock" className="nav-link">
+                  <i className="far fa-circle nav-icon"></i>
+                  <p>Ready Material Stock</p>
+                </Link>
+              </li>
             </ul>
           </li>
           <li className="nav-item has-treeview">
@@ -239,7 +245,6 @@ const Navbar = () => {
               <i className="far fa-circle nav-icon"></i>
               <p>
                 Production Info
-                
               </p>
               </Link>
              </li>
