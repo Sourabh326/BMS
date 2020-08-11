@@ -27,7 +27,6 @@ const Dashboard = () => {
        
          <Switch>
            <Route exact path="/" component={Login} />
-<<<<<<< Updated upstream
            <PrivateRoute exact path="/dashboard">
              <DashboardComponent/>
            </PrivateRoute>
@@ -46,7 +45,6 @@ const Dashboard = () => {
            <PrivateRoute exact path="/transportation_category" component={Transportation_category} />
            <PrivateRoute exact path="/sales" component={Sales} />
            <PrivateRoute exact path="/calculator" component={Calculator} />
-=======
            <Route exact path="/dashboard" component={DashboardComponent} />
            <Route exact path="/vendor_entry" component={VendorEntry} />
            <Route exact path="/raw_material_add" component={Raw_material} />
@@ -64,7 +62,6 @@ const Dashboard = () => {
            <Route exact path="/transportation_category" component={Transportation_category} />
            <Route exact path="/sales" component={Sales} />
            <Route exact path="/calculator" component={Calculator} />
->>>>>>> Stashed changes
            
          </Switch>
         </>
