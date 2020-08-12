@@ -2,6 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import $ from "jquery";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 const EditModel = ({ cb }) => {
   const [formData, setFormData] = React.useState({});
   const [id, setId] = React.useState(null);
@@ -12,18 +16,32 @@ const EditModel = ({ cb }) => {
       [name]: value,
     }));
   };
+  let getVendor = (id) => {
+    axios.get(`/vendors/${id}`).then((res) => {
+      setFormData(res.data.vendor);
+    });
+  }
+  
   const doEdit = (e) => {
     if (formData["person_name"].length < 3) {
       alert("name is empty");
       return;
     }
     e.preventDefault();
-    axios
-      .patch(`/vendors/${id}`, { vendor: formData })
+    axios.patch(`/vendors/${id}`, { vendor: formData })
       .then((res) => {
           console.log(res.data);
         cb();
-        $("#exampleModal").modal("toggle");
+        toast.success('🦄 Updated Successfully !', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+           $("#exampleModal").modal("toggle");
         $("exampleModal").modal("hide");
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();
@@ -33,21 +51,16 @@ const EditModel = ({ cb }) => {
       });
   };
 
-  let getVendor = (id) => {
-    axios.get(`/vendors/${id}`).then((res) => {
-      setFormData(res.data.vendor);
-    });
-  };
-  useEffect(() => {
-    $("#exampleModal").on("shown.bs.modal", (e) => {
-      let id = $(e.relatedTarget).data("id");
+  useEffect(()=>{
+    $('#exampleModal').on('show.bs.modal',(e)=>{
+      const id = $(e.relatedTarget).data('id');
       setId(id);
       getVendor(id);
-    });
-    $("#exampleModal").on("hide.bs.modal", () => {
+    })
+    $('#exampleModal').on('hide.bs.modal',()=>{
       setFormData({});
-    });
-  }, []);
+    })
+  },[])
 
   return (
     <div>

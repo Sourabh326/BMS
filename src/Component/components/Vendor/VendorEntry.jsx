@@ -3,16 +3,11 @@ import EditModel from "./EditModel";
 import $ from "jquery";
 import Navbar from "../../Navbar/Navbar";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 const VendorEntry = () => {
-  const [formData, setFormData] = React.useState({});
-  const [tableData, setTableDate] = React.useState([]);
-  const loadTableData = () => {
-    axios.get("/vendors").then((res) => {
-      const { vendors } = res.data;
-      setTableDate(vendors);
-    });
-  };
   useEffect(() => {
     $("#add-vendor").hide();
     $("#addVendorBtn").click(() => {
@@ -21,11 +16,31 @@ const VendorEntry = () => {
     loadTableData();
   }, []);
 
+  const [formData, setFormData] = React.useState({
+    person_name: "",
+    company_name: "",
+    city: "",
+    address: "",
+    email_id: "",
+    contact_one: "",
+    contact_two: "",
+    balance: "",
+  });
+  const [tableData, setTableDate] = React.useState([]);
+
+  const loadTableData = () => {
+    axios.get("/vendors").then((res) => {
+      const { vendors } = res.data;
+      console.log(vendors);
+      setTableDate(vendors);
+    });
+  };
+
   let deleteVendor = (id) => {
     axios
       .delete(`/vendors/${id}`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         loadTableData();
       })
       .catch((err) => {
@@ -35,13 +50,94 @@ const VendorEntry = () => {
 
   let onSubmit = (e) => {
     e.preventDefault();
+
+    if (formData["person_name"].length < 3) {
+      toast.error("🦄 Person Name Should be Minimum 3 Charaters !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+    if (formData["company_name"].length < 3) {
+      toast.error("🦄 Company Name Should be Required !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+    if (formData["city"].length < 3) {
+      toast.error("🦄 City Name Should be Required !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+
+    if (formData["email_id"].length < 3) {
+      toast.error("🦄 Email Id Should be Required !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+    if (
+      formData["contact_one"].length < 10 ||
+      formData["contact_one"].length > 10
+    ) {
+      toast.error("🦄 Contact Number Should be 10 Digit Only !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      return;
+    }
+
     console.log(formData);
     axios
       .post("/vendors", { vendor: formData })
       .then((res) => {
-        console.log(res.data.message);
         loadTableData();
         $("#add-vendor").slideToggle();
+        setFormData({});
+
+        toast.success("🦄 Added Successfully !", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -219,7 +315,6 @@ const VendorEntry = () => {
                   </div>
                 </div>
               </div>
-
               <div className="card-footer">
                 <button type="submit" className="btn btn-info">
                   Add Vendor
@@ -338,11 +433,8 @@ const VendorEntry = () => {
         </div>
       </div>
       {/*Update Popup Model */}
-      {/* {show ? ( */}
-        <EditModel cb={loadTableData}/>
-      {/* ) : null} */}
+      <EditModel cb={loadTableData} />
     </>
   );
 };
 export default VendorEntry;
-
