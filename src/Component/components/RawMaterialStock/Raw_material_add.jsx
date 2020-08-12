@@ -43,6 +43,12 @@ const  Raw_material_add =()=> {
                       <input type="text" className="form-control"  name="qty" placeholder="Quantity" />
                     </div>
                     </div>
+                    <div className="form-group row">
+                    <label for="qty" className=" col-sm-10 col-form-label">Rate</label>
+                    <div className="col-sm-10">
+                      <input type="text" className="form-control"  name="rate" placeholder="Quantity" />
+                    </div>
+                    </div>
                    <div className="form-group row">
                    <button type="submit" className="btn btn-info" >Entry Now</button>
                    <button type="submit" className="btn btn-default float-right cancle mx-3">Cancel</button>

@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { useEffect } from "react";
-import $ from 'jquery'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+toast.configure();
 const EditModel = ({ vendor_id, vendor,cb }) => {
 
   const [formData, setFormData] = React.useState({ ...vendor });
@@ -15,19 +18,26 @@ const EditModel = ({ vendor_id, vendor,cb }) => {
   // data-toggle="modal" data-target="#exampleModal"
   const doEdit = (e) => {
     e.preventDefault();
-    axios
-      .patch(`/vendors/${vendor_id}`, { vendor: formData })
+    
+    axios.patch(`/vendors/${vendor_id}`, { vendor: formData })
       .then((res) => {
         console.log(res.data);
         cb();
+        toast.success('🦄 Updated Successfully !', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  useEffect(()=>{
-   
-  },[])
+  
   return (
     <div>
       <form onSubmit={doEdit}>

@@ -3,10 +3,14 @@ import EditModel from './EditModel'
 import $ from 'jquery';
 import Navbar from '../../Navbar/Navbar'
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 const VendorEntry = () => {
-
+ 
   useEffect(()=>{
+   
     $('#add-vendor').hide();
     $("#addVendorBtn").click(()=>{
       $('#add-vendor').slideToggle();
@@ -15,7 +19,16 @@ const VendorEntry = () => {
   },[])
  
   
-  const [formData, setFormData] = React.useState({});
+  const [formData, setFormData] = React.useState({
+    person_name:'',
+    company_name:'',
+    city:'',
+    address:'',
+    email_id:'',
+    contact_one:'',
+    contact_two:'',
+    balance:''
+  });
   const [tableData,setTableDate] = React.useState([]);
   const [vendor_id,setVendor_id] = React.useState(0);
   const [vendor,setVendor] = React.useState({});
@@ -28,11 +41,6 @@ const VendorEntry = () => {
       setTableDate(vendors);
     })
   }
-
-  
-
-
- 
 
   const Edit = (id)=>{
     setShow(true);
@@ -48,11 +56,90 @@ const VendorEntry = () => {
 
   let onSubmit = (e)=>{
     e.preventDefault();
+   
+    if(formData['person_name'].length<3){
+      toast.error('🦄 Person Name Should be Minimum 3 Charaters !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+        
+      return;
+    }
+    if(formData['company_name'].length<3){
+      toast.error('🦄 Company Name Should be Required !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+        
+      return;
+    }
+    if(formData['city'].length<3){
+      toast.error('🦄 City Name Should be Required !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+        
+      return;
+    }
+    
+    if(formData['email_id'].length<3){
+      toast.error('🦄 Email Id Should be Required !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+        
+      return;
+    }
+    if(formData['contact_one'].length<10 || formData['contact_one'].length>10){
+      toast.error('🦄 Contact Number Should be 10 Digit Only !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+        
+      return;
+    }
+
     console.log(formData);
     axios.post('/vendors',{vendor:formData}).then((res)=>{
       loadTableData();
       $('#add-vendor').slideToggle();
       setFormData({});
+      
+      toast.success('🦄 Added Successfully !', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+
     }).catch((err)=>{
       console.log(err);
     }) 
@@ -118,13 +205,13 @@ const VendorEntry = () => {
                   <div className="form-group row">
                     <label htmlfor="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
+                      <input type="Number" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlfor="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
+                      <input type="Number" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
                     </div>
                   </div>
                   <div className="form-group row">
@@ -158,7 +245,7 @@ const VendorEntry = () => {
               </div>
               
               <div className="card-body">
-                <table  className="table  table-striped table-responsive" id="vendorTable">
+                <table   className="table  table-striped table-responsive" id="vendorTable">
                   <thead className="thead-dark">                  
                     <tr>
                       <th style={{width:' 10px'}}>Vendor ID</th>
@@ -187,8 +274,7 @@ const VendorEntry = () => {
                       <td>{vendor.contact_two}</td>
                       <td>{vendor.balance}</td>
                       <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" onClick={()=>Edit(vendor.vendor_id)} > Edit</i></td>
-                      <td><button onClick={()=>deleteVendor(vendor.vendor_id)} className="btn btn-danger btn-xs"><i class="fas fa-trash" ></i> Delete</button></td>
-                   
+                      <td><button onClick={()=>deleteVendor(vendor.vendor_id)}  className="btn btn-danger btn-xs"><i class="fas fa-trash" ></i> Delete</button></td>
                     </tr>
                       ))
                     }
