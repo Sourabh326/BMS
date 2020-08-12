@@ -9,6 +9,7 @@ toast.configure();
 const EditModel = ({ cb }) => {
   const [formData, setFormData] = React.useState({});
   const [id, setId] = React.useState(null);
+  let onChange = (e) => {
     let { name, value } = e.currentTarget;
     setFormData((state) => ({
       ...state,
@@ -16,10 +17,10 @@ const EditModel = ({ cb }) => {
     }));
   };
   const doEdit = (e) => {
-  if(formData['person_name'].length<3){
-    alert('name is empty');
-    return ;
-  }
+    if (formData["person_name"].length < 3) {
+      alert("name is empty");
+      return;
+    }
     e.preventDefault();
     
     axios.patch(`/vendors/${vendor_id}`, { vendor: formData })
