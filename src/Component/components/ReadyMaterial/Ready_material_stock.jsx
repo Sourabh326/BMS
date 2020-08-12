@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
+
 import Ready_material_modal from './Ready_material_modal'
 
 
@@ -76,22 +77,28 @@ function Ready_material_stock() {
             <div className="card-header">
               <h3 className="card-title">Add Ready Material</h3>
             </div>
-
-            
-
-              <form className="form-horizontal" >
-                <div className="card-body">
-                  <div className="row">
+            <form className="form-horizontal" onSubmit={onSubmit}>
+              <div className="card-body">
+                <div className="row">
                   <div className="col-md-6">
-                    
-                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
-	                    <label for="default-outline-select" className=" col-sm-10 col-form-label">Product Category</label>
-	                    <select id="default-outline-select" name="product_category_id" class="form-control col-sm-10">
-	                  	 <option disabled>Select</option>
-	                  	 <option value="">1</option>
-                       <option value="1" >2</option>
-                    	</select>
-                      </div>
+                    <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                      <label
+                        for="default-outline-select"
+                        className=" col-sm-10 col-form-label"
+                      >
+                        Product Category
+                      </label>
+                      <select
+                        id="default-outline-select"
+                        name="product_category_id"
+                        class="form-control col-sm-10"
+                      >
+                        <option disabled>Select</option>
+                        <option value="">1</option>
+                        <option value="1">2</option>
+                      </select>
+                    </div>
+
 
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                       <label
@@ -126,16 +133,20 @@ function Ready_material_stock() {
                       </div>
                     </div>
                   </div>
-                  
-
-                   
                   <div className="col-md-6">
-
                     <div className="form-group row">
-                    <label for="standard_weight" className=" col-sm-10 col-form-label">Standard Weight</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="standard_weight" placeholder="Standard Weight" />
-                    </div>
+                      <label for="qty" className=" col-sm-10 col-form-label">
+                        Qty
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="qty"
+                          placeholder="Unit"
+                          onChange={onChange}
+                        />
+                      </div>
                     </div>
 
                     <div className="form-group row">
@@ -184,34 +195,33 @@ function Ready_material_stock() {
                 </button>
               </div>
             </form>
-         
-       
+          </div>
+        </div>
 
-      </div>
-      </div>
-      
-          {/* Material Table */}
-          <div className="card bg-info">
-            <div className="card-header">
-              <h3 className="card-title">Ready Material Stock</h3>
-            </div>
-            
-            <div className="card-body">
-              <table id="example1" className="table table-sm table-responsive-lg table-striped bg-white">
-                <thead >
-                    <tr>
-                      <th>Product Category</th>
-                      <th>Product Name</th>
-                      <th>Unit</th>
-                      <th>Qty</th>
-                      <th>Standart Size</th>
-                      <th>Weight Per Unit</th>
-                      <th>Total Weight</th>
-                      <th>Cost Per Quantity</th>
-                      <th colSpan="2">Action</th>
-                    </tr>
-                </thead>
-               
+        {/* Material Table */}
+        <div className="card bg-info">
+          <div className="card-header">
+            <h3 className="card-title">Ready Material Stock</h3>
+          </div>
+
+          <div className="card-body">
+            <table
+              id="example1"
+              className="table table-responsive-lg table-striped bg-white"
+            >
+              <thead>
+                <tr>
+                  <th style={{ width: "200px" }}>Product Category</th>
+                  <th>Product Name</th>
+                  <th>Unit</th>
+                  <th>Qty</th>
+                  <th>Standart Size</th>
+                  <th>Weight Per Unit</th>
+                  <th>Total Weight</th>
+                  <th>Cost Per Quantity</th>
+                </tr>
+              </thead>
+
               <tbody>
                 {tableData.map((raw_material) => (
                   <tr>
@@ -232,12 +242,13 @@ function Ready_material_stock() {
       </div>
     
   );
-        
+
+       
    {/* Ready Material Stock Edit Modal */}
    <Ready_material_modal />
 
-        </>
-    )
+       </>
+
 }
 
 export default Ready_material_stock;

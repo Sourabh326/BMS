@@ -1,7 +1,7 @@
 import React from "react";
 import "./Login.css";
 import { useDispatch } from "react-redux";
-import { userLogin } from "../Store/user/userSlice";
+import { userLogin } from "../Store/user";
 
 
 

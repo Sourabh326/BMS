@@ -11,6 +11,7 @@ const CustomerForm = ({onSubmit,onChange,loadTableData}) => {
     });
     loadTableData();
   }, []);
+  
 
   return (
     <>
@@ -82,7 +83,7 @@ const CustomerForm = ({onSubmit,onChange,loadTableData}) => {
               <button
                 type="submit"
                 className="btn btn-info"
-                onSubmit={onSubmit}
+                onSubmit={(e)=>onSubmit(e)}
               >
                 Add Customer
               </button>
@@ -100,7 +101,14 @@ const CustomerForm = ({onSubmit,onChange,loadTableData}) => {
   );
 };
 
-const CustomerTable = ({tableData}) => {
+const CustomerTable = ({tableData,loadTableData}) => {
+
+  const doDelete =(id)=>{
+    axios.delete(`/customers/${id}`).then((res)=>{
+      loadTableData();
+    }).catch((err)=>{ console.log(err); } )
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -137,11 +145,12 @@ const CustomerTable = ({tableData}) => {
                           <i
                             class="fas fa-edit btn btn-success btn-sm"
                             data-toggle="modal"
+                            data-id={customer.id}
                             data-target="#exampleModal"
                           >
                             Edit
                           </i>
-                          <button className="btn btn-danger btn-sm ml-2">
+                          <button className="btn btn-danger btn-sm ml-2" onClick={()=>doDelete(customer.id)} >
                             <i class="fas fa-trash"></i> Delete
                           </button>
                         </td>
