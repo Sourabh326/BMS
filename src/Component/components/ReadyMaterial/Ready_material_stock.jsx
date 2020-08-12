@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
-
 import Ready_material_modal from './Ready_material_modal'
+import Raw_material_table from './Raw_material_table'
 
 
 function Ready_material_stock() {
@@ -241,8 +241,9 @@ function Ready_material_stock() {
         </div>
       </div>
     
-  );
-
+  
+   {/* Raw Material Table */}
+   <Raw_material_table />
        
    {/* Ready Material Stock Edit Modal */}
    <Ready_material_modal />

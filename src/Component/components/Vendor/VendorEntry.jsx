@@ -296,7 +296,10 @@ const VendorEntry = () => {
                   </div>
                 </div>
               </div>
-              
+             </div>
+             </form>
+             </div>
+             </div>
               
         {/* Vendor Table */}
         <div className="container-fluid">
