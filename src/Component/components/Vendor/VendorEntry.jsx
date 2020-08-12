@@ -242,7 +242,7 @@ const VendorEntry = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
+                    <div className="form-group row">
                     <label htmlfor="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
                     <div className="col-sm-10">
                       <input type="Number" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
@@ -252,7 +252,7 @@ const VendorEntry = () => {
                     <label htmlfor="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
                     <div className="col-sm-10">
                       <input type="Number" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
-                    
+                    </div>
                     </div>
                   <div className="col-md-6">
                     <div className="form-group row">
@@ -296,10 +296,11 @@ const VendorEntry = () => {
                   </div>
                 </div>
               </div>
-             </div>
+            
              </form>
              </div>
              </div>
+            
               
         {/* Vendor Table */}
         <div className="container-fluid">
@@ -407,7 +408,9 @@ const VendorEntry = () => {
       {/* {show ? ( */}
         <EditModel cb={loadTableData}/>
       {/* ) : null} */}
+      
     </>
+    
   );
 };
 export default VendorEntry;
