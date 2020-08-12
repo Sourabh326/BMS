@@ -150,7 +150,7 @@ const VendorEntry = () => {
     let { name, value } = e.currentTarget;
     setFormData((state) => ({
       ...state,
-      [name]: value,
+      [name]: value
     }));
   };
 

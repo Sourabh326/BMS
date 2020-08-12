@@ -249,6 +249,7 @@ function Ready_material_stock() {
 
        </>
 
+  )
 }
 
 export default Ready_material_stock;
