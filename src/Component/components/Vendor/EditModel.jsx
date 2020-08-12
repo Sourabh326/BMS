@@ -61,7 +61,6 @@ const EditModel = ({ cb }) => {
       setFormData({});
     })
   },[])
-
   return (
     <div>
       <form onSubmit={doEdit}>

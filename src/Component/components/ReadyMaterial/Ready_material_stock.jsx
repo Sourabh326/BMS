@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
-
 import Ready_material_modal from "./Ready_material_modal";
 
 function Ready_material_stock() {
@@ -97,6 +96,7 @@ function Ready_material_stock() {
                         <option value="1">2</option>
                       </select>
                     </div>
+
 
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                       <label
@@ -242,11 +242,9 @@ function Ready_material_stock() {
           </div>
         </div>
       </div>
-      );
       {/* Ready Material Stock Edit Modal */}
       <Ready_material_modal />
     </>
   );
 }
-
 export default Ready_material_stock;
