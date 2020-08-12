@@ -20,7 +20,6 @@ const VendorEntry = () => {
     });
     loadTableData();
   }, []);
-
   let deleteVendor = (id) => {
     axios
       .delete(`/vendors/${id}`)
@@ -107,6 +106,7 @@ const VendorEntry = () => {
                           onChange={onChange}
                         />
                       </div>
+
                     </div>
                     <div className="form-group row">
                       <label for="city" className=" col-sm-10  col-form-label">
@@ -218,7 +218,6 @@ const VendorEntry = () => {
                   </div>
                 </div>
               </div>
-
               <div className="card-footer">
                 <button type="submit" className="btn btn-info">
                   Add Vendor
@@ -233,7 +232,6 @@ const VendorEntry = () => {
             </form>
           </div>
         </div>
-
         {/* Vendor Table */}
         <div className="container-fluid">
           <div className="row">
