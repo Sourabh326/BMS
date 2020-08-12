@@ -5,7 +5,6 @@ import $ from "jquery";
 const EditModel = ({ cb }) => {
   const [formData, setFormData] = React.useState({});
   const [id, setId] = React.useState(null);
-
   let onChange = (e) => {
     let { name, value } = e.currentTarget;
     setFormData((state) => ({
@@ -22,7 +21,7 @@ const EditModel = ({ cb }) => {
     axios
       .patch(`/vendors/${id}`, { vendor: formData })
       .then((res) => {
-        console.log(res.data);
+          console.log(res.data);
         cb();
         $("#exampleModal").modal("toggle");
         $("exampleModal").modal("hide");

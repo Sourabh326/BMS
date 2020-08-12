@@ -25,7 +25,7 @@ const VendorEntry = () => {
     axios
       .delete(`/vendors/${id}`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         loadTableData();
       })
       .catch((err) => {
@@ -39,6 +39,7 @@ const VendorEntry = () => {
     axios
       .post("/vendors", { vendor: formData })
       .then((res) => {
+        console.log(res.data.message);
         loadTableData();
         $("#add-vendor").slideToggle();
       })
