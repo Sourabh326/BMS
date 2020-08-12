@@ -74,7 +74,6 @@ const Dashboard = () => {
     </>
   );
 };
-
 const PrivateRoute = ({ children, ...rest }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const token = useSelector(selectToken);
