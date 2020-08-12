@@ -9,9 +9,6 @@ import { useEffect } from 'react';
 const Customers =()=> {
     const [formData, setFormData] = React.useState({});
     const [tableData,setTableDate] = React.useState([]);
-    const [customer_id,setCustomer_Id] = React.useState(0);
-    const [customer,setCustomer] = React.useState({});
-    const [show,setShow] = React.useState(false);
   
     const loadTableData = ()=>{
       axios.get('/customers').then((res)=>{
@@ -21,15 +18,9 @@ const Customers =()=> {
       })
     }
   
-    const Edit = (id)=>{
-      setShow(true);
-      setCustomer_Id(id);
-      setCustomer(tableData.find((v)=>v.id===id));
-    }
   
     let onSubmit = (e)=>{
       e.preventDefault();
-      console.log(formData);
       axios.post('/customers',{customer:formData}).then((res)=>{
         loadTableData();
         $('#add-vendor').slideToggle();
@@ -51,8 +42,8 @@ const Customers =()=> {
         <Navbar />
         <div className="main-footer">
             <CustomerForm onSubmit={onSubmit} onChange={onChange}  loadTableData={loadTableData}/>
-            <CustomerTable tableData={tableData} setId = {setCustomer_Id} />
-            <EditModel customer={customer} customer_id={customer_id}/>
+            <CustomerTable tableData={tableData} loadTableData={loadTableData}/>
+            <EditModel cb={loadTableData}/>
         </div>
         </>
     )
