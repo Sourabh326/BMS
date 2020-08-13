@@ -98,6 +98,7 @@ function Ready_material_stock() {
                       </select>
                     </div>
 
+
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                       <label
                         for="default-outline-select"
