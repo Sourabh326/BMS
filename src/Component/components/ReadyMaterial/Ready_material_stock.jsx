@@ -192,7 +192,11 @@ function Ready_material_stock() {
                 </div>
               </div>
               <div className="card-footer">
-                <button type="submit" className="btn btn-info" onClick={onSubmit}>
+                <button
+                  type="submit"
+                  className="btn btn-info"
+                  onClick={onSubmit}
+                >
                   Add Stock
                 </button>
                 <button type="submit" className="btn btn-default ml-4 cancle">
@@ -258,5 +262,4 @@ function Ready_material_stock() {
     </>
     )
 }
-
 export default Ready_material_stock;
