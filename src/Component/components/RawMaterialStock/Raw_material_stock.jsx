@@ -38,6 +38,7 @@ const Raw_material_stock =({tableData,cb})=> {
                     </tr>
                     ))
                   }
+
                 </tbody>
               </table>
             </div>
