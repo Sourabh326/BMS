@@ -250,14 +250,13 @@ function Ready_material_stock() {
             </table>
           </div>
         </div>
+
       
     
   
        
    {/* Ready Material Stock Edit Modal */}
    <Ready_material_modal />
-
-
    </div>
     </>
     )
