@@ -8,39 +8,50 @@ import Ready_material_modal from "./Ready_material_modal";
 function Ready_material_stock() {
   const [formData, setFormData] = React.useState({});
   const [tableData, setTableDate] = React.useState([]);
-  const [rm_id, setRm_id] = React.useState(0);
-  const [rawMaterial, setRawMaterial] = React.useState({});
+  const [id, setId] = React.useState(0);
 
+  const [category,setCategory]= React.useState([]);
+  const [sub_category,setSub_Category]= React.useState([]);
+
+  let getCategories = ()=>{
+    axios.get('/product_category').then((res)=>{
+      const {product_categories} = res.data;
+      console.log(product_categories);
+      setCategory(product_categories);
+    }).catch(err=>console.log(err))
+  }
+
+  let getSubCategories = (id)=>{
+    axios.get(`/ready_stocks/subs/${id}`).then((res)=>{
+      const {ready_products} = res.data;
+      console.log(ready_products);
+      setSub_Category(ready_products);
+    }).catch(err=>console.log(err))
+  }
+  let selectedItemId = (e)=>{
+    const {name,value} = e.currentTarget;
+    setId(value);
+  }
   const loadTableData = () => {
-    axios.get("/raw_stocks").then((res) => {
-      const { vendors } = res.data;
-      setTableDate(vendors);
+    axios.get("/ready_stocks").then((res) => {
+      const { ready_products } = res.data;
+      setTableDate(ready_products);
     });
   };
-  const Edit = (id) => {
-    setRm_id(id);
-    setRawMaterial(tableData.find((v) => v.vendor_id === id));
-  };
 
-  let deleteVendor = (id) => {
-    axios
-      .delete(`/raw_stocks/${id}`)
-      .then((res) => {
-        console.log(res);
-        loadTableData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  let onCategorySelected = (e)=>{
+      const {name,value} = e.currentTarget;
+      getSubCategories(value);
+  }
   let onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("/raw_stocks", { vendor: formData })
+      .patch(`/ready_stocks/${id}`, { ready_product: formData })
       .then((res) => {
+        console.log(res);
         loadTableData();
+        setFormData({});
         $("#add-vendor").slideToggle();
       })
       .catch((err) => {
@@ -56,11 +67,14 @@ function Ready_material_stock() {
     }));
   };
 
+
   useEffect(() => {
     $("#add-vendor").hide();
     $("#addVendorBtn").click(() => {
       $("#add-vendor").slideToggle();
     });
+    getCategories()
+    loadTableData();
   }, []);
 
   return (
@@ -91,14 +105,17 @@ function Ready_material_stock() {
                         id="default-outline-select"
                         name="product_category_id"
                         class="form-control col-sm-10"
+                        value={formData['product_category_id']||'none'}
+                        onChange={(e)=>{onChange(e);onCategorySelected(e)}}
                       >
-                        <option disabled>Select</option>
-                        <option value="">1</option>
-                        <option value="1">2</option>
+                        <option value="none" disabled>Select</option>
+                       {
+                         category.map((cat=>
+                         <option value={cat.id}>{cat.category_name}</option>
+                         ))
+                       }
                       </select>
                     </div>
-
-
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                       <label
                         for="default-outline-select"
@@ -110,24 +127,30 @@ function Ready_material_stock() {
                         id="default-outline-select"
                         name="product_name"
                         class="form-control col-sm-10"
+                        value={formData['product_name']||'none'}
+                        onChange={(e)=>{ onChange(e);selectedItemId(e)}}
                       >
-                        <option disabled>Select</option>
-                        <option value="">1</option>
-                        <option value="1">2</option>
+                        <option value="none" disabled>Select</option>
+                        {
+                          sub_category.map(cat=>(
+                          <option value={cat.product_id}>{`${cat.product_name}`}</option>
+                          ))
+                        }
                       </select>
                     </div>
 
                     <div className="form-group row">
                       <label for="unit" className=" col-sm-10 col-form-label">
-                        Unit
+                      Cost Per Quantity
                       </label>
                       <div className="col-sm-10">
                         <input
                           type="text"
                           className="form-control"
-                          name="unit"
-                          placeholder="Unit"
+                          name="per_qty_selling_cost"
+                          placeholder="Cost Per Quantity"
                           onChange={onChange}
+                          value={formData['per_qty_selling_cost']||''}
                         />
                       </div>
                     </div>
@@ -142,8 +165,9 @@ function Ready_material_stock() {
                           type="text"
                           className="form-control"
                           name="qty"
-                          placeholder="Unit"
+                          placeholder="Qty"
                           onChange={onChange}
+                          value={formData['qty']||''}
                         />
                       </div>
                     </div>
@@ -162,6 +186,7 @@ function Ready_material_stock() {
                           name="standard_size"
                           placeholder="Standard Size"
                           onChange={onChange}
+                          value={formData['standard_size']||''}
                         />
                       </div>
                     </div>
@@ -170,15 +195,16 @@ function Ready_material_stock() {
                         for="standard_weight"
                         className=" col-sm-10 col-form-label"
                       >
-                        Weight Per Unit
+                        Weight Weight
                       </label>
                       <div className="col-sm-10">
                         <input
                           type="text"
                           className="form-control"
                           name="standard_weight"
-                          placeholder="Standard Size"
+                          placeholder="Standard Weight"
                           onChange={onChange}
+                          value={formData['standard_weight']||''}
                         />
                       </div>
                     </div>
@@ -216,26 +242,22 @@ function Ready_material_stock() {
                 <tr>
                   <th style={{ width: "200px" }}>Product Category</th>
                   <th>Product Name</th>
-                  <th>Unit</th>
                   <th>Qty</th>
                   <th>Standart Size</th>
                   <th>Weight Per Unit</th>
-                  <th>Total Weight</th>
                   <th>Cost Per Quantity</th>
                 </tr>
               </thead>
 
               <tbody>
-                {tableData.map((raw_material) => (
+                {tableData.map((cat) => (
                   <tr>
-                    <td>abc</td>
-                    <td>Cement</td>
-                    <td>2 Unit</td>
-                    <td>22 pcs</td>
-                    <td>336</td>
-                    <td>22</td>
-                    <td>1234</td>
-                    <td>22rs</td>
+                    <td>{cat.product_category_id}</td>
+                    <td>{cat.product_name}</td>
+                    <td>{cat.qty}</td>
+                    <td>{cat.standard_weight}</td>
+                    <td>{cat.standard_size}</td>
+                    <td>{cat.per_qty_selling_cost}</td>
                   </tr>
                 ))}
               </tbody>

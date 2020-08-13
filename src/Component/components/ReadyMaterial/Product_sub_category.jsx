@@ -1,8 +1,41 @@
 import React from 'react'
 import Navbar from '../../Navbar/Navbar'
 import SubCat_edit_modal from './SubCat_edit_modal'
-
+import axios from 'axios'
+import { useEffect } from 'react'
 const Product_sub_category =()=> {
+  let [formData,setFormData] = React.useState({});
+  let [tableData,setTableData] = React.useState([]);
+  let onChange = (e)=>{
+    const {name,value} = e.currentTarget;
+    setFormData(state=>({
+      ...state,
+      [name]:value
+      }
+    ))
+  }
+  let loadTableData = ()=>{
+    axios.get('/ready_stocks').then((res)=>{ console.log(res.data); setTableData(res.data.ready_products)})
+  }
+  // for dropdown select options
+  const [productCategoris,setProductCategoris] = React.useState([]);
+    let getProductCategoris = ()=>{
+      axios.get('/product_category').then((res)=>{
+        let {product_categories} = res.data
+        console.log(product_categories);
+        setProductCategoris(product_categories);
+      })
+    } 
+
+    useEffect(()=>{
+      getProductCategoris();
+      loadTableData();
+    },[])
+    const handleSubmit = (e)=>{
+      e.preventDefault();
+      //  product sub category 
+      axios.post('/ready_stocks',{ready_product:formData}).then((res)=>{ console.log(res.data); loadTableData() }).catch((err)=>{ console.log(err); })
+    }
     return (
         <>
         <Navbar />
@@ -13,36 +46,36 @@ const Product_sub_category =()=> {
                 <h3 className="card-title">Add Product Sub Category</h3>
               </div>
               
-              <form className="form-horizontal" >
+              <form className="form-horizontal" onSubmit={handleSubmit} >
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-6">
 
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
 	                    <label for="default-outline-select" className=" col-sm-10 col-form-label">Product Category</label>
-	                    <select id="default-outline-select" name="product_category" class="form-control col-sm-10">
-	                  	 <option disabled>Select</option>
-	                  	 <option value="">1</option>
-                       <option value="1" >2</option>
+	                    <select  id="default-outline-select" name="product_category_id" class="form-control col-sm-10" value={formData['product_category_id']||'none'} onChange={onChange}  >
+	                  	 <option disabled value="none">Select</option>
+	                  	 {
+                         productCategoris.map((product_category)=>(
+                         <option value={product_category.id} >{product_category.category_name}</option>
+                         ))
+                       }
                     	</select>
                       </div>  
 
                     <div className="form-group row">
                     <label for="product_name" className=" col-sm-10 col-form-label">Sub Category Name</label>
                     <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="product_name" placeholder="Sub Category Name" />
+                      <input type="text" className="form-control"  name="product_name" placeholder="Sub Category Name" onChange={onChange} value={formData['product_name']}/>
                     </div>
                     </div>
-
                   </div>  
                   </div>
                 </div>
-                
                 <div className="card-footer">
-                  <button type="submit" className="btn btn-info" >Add Sub Category</button>
+                  <button type="submit" className="btn btn-info" onClick={handleSubmit} >Add Sub Category</button>
                   <button type="submit" className="btn btn-default ml-4 cancle">Cancel</button>
                 </div>
-               
               </form>
             </div>
         </div>       
@@ -65,14 +98,17 @@ const Product_sub_category =()=> {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                     <td>1</td>
-                     <td>Brick</td>
-                     <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#SubCategoryModal"> Edit</i>
-                      <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button></td>
-                </tr>
+                  {
+                    tableData.map((ready_product)=>(
+                  <tr>
+                      <td>{ready_product.product_category_id}</td>
+                    <td>{ready_product.product_name}</td>
+                      <td><i class="fas fa-edit btn btn-success btn-xs"  data-id={ready_product.product_id} data-toggle="modal" data-target="#SubCategoryModal"> Edit</i>
+                       <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button></td>
+                 </tr>
+                    ))
+                  }
                 </tbody>
-               
               </table>
             </div>
            
@@ -80,7 +116,7 @@ const Product_sub_category =()=> {
         </div>
 
         {/* Sub Category Edit Modal*/}
-        <SubCat_edit_modal />
+        <SubCat_edit_modal cb={loadTableData} />
         </>
     )
 }
