@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
-import axios from "axios";
+import axios from 'axios'
 
 const CustomerForm = ({onSubmit,onChange,loadTableData}) => {
 

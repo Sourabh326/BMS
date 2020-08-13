@@ -17,6 +17,7 @@ const Raw_material_stock =()=> {
                       <th>Product Name</th>
                       <th>Unit</th>
                       <th>Qty</th>
+                      <th>Rate</th>
                       <th>Action</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@ const Raw_material_stock =()=> {
                       <td>Cement</td>
                       <td>kg</td>
                       <td>39</td>
+                      <td>0.30</td>
                       <td><i class="fas fa-edit btn btn-success btn-xs" data-toggle="modal" data-target="#RawMaterialleModal"> Edit</i>
                       <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button></td>
 
