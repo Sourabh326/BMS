@@ -5,11 +5,12 @@ import $ from "jquery";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 toast.configure();
 const EditModel = ({ cb }) => {
   const [formData, setFormData] = React.useState({});
   const [id, setId] = React.useState(null);
-  let onChange = (e) => {
+  let onChange=(e)=>{
     let { name, value } = e.currentTarget;
     setFormData((state) => ({
       ...state,
@@ -61,7 +62,6 @@ const EditModel = ({ cb }) => {
       setFormData({});
     })
   },[])
-
   return (
     <div>
       <form onSubmit={doEdit}>
@@ -242,6 +242,7 @@ const EditModel = ({ cb }) => {
       </form>
     </div>
   );
+
 };
 
 export default EditModel;

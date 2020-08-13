@@ -13,8 +13,45 @@ const VendorEntry = () => {
     $("#addVendorBtn").click(() => {
       $("#add-vendor").slideToggle();
     });
+
     loadTableData();
-  }, []);
+  },[])
+ 
+  
+//   const [formData, setFormData] = React.useState({
+//     person_name:'',
+//     company_name:'',
+//     city:'',
+//     address:'',
+//     email_id:'',
+//     contact_one:'',
+//     contact_two:'',
+//     balance:''
+//   });
+//   const [tableData,setTableDate] = React.useState([]);
+//   const [vendor_id,setVendor_id] = React.useState(0);
+//   const [vendor,setVendor] = React.useState({});
+//   const [show,setShow] = React.useState(false);
+
+//   const loadTableData = ()=>{
+//     axios.get('/vendors').then((res)=>{
+//       const {vendors} = res.data;
+//       console.log(vendors);
+//       setTableDate(vendors);
+//     })
+//   }
+
+//   const Edit = (id)=>{
+//     setShow(true);
+    
+//     setVendor_id(id);
+//     setVendor(tableData.find((v)=>v.vendor_id===id));
+//   }
+
+//   let deleteVendor= (id)=>{
+//     axios.delete(`/vendors/${id}`).then((res)=>{ console.log(res); loadTableData();  }).catch((err)=>{console.log(err);})
+//   }
+
 
   const [formData, setFormData] = React.useState({
     person_name: "",
@@ -61,7 +98,6 @@ const VendorEntry = () => {
         draggable: true,
         progress: undefined,
       });
-
       return;
     }
     if (formData["company_name"].length < 3) {
@@ -87,7 +123,6 @@ const VendorEntry = () => {
         draggable: true,
         progress: undefined,
       });
-
       return;
     }
 
@@ -117,10 +152,8 @@ const VendorEntry = () => {
         draggable: true,
         progress: undefined,
       });
-
       return;
     }
-
     console.log(formData);
     axios
       .post("/vendors", { vendor: formData })
@@ -144,11 +177,12 @@ const VendorEntry = () => {
       });
   };
 
+
   let onChange = (e) => {
     let { name, value } = e.currentTarget;
     setFormData((state) => ({
       ...state,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -204,6 +238,7 @@ const VendorEntry = () => {
                           onChange={onChange}
                         />
                       </div>
+
                     </div>
                     <div className="form-group row">
                       <label for="city" className=" col-sm-10  col-form-label">
@@ -239,7 +274,20 @@ const VendorEntry = () => {
                       </div>
                     </div>
                   </div>
+                    
                   <div className="col-md-6">
+                  <div className="form-group row">
+                    <label htmlfor="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
+                    <div className="col-sm-10">
+                      <input type="Number" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label htmlfor="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
+                    <div className="col-sm-10">
+                      <input type="Number" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
+                    </div>
+                    </div>
                     <div className="form-group row">
                       <label
                         for="email_id"
@@ -258,42 +306,8 @@ const VendorEntry = () => {
                         />
                       </div>
                     </div>
-                    <div className="form-group row">
-                      <label
-                        for="contact_one"
-                        className=" col-sm-10  col-form-label"
-                      >
-                        Contact Number
-                      </label>
-                      <div className="col-sm-10">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="contact_one"
-                          placeholder="Contact Number"
-                          value={formData['contact_one']||''}
-                          onChange={onChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label
-                        for="contact_two"
-                        className=" col-sm-10  col-form-label"
-                      >
-                        Alternate Contact Number
-                      </label>
-                      <div className="col-sm-10">
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="contact_two"
-                          placeholder="Alternet Contact Number"
-                          value={formData['contact_two']||''}
-                          onChange={onChange}
-                        />
-                      </div>
-                    </div>
+                    
+                    
                     <div className="form-group row">
                       <label
                         for="balance"
@@ -329,7 +343,6 @@ const VendorEntry = () => {
             </form>
           </div>
         </div>
-
         {/* Vendor Table */}
         <div className="container-fluid">
           <div className="row">
@@ -435,6 +448,7 @@ const VendorEntry = () => {
       {/*Update Popup Model */}
       <EditModel cb={loadTableData} />
     </>
+    
   );
 };
 export default VendorEntry;
