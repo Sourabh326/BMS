@@ -41,7 +41,7 @@ const EditModel = ({ cb }) => {
           draggable: true,
           progress: undefined,
           });
-           $("#exampleModal").modal("toggle");
+        $("#exampleModal").modal("toggle");
         $("exampleModal").modal("hide");
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();
