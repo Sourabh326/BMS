@@ -3,6 +3,7 @@ import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
 import Ready_material_modal from './Ready_material_modal'
+import Raw_material_product from './Raw_material_product'
 
 
 function Ready_material_stock() {
@@ -112,31 +113,26 @@ function Ready_material_stock() {
                     </div>
 
                     <div className="form-group row">
-                      <label for="unit" className=" col-sm-10 col-form-label">
-                        Unit
+                      <label for="qty" className=" col-sm-10 col-form-label">
+                        Quantity
                       </label>
                       <div className="col-sm-10">
                         <input
                           type="text"
                           className="form-control"
-                          name="unit"
-                          placeholder="Unit"
+                          name="qty"
+                          placeholder="Quantity"
                           onChange={onChange}
                         />
                       </div>
                     </div>
+                    
                   </div>
                   
 
                    
                   <div className="col-md-6">
 
-                    <div className="form-group row">
-                    <label for="standard_weight" className=" col-sm-10 col-form-label">Standard Weight</label>
-                    <div className="col-sm-10">
-                      <input type="text" className="form-control"  name="standard_weight" placeholder="Standard Weight" />
-                    </div>
-                    </div>
 
                     <div className="form-group row">
                       <label
@@ -160,14 +156,32 @@ function Ready_material_stock() {
                         for="standard_weight"
                         className=" col-sm-10 col-form-label"
                       >
-                        Weight Per Unit
+                        Standard Weight
                       </label>
                       <div className="col-sm-10">
                         <input
                           type="text"
                           className="form-control"
                           name="standard_weight"
-                          placeholder="Standard Size"
+                          placeholder="Weight Per Unit"
+                          onChange={onChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group row">
+                      <label
+                        for="per_qty_selling_cost"
+                        className=" col-sm-10 col-form-label"
+                      >
+                        Per Quantity Selling Cost
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="per_qty_selling_cost"
+                          placeholder="Cost Per Quantity"
                           onChange={onChange}
                         />
                       </div>
@@ -189,6 +203,9 @@ function Ready_material_stock() {
 
       </div>
       </div>
+
+    {/* Raw Material Product */}
+   <Raw_material_product />
       
           {/* Material Table */}
           <div className="card bg-info">
@@ -206,7 +223,6 @@ function Ready_material_stock() {
                       <th>Qty</th>
                       <th>Standart Size</th>
                       <th>Weight Per Unit</th>
-                      <th>Total Weight</th>
                       <th>Cost Per Quantity</th>
                       <th colSpan="2">Action</th>
                     </tr>
@@ -220,7 +236,6 @@ function Ready_material_stock() {
                     <td>2 Unit</td>
                     <td>22 pcs</td>
                     <td>336</td>
-                    <td>22</td>
                     <td>1234</td>
                     <td>22rs</td>
                   </tr>
@@ -236,7 +251,9 @@ function Ready_material_stock() {
    {/* Ready Material Stock Edit Modal */}
    <Ready_material_modal />
 
-        </>
+
+
+    </>
     )
 }
 
