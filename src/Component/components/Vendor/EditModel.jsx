@@ -28,12 +28,7 @@ const EditModel = ({ cb }) => {
       return;
     }
     e.preventDefault();
-<<<<<<< HEAD
     axios.patch(`/vendors/${id}`, { vendor: formData })
-=======
-    
-    axios.patch(`/vendors/${vendor_id}`, { vendor: formData })
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
       .then((res) => {
           console.log(res.data);
         cb();
@@ -46,11 +41,7 @@ const EditModel = ({ cb }) => {
           draggable: true,
           progress: undefined,
           });
-<<<<<<< HEAD
-        $("#exampleModal").modal("toggle");
-=======
            $("#exampleModal").modal("toggle");
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         $("exampleModal").modal("hide");
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();
@@ -59,7 +50,6 @@ const EditModel = ({ cb }) => {
         console.log(err);
       });
   };
-<<<<<<< HEAD
 
   useEffect(()=>{
     $('#exampleModal').on('show.bs.modal',(e)=>{
@@ -72,8 +62,6 @@ const EditModel = ({ cb }) => {
     })
   },[])
 
-=======
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
   return (
     <div>
       <form onSubmit={doEdit}>

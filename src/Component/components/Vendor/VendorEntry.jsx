@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from "react";
 import EditModel from "./EditModel";
 import $ from "jquery";
@@ -14,63 +13,9 @@ const VendorEntry = () => {
     $("#addVendorBtn").click(() => {
       $("#add-vendor").slideToggle();
     });
-=======
-import React, { useEffect } from 'react';
-import EditModel from './EditModel'
-import $ from 'jquery';
-import Navbar from '../../Navbar/Navbar'
-import axios from 'axios'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-toast.configure();
-const VendorEntry = () => {
-  useEffect(()=>{
-    $('#add-vendor').hide();
-    $("#addVendorBtn").click(()=>{
-      $('#add-vendor').slideToggle();
-    })
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
     loadTableData();
-  },[])
- 
-  
-  const [formData, setFormData] = React.useState({
-    person_name:'',
-    company_name:'',
-    city:'',
-    address:'',
-    email_id:'',
-    contact_one:'',
-    contact_two:'',
-    balance:''
-  });
-  const [tableData,setTableDate] = React.useState([]);
-  const [vendor_id,setVendor_id] = React.useState(0);
-  const [vendor,setVendor] = React.useState({});
-  const [show,setShow] = React.useState(false);
+  }, []);
 
-  const loadTableData = ()=>{
-    axios.get('/vendors').then((res)=>{
-      const {vendors} = res.data;
-      console.log(vendors);
-      setTableDate(vendors);
-    })
-  }
-
-  const Edit = (id)=>{
-    setShow(true);
-    
-    setVendor_id(id);
-    setVendor(tableData.find((v)=>v.vendor_id===id));
-  }
-
-  let deleteVendor= (id)=>{
-    axios.delete(`/vendors/${id}`).then((res)=>{ console.log(res); loadTableData();  }).catch((err)=>{console.log(err);})
-  }
-
-
-<<<<<<< HEAD
   const [formData, setFormData] = React.useState({
     person_name: "",
     company_name: "",
@@ -108,14 +53,6 @@ const VendorEntry = () => {
 
     if (formData["person_name"].length < 3) {
       toast.error("🦄 Person Name Should be Minimum 3 Charaters !", {
-=======
-
-  let onSubmit = (e) => {
-    e.preventDefault();
-   
-    if(formData['person_name'].length<3){
-      toast.error('🦄 Person Name Should be Minimum 3 Charaters !', {
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -123,21 +60,12 @@ const VendorEntry = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-<<<<<<< HEAD
       });
 
       return;
     }
     if (formData["company_name"].length < 3) {
       toast.error("🦄 Company Name Should be Required !", {
-=======
-        });
-        
-      return;
-    }
-    if(formData['company_name'].length<3){
-      toast.error('🦄 Company Name Should be Required !', {
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -145,21 +73,12 @@ const VendorEntry = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-<<<<<<< HEAD
       });
 
       return;
     }
     if (formData["city"].length < 3) {
       toast.error("🦄 City Name Should be Required !", {
-=======
-        });
-        
-      return;
-    }
-    if(formData['city'].length<3){
-      toast.error('🦄 City Name Should be Required !', {
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -167,7 +86,6 @@ const VendorEntry = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-<<<<<<< HEAD
       });
 
       return;
@@ -175,15 +93,6 @@ const VendorEntry = () => {
 
     if (formData["email_id"].length < 3) {
       toast.error("🦄 Email Id Should be Required !", {
-=======
-        });
-        
-      return;
-    }
-    
-    if(formData['email_id'].length<3){
-      toast.error('🦄 Email Id Should be Required !', {
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -191,7 +100,6 @@ const VendorEntry = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-<<<<<<< HEAD
       });
 
       return;
@@ -201,14 +109,6 @@ const VendorEntry = () => {
       formData["contact_one"].length > 10
     ) {
       toast.error("🦄 Contact Number Should be 10 Digit Only !", {
-=======
-        });
-        
-      return;
-    }
-    if(formData['contact_one'].length<10 || formData['contact_one'].length>10){
-      toast.error('🦄 Contact Number Should be 10 Digit Only !', {
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -216,18 +116,12 @@ const VendorEntry = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-<<<<<<< HEAD
       });
 
-=======
-        });
-        
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
       return;
     }
 
     console.log(formData);
-<<<<<<< HEAD
     axios
       .post("/vendors", { vendor: formData })
       .then((res) => {
@@ -249,29 +143,6 @@ const VendorEntry = () => {
         console.log(err);
       });
   };
-=======
-    axios.post('/vendors',{vendor:formData}).then((res)=>{
-      loadTableData();
-      $('#add-vendor').slideToggle();
-      setFormData({});
-      
-      toast.success('🦄 Added Successfully !', {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
-
-    }).catch((err)=>{
-      console.log(err);
-    }) 
-
-  }
-
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
 
   let onChange = (e) => {
     let { name, value } = e.currentTarget;
@@ -333,7 +204,6 @@ const VendorEntry = () => {
                           onChange={onChange}
                         />
                       </div>
-
                     </div>
                     <div className="form-group row">
                       <label for="city" className=" col-sm-10  col-form-label">
@@ -369,18 +239,6 @@ const VendorEntry = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="form-group row">
-                    <label htmlfor="contact_one" className=" col-sm-10  col-form-label">Contact Number</label>
-                    <div className="col-sm-10">
-                      <input type="Number" className="form-control" value={formData['contact_one']||''}  name="contact_one" placeholder="Contact Number" onChange={onChange} />
-                    </div>
-                  </div>
-                  <div className="form-group row">
-                    <label htmlfor="contact_two" className=" col-sm-10  col-form-label">Alternate Contact Number</label>
-                    <div className="col-sm-10">
-                      <input type="Number" className="form-control" value={formData['contact_two']||''} name="contact_two" placeholder="Alternet Contact Number" onChange={onChange} />
-                    
-                    </div>
                   <div className="col-md-6">
                     <div className="form-group row">
                       <label
@@ -400,8 +258,42 @@ const VendorEntry = () => {
                         />
                       </div>
                     </div>
-                    
-                    
+                    <div className="form-group row">
+                      <label
+                        for="contact_one"
+                        className=" col-sm-10  col-form-label"
+                      >
+                        Contact Number
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="contact_one"
+                          placeholder="Contact Number"
+                          value={formData['contact_one']||''}
+                          onChange={onChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <label
+                        for="contact_two"
+                        className=" col-sm-10  col-form-label"
+                      >
+                        Alternate Contact Number
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="contact_two"
+                          placeholder="Alternet Contact Number"
+                          value={formData['contact_two']||''}
+                          onChange={onChange}
+                        />
+                      </div>
+                    </div>
                     <div className="form-group row">
                       <label
                         for="balance"
@@ -423,7 +315,6 @@ const VendorEntry = () => {
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
               <div className="card-footer">
                 <button type="submit" className="btn btn-info">
                   Add Vendor
@@ -439,10 +330,6 @@ const VendorEntry = () => {
           </div>
         </div>
 
-=======
-              
-              
->>>>>>> dbd802bba654c312a1a2becc2004de37bde459a4
         {/* Vendor Table */}
         <div className="container-fluid">
           <div className="row">
