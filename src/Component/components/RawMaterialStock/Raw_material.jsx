@@ -6,6 +6,7 @@ import EditModel from './EditModel'
 import $ from 'jquery'
 import axios from 'axios'
 import { useEffect } from 'react'
+
 const Raw_material =()=> {
     const [raw_material_stocks,setRaw_material_stock] = React.useState([]);
     const getRawStocks = ()=>{
