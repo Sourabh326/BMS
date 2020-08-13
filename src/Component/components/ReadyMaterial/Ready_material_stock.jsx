@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
-
-import Ready_material_modal from './Ready_material_modal'
-
+import Ready_material_modal from "./Ready_material_modal";
 
 function Ready_material_stock() {
   const [formData, setFormData] = React.useState({});
@@ -187,7 +185,11 @@ function Ready_material_stock() {
                 </div>
               </div>
               <div className="card-footer">
-                <button type="submit" className="btn btn-info" onClick={onSubmit}>
+                <button
+                  type="submit"
+                  className="btn btn-info"
+                  onClick={onSubmit}
+                >
                   Add Stock
                 </button>
                 <button type="submit" className="btn btn-default ml-4 cancle">
@@ -240,15 +242,9 @@ function Ready_material_stock() {
           </div>
         </div>
       </div>
-    
+      {/* Ready Material Stock Edit Modal */}
+      <Ready_material_modal />
+    </>
   );
-
-       
-   {/* Ready Material Stock Edit Modal */}
-   <Ready_material_modal />
-
-       </>
-
 }
-
 export default Ready_material_stock;

@@ -16,16 +16,21 @@ const EditModel = ({ cb }) => {
       [name]: value,
     }));
   };
+  let getVendor = (id) => {
+    axios.get(`/vendors/${id}`).then((res) => {
+      setFormData(res.data.vendor);
+    });
+  }
+  
   const doEdit = (e) => {
     if (formData["person_name"].length < 3) {
       alert("name is empty");
       return;
     }
     e.preventDefault();
-    
-    axios.patch(`/vendors/${vendor_id}`, { vendor: formData })
+    axios.patch(`/vendors/${id}`, { vendor: formData })
       .then((res) => {
-        console.log(res.data);
+          console.log(res.data);
         cb();
         toast.success('🦄 Updated Successfully !', {
           position: "top-center",
@@ -45,6 +50,17 @@ const EditModel = ({ cb }) => {
         console.log(err);
       });
   };
+
+  useEffect(()=>{
+    $('#exampleModal').on('show.bs.modal',(e)=>{
+      const id = $(e.relatedTarget).data('id');
+      setId(id);
+      getVendor(id);
+    })
+    $('#exampleModal').on('hide.bs.modal',()=>{
+      setFormData({});
+    })
+  },[])
   return (
     <div>
       <form onSubmit={doEdit}>
