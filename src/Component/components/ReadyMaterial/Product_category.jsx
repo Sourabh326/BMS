@@ -59,7 +59,6 @@ const Product_category =()=> {
                       <input type="text" className="form-control"  name="category_name" placeholder="Category Name" value={formData['category_name']} onChange={onChange}/>
                     </div>
                     </div>
-
                   </div>  
                   </div>
                 </div>

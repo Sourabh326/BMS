@@ -29,13 +29,16 @@ function Ready_material_stock() {
       setSub_Category(ready_products);
     }).catch(err=>console.log(err))
   }
+
   let selectedItemId = (e)=>{
     const {name,value} = e.currentTarget;
+    console.log(value);
     setId(value);
   }
   const loadTableData = () => {
     axios.get("/ready_stocks").then((res) => {
       const { ready_products } = res.data;
+      console.log(ready_products);
       setTableDate(ready_products);
     });
   };
@@ -46,7 +49,11 @@ function Ready_material_stock() {
   }
   let onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    let product_name = formData.product_name;
+    let t = sub_category.find((p=>p.product_name===product_name));
+    let id = t.product_id;
+    console.log(id);
+    
     axios
       .patch(`/ready_stocks/${id}`, { ready_product: formData })
       .then((res) => {
@@ -134,7 +141,7 @@ function Ready_material_stock() {
                         <option value="none" disabled>Select</option>
                         {
                           sub_category.map(cat=>(
-                          <option value={cat.product_id}>{`${cat.product_name}`}</option>
+                          <option value={cat.product_name}>{`${cat.product_name}`}</option>
                           ))
                         }
                       </select>
@@ -151,7 +158,7 @@ function Ready_material_stock() {
                           name="qty"
                           placeholder="Quantity"
                           onChange={onChange}
-                          value={formData['per_qty_selling_cost']||''}
+                          value={formData['qty']||''}
                         />
                       </div>
                     </div>
@@ -173,7 +180,7 @@ function Ready_material_stock() {
                           name="standard_size"
                           placeholder="Standard Size"
                           onChange={onChange}
-                          value={formData['qty']||''}
+                          value={formData['standard_size']||''}
                         />
                       </div>
                     </div>
@@ -191,7 +198,7 @@ function Ready_material_stock() {
                           name="standard_weight"
                           placeholder="Weight Per Unit"
                           onChange={onChange}
-                          value={formData['standard_size']||''}
+                          value={formData['standard_weight']||''}
                         />
                       </div>
                     </div>
@@ -210,7 +217,7 @@ function Ready_material_stock() {
                           name="per_qty_selling_cost"
                           placeholder="Cost Per Quantity"
                           onChange={onChange}
-                          value={formData['standard_weight']||''}
+                          value={formData['per_qty_selling_cost']||''}
                         />
                       </div>
                     </div>
@@ -251,7 +258,6 @@ function Ready_material_stock() {
                     <tr>
                       <th>Product Category</th>
                       <th>Product Name</th>
-                      <th>Unit</th>
                       <th>Qty</th>
                       <th>Standart Size</th>
                       <th>Weight Per Unit</th>
