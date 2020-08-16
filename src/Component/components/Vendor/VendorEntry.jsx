@@ -88,6 +88,7 @@ const VendorEntry = () => {
   let onSubmit = (e) => {
     e.preventDefault();
 
+    //Toastify Validation
     if (formData["person_name"].length < 3) {
       toast.error("🦄 Person Name Should be Minimum 3 Charaters !", {
         position: "top-center",
