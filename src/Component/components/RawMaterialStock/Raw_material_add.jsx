@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 const Raw_material_add = ({cb}) => {
-  const [formData, setFormData] = React.useState({});
+  const [formData, setFormData] = React.useState({
+    product_name: "",
+    unit:"",
+    qty:"",
+    rate:"",
+  });
 
   const onChange = (e) => {
     let { name, value } = e.currentTarget;
@@ -15,11 +23,72 @@ const Raw_material_add = ({cb}) => {
   
 const handleSubmit = (e)=>{
   e.preventDefault();
+
+  //Toastify Validation
+  if (formData["product_name"].length < 3) {
+    toast.error("🦄 Product Name Should be Minimum 3 Charaters !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+  if (formData["unit"].length < 1) {
+    toast.error("🦄 Unit Should Be Required !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+  if (formData["qty"].length < 1) {
+    toast.error("🦄 Quantity Should Be Required !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+  if (formData["rate"].length < 1) {
+    toast.error("🦄 Rate Should Be Required !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+
   axios.post('/raw_stocks',{raw_material_stock:formData}).then((res)=>{
     console.log(res.data);
     $("#add-vendor").slideToggle();
     // clean the from after submitting
     setFormData({})
+    // Submit Toastify
+    toast.success("🦄 Added Successfully !", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     //load raw stock table data
     cb();
   }).catch((err)=>{ console.log(err); })
@@ -61,7 +130,7 @@ const handleSubmit = (e)=>{
                           name="product_name"
                           placeholder="Product Name"
                           onChange={onChange}
-                          value={FormData["unit"]}
+                          value={FormData["product_name"]}
                         />
                       </div>
                     </div>
@@ -104,7 +173,7 @@ const handleSubmit = (e)=>{
                       </label>
                       <div className="col-sm-10">
                         <input
-                          type="text"
+                          type="Number"
                           className="form-control"
                           name="rate"
                           placeholder="Rate"
