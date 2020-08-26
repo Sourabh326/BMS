@@ -43,7 +43,7 @@ const EditModel = ({ cb }) => {
           progress: undefined,
           });
            $("#exampleModal").modal("toggle");
-        $("exampleModal").modal("hide");
+        $("#exampleModal").modal("hide");
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();
       })
