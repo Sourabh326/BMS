@@ -1,55 +1,11 @@
 import React from 'react'
-import $ from 'jquery'
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-toast.configure();
 
 const Raw_material_product = () => {
 
-function handleSubmit(e){
-  e.preventDefault(); 
-  var used_quantity = $(".used_quantity").val();
-  var used_material_per_unit_rate = $(".used_material_per_unit_rate").val();
-  var unit = $(".unit").val();
-
-  if(used_quantity===''){
-   toast.error("🦄 Used Quantity Should be Required !", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return;
-  }
-  if(unit===''){
-    toast.error("🦄 Unit Should be Required !", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    return;
-  }
-  if(used_material_per_unit_rate===''){
-    toast.error("🦄 Used Material Rate Should be Required !", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    return;
-  } 
-}  
+// function handleSubmit(e){
+ 
+// }  
 
 // Insert in database tablename- manufacturing_raw_qty_info
   return (
@@ -63,7 +19,7 @@ function handleSubmit(e){
               </div>
               <div class="card-block">
                 <div class="table-responsive">
-                <form action="" onSubmit={handleSubmit} className="form-horizontal">
+                
                   <table
                     class="table display bg-light table-hover table-bordered"
                     id="table_id"
@@ -75,7 +31,6 @@ function handleSubmit(e){
                         <th>Used Quantity (kg)</th>
                         <th>Unit</th>
                         <th>Used Material Per Unit Rate</th>
-                        <th colSpan="2">Action</th>
                       </tr>
                     </thead>
                     <tbody> 
@@ -106,16 +61,12 @@ function handleSubmit(e){
                             name=""
                             placeholder="0.00" />
                         </td>
-                        <td>
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </td>
+                        
                       </tr>
                          
                     </tbody>
                     <tfoot className="bg-light">
-                      <tr>
-                        <th colSpan="6"><button type="submit" className="btn btn-success float-right btn-lg">Apply</button></th>
-                      </tr>
+                      
                       <tr className="text-secondary">
                         <th colSpan="4">
                           <div className="float-right mt-3">
@@ -145,7 +96,7 @@ function handleSubmit(e){
                       </tr>
                     </tfoot>
                   </table>
-                  </form>
+                  
                 </div>
               </div>
             </div>

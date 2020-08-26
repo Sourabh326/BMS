@@ -1,11 +1,21 @@
 import React from 'react'
+import { useState } from 'react'
+import Axios from 'axios';
 
 const ProductionTable =()=> {
+  const [tableData , setTableData]= useState([]);
+  Axios.get('https://jsonplaceholder.typicode.com/users')
+  .then(res => {
+    const data = res.data;
+    setTableData(data)
+  })
+  
+
     return (
        <>
        <div className="card bg-info">
             <div className="card-header">
-              <h3 className="card-title">Production Info</h3>
+            <h3 className="card-title"> Production Details </h3>
             </div>
             
             <div className="card-body">
@@ -27,19 +37,25 @@ const ProductionTable =()=> {
                        </tr>
                 </thead>
                 <tbody>
-                <tr>
-                      <td>123</td>
-                      <td>12-12-2020</td>
-                      <td>12:20pm</td>
-                      <td>Gst Percent</td>
-                      <td>123</td>
-                      <td>12-12-2020</td>
+                {
+                tableData.map(record=>(
+                  <tr>
+                      <td> {record.id} </td>
+                      <td>{record.name} </td>
+                      <td>{record.username} </td>
+                      <td>{record.address.street} </td>
+                      <td>{record.phone} </td>
+                      <td>{record.website} </td>
                       <td>12:20pm</td>
                       <td>Gst Percent</td>
                       <td>12-12-12</td>
                       <td>1233</td>
                       <td>12-23-32</td>
                 </tr>
+                ))
+              
+              }
+                
                
                 </tbody>
                

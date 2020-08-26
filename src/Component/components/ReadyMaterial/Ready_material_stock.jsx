@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import Navbar from "../../Navbar/Navbar";
 import $ from "jquery";
 import axios from "axios";
 import Ready_material_modal from './Ready_material_modal'
 import Raw_material_product from './Raw_material_product'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 
 function Ready_material_stock() {
@@ -47,6 +51,57 @@ function Ready_material_stock() {
       .catch((err) => {
         console.log(err);
       });
+
+      // Validations Toastify 
+      var used_quantity = $(".used_quantity").val();
+      var used_material_per_unit_rate = $(".used_material_per_unit_rate").val();
+      var unit = $(".unit").val();
+    
+      if(used_quantity===''){
+       toast.error("🦄 Used Quantity Should be Required !", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+      }
+      if(unit===''){
+        toast.error("🦄 Unit Should be Required !", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
+      if(used_material_per_unit_rate===''){
+        toast.error("🦄 Used Material Rate Should be Required !", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
+      }
+      toast.success("🦄 Added Successfully !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
   };
 
   let onChange = (e) => {
@@ -57,12 +112,7 @@ function Ready_material_stock() {
     }));
   };
 
-  useEffect(() => {
-    $("#add-vendor").hide();
-    $("#addVendorBtn").click(() => {
-      $("#add-vendor").slideToggle();
-    });
-  }, []);
+  
 
   return (
     <>
@@ -70,9 +120,7 @@ function Ready_material_stock() {
       <div className="main-footer">
         {/* Material Form */}
         <div className="container-fluid">
-          <button className="btn btn-danger  mb-5" id="addVendorBtn">
-            Add New
-          </button>
+          
           <div className="card card-info" id="add-vendor">
             <div className="card-header">
               <h3 className="card-title">Add Ready Material</h3>
@@ -191,6 +239,10 @@ function Ready_material_stock() {
                   </div>
                 </div>
               </div>
+              
+              {/* Raw Material Product */}
+             <Raw_material_product />
+             
               <div className="card-footer">
                 <button
                   type="submit"
@@ -210,8 +262,6 @@ function Ready_material_stock() {
         
      
 
-    {/* Raw Material Product */}
-   <Raw_material_product />
       
           {/* Material Table */}
           <div className="card bg-info">
