@@ -13,45 +13,57 @@ toast.configure();
 function Ready_material_stock() {
   const [formData, setFormData] = React.useState({});
   const [tableData, setTableDate] = React.useState([]);
-  const [rm_id, setRm_id] = React.useState(0);
-  const [rawMaterial, setRawMaterial] = React.useState({});
+  const [id, setId] = React.useState(0);
 
+  const [category,setCategory]= React.useState([]);
+  const [sub_category,setSub_Category]= React.useState([]);
+
+  let getCategories = ()=>{
+    axios.get('/product_category').then((res)=>{
+      const {product_categories} = res.data;
+      console.log(product_categories);
+      setCategory(product_categories);
+    }).catch(err=>console.log(err))
+  }
+
+  let getSubCategories = (id)=>{
+    axios.get(`/ready_stocks/subs/${id}`).then((res)=>{
+      const {ready_products} = res.data;
+      console.log(ready_products);
+      setSub_Category(ready_products);
+    }).catch(err=>console.log(err))
+  }
+  let selectedItemId = (e)=>{
+    const {name,value} = e.currentTarget;
+    setId(value);
+  }
   const loadTableData = () => {
-    axios.get("/raw_stocks").then((res) => {
-      const { vendors } = res.data;
-      setTableDate(vendors);
+    axios.get("/ready_stocks").then((res) => {
+      const { ready_products } = res.data;
+      setTableDate(ready_products);
     });
   };
-  const Edit = (id) => {
-    setRm_id(id);
-    setRawMaterial(tableData.find((v) => v.vendor_id === id));
-  };
 
-  let deleteVendor = (id) => {
-    axios
-      .delete(`/raw_stocks/${id}`)
-      .then((res) => {
-        console.log(res);
-        loadTableData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  let onCategorySelected = (e)=>{
+      const {name,value} = e.currentTarget;
+      getSubCategories(value);
+  }
   let onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("/raw_stocks", { vendor: formData })
+      .patch(`/ready_stocks/${id}`, { ready_product: formData })
       .then((res) => {
+        console.log(res);
         loadTableData();
-        $("#add-vendor").slideToggle();
+        setFormData({});
+        
       })
       .catch((err) => {
         console.log(err);
       });
 
+      
       // Validations Toastify 
       var used_quantity = $(".used_quantity").val();
       var used_material_per_unit_rate = $(".used_material_per_unit_rate").val();
@@ -102,6 +114,7 @@ function Ready_material_stock() {
         draggable: true,
         progress: undefined,
       });
+      
   };
 
   let onChange = (e) => {
@@ -112,6 +125,26 @@ function Ready_material_stock() {
     }));
   };
 
+  // Styles
+  let button = {
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "sans-serif",
+    backgroundColor: "#e11d74",
+    border: "none",
+    boxShadow: "10px 5px -3px (#ccc)",
+  };
+  let canclebutton = {
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "sans-serif",
+    backgroundColor: "#2d4059",
+    border: "none",
+    boxShadow: "10px 5px -3px (#ccc)",
+  };
+  let formHeader = {
+    backgroundColor: "#0f4c75",
+  };
   
 
   return (
@@ -122,8 +155,8 @@ function Ready_material_stock() {
         <div className="container-fluid">
           
           <div className="card card-info" id="add-vendor">
-            <div className="card-header">
-              <h3 className="card-title">Add Ready Material</h3>
+            <div className="card-header" style={formHeader}>
+              <h3 className="card-title">List New Product</h3>
             </div>
             <form className="form-horizontal" onSubmit={onSubmit}>
               <div className="card-body">
@@ -140,14 +173,17 @@ function Ready_material_stock() {
                         id="default-outline-select"
                         name="product_category_id"
                         class="form-control col-sm-10"
+                        value={formData['product_category_id']||'none'}
+                        onChange={(e)=>{onChange(e);onCategorySelected(e)}}
                       >
-                        <option disabled>Select</option>
-                        <option value="">1</option>
-                        <option value="1">2</option>
+                        <option value="none" disabled>Select</option>
+                       {
+                         category.map((cat=>
+                         <option value={cat.id}>{cat.category_name}</option>
+                         ))
+                       }
                       </select>
                     </div>
-
-
                     <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                       <label
                         for="default-outline-select"
@@ -159,10 +195,15 @@ function Ready_material_stock() {
                         id="default-outline-select"
                         name="product_name"
                         class="form-control col-sm-10"
+                        value={formData['product_name']||'none'}
+                        onChange={(e)=>{ onChange(e);selectedItemId(e)}}
                       >
-                        <option disabled>Select</option>
-                        <option value="">1</option>
-                        <option value="1">2</option>
+                        <option value="none" disabled>Select</option>
+                        {
+                          sub_category.map(cat=>(
+                          <option value={cat.product_id}>{`${cat.product_name}`}</option>
+                          ))
+                        }
                       </select>
                     </div>
 
@@ -177,6 +218,7 @@ function Ready_material_stock() {
                           name="qty"
                           placeholder="Quantity"
                           onChange={onChange}
+                          value={formData['qty']||''}
                         />
                       </div>
                     </div>
@@ -198,6 +240,7 @@ function Ready_material_stock() {
                           name="standard_size"
                           placeholder="Standard Size"
                           onChange={onChange}
+                          value={formData['standard_size']||''}
                         />
                       </div>
                     </div>
@@ -215,6 +258,7 @@ function Ready_material_stock() {
                           name="standard_weight"
                           placeholder="Weight Per Unit"
                           onChange={onChange}
+                          value={formData['standard_weight']||''}
                         />
                       </div>
                     </div>
@@ -224,15 +268,18 @@ function Ready_material_stock() {
                         for="per_qty_selling_cost"
                         className=" col-sm-10 col-form-label"
                       >
+
                         Per Quantity Selling Cost
                       </label>
                       <div className="col-sm-10">
                         <input
                           type="text"
                           className="form-control"
+
                           name="per_qty_selling_cost"
                           placeholder="Cost Per Quantity"
                           onChange={onChange}
+                          value={formData['per_qty_selling_cost']||''}
                         />
                       </div>
                     </div>
@@ -248,11 +295,15 @@ function Ready_material_stock() {
                   type="submit"
                   className="btn btn-info"
                   onClick={onSubmit}
+                  style={button}
                 >
-                  Add Stock
+                  Add Stock <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
-                <button type="submit" className="btn btn-default ml-4 cancle">
-                  Cancel
+                <button
+                 type="submit"
+                  className="btn btn-default ml-4 cancle"
+                  style={canclebutton}>
+                  Cancel  <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
               </div>
             </form>
@@ -263,15 +314,14 @@ function Ready_material_stock() {
      
 
       
-          {/* Material Table */}
-          <div className="card bg-info">
-            <div className="card-header">
-              <h3 className="card-title">Ready Material Stock</h3>
+          {/* Material Table Featch Fata From Ready Product Stock */}
+
+            <div className="card-header" style={formHeader}>
+              <h3 className="card-title text-white">Ready Material Stock</h3>
             </div>
             
-            <div className="card-body">
               <table id="example1" className="table table-sm table-responsive-lg table-striped bg-white">
-                <thead >
+                <thead>
                     <tr>
                       <th>Product Category</th>
                       <th>Product Name</th>
@@ -285,30 +335,30 @@ function Ready_material_stock() {
                 </thead>
                
               <tbody>
-                {tableData.map((raw_material) => (
+   
                   <tr>
-                    <td>abc</td>
-                    <td>Cement</td>
-                    <td>2 Unit</td>
-                    <td>22 pcs</td>
-                    <td>336</td>
-                    <td>1234</td>
-                    <td>22rs</td>
+                    <td>Brcks</td>
+                    <td>Floor Bricks</td>
+                    <td>12</td>
+                    <td>kg</td>
+                    <td>12"</td>
+                    <td>12kg</td>
+                    <td>120</td>
+                    <td> <i class="fa fa-trash" aria-hidden="true"></i>
+                    <i class="fas fa-pencil-alt ml-3 "></i> </td>
                   </tr>
-                ))}
+                
               </tbody>
             </table>
           </div>
-        </div>
-
-      
-    
-  
        
+
    {/* Ready Material Stock Edit Modal */}
    <Ready_material_modal />
-   </div>
+   
     </>
+
+     
     )
 }
 export default Ready_material_stock;

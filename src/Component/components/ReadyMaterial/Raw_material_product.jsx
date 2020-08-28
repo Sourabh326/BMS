@@ -1,11 +1,10 @@
 import React from 'react'
+import { useState } from 'react';
 
 
 const Raw_material_product = () => {
 
-// function handleSubmit(e){
- 
-// }  
+  
 
 // Insert in database tablename- manufacturing_raw_qty_info
   return (
@@ -29,7 +28,6 @@ const Raw_material_product = () => {
                         <th>Select</th>
                         <th>Raw Material</th>
                         <th>Used Quantity (kg)</th>
-                        <th>Unit</th>
                         <th>Used Material Per Unit Rate</th>
                       </tr>
                     </thead>
@@ -45,56 +43,23 @@ const Raw_material_product = () => {
                             type="Number"
                             className="form-control used_quantity"
                             name=""
-                            placeholder="0.00"/>
+                            placeholder="0.00"
+                            />
                         </td>
-                        <td>
-                          <input
-                            type="Number"
-                            className="form-control unit"
-                            name=""
-                            placeholder="2 kg" />
-                        </td>
+                        
                         <td>
                           <input
                             type="Number"
                             className="form-control used_material_per_unit_rate"
                             name=""
-                            placeholder="0.00" />
+                            placeholder="0.00"
+                             />
                         </td>
                         
                       </tr>
                          
                     </tbody>
-                    <tfoot className="bg-light">
-                      
-                      <tr className="text-secondary">
-                        <th colSpan="4">
-                          <div className="float-right mt-3">
-                            <h5>Total Cost</h5>
-                            <h5>Per Pcs Cost</h5>
-                          </div>
-                        </th>
-                        <th colSpan="2">
-                          <div className="text-center">
-                          <input
-                            type="Number"
-                            className="form-control"
-                            name=""
-                            value=""
-                            placeholder="0.00"
-                            readOnly="readonly"
-                          />
-                           <input
-                            type="Number"
-                            className="form-control"
-                            name=""
-                            placeholder="0.00"
-                            readOnly="readonly"
-                          />
-                          </div>
-                        </th>
-                      </tr>
-                    </tfoot>
+                  
                   </table>
                   
                 </div>

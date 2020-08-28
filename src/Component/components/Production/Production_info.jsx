@@ -9,7 +9,7 @@ const Production_info =()=> {
        <Navbar />
         <div className="main-footer">
           <Production_form />
-           <ProductionTable /> 
+          <ProductionTable /> 
         </div>
         </>
     )
