@@ -1,54 +1,62 @@
-import React from 'react'
+import React from 'react';
+import MaterialTable from 'material-table';
 
-const ProductionTable =()=> {
-    return (
-       <>
-       <div className="card bg-info">
-            <div className="card-header">
-              <h3 className="card-title">Production Info</h3>
-            </div>
-            
-            <div className="card-body">
-              <table id="example1" className="table table-sm table-responsive table-striped bg-white">
-                <thead className="">
-                    <tr>
-                      <th>Product Category</th>
-                      <th>Product Name</th>
-                      <th>Unit</th>
-                      <th>Qty</th>
-                      <th>Standart Size</th>
-                      <th>Weight Per Unit</th>
-                      <th>Total Weight</th>
-                      <th>Production Date</th>
-                      <th>Production Qty</th>
-                      <th>Total Production Cost</th>
-                      <th>Date</th>
-                     
-                       </tr>
-                </thead>
-                <tbody>
-                <tr>
-                      <td>123</td>
-                      <td>12-12-2020</td>
-                      <td>12:20pm</td>
-                      <td>Gst Percent</td>
-                      <td>123</td>
-                      <td>12-12-2020</td>
-                      <td>12:20pm</td>
-                      <td>Gst Percent</td>
-                      <td>12-12-12</td>
-                      <td>1233</td>
-                      <td>12-23-32</td>
-                </tr>
-               
-                </tbody>
-               
-              </table>
-            </div>
-           
-          </div>
-       </>
-    )
+export default function MaterialTableDemo() {
+  const [state, setState] = React.useState({
+    columns: [
+      { title: 'Product Category', field: 'product_category' },
+      { title: 'Product Name', field: 'prduct_name' },
+      { title: 'Production Quantity', field: 'production_quantity', type: 'numeric' },
+      {title: 'Total Production Cost',field: 'total_production_cost' },
+    ],
+    data: [
+      { product_category: 'Mehmet', prduct_name: 'Baran', production_quantity: 1987, total_production_cost: 12000 },
+     
+    ],
+  });
+
+  return (
+    <MaterialTable
+      title="Production Details"
+      columns={state.columns}
+      data={state.data}
+      editable={{
+        onRowAdd: (newData) =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+              setState((prevState) => {
+                const data = [...prevState.data];
+                data.push(newData);
+                return { ...prevState, data };
+              });
+            }, 600);
+          }),
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+              if (oldData) {
+                setState((prevState) => {
+                  const data = [...prevState.data];
+                  data[data.indexOf(oldData)] = newData;
+                  return { ...prevState, data };
+                });
+              }
+            }, 600);
+          }),
+        onRowDelete: (oldData) =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+              setState((prevState) => {
+                const data = [...prevState.data];
+                data.splice(data.indexOf(oldData), 1);
+                return { ...prevState, data };
+              });
+            }, 600);
+          }),
+      }}
+    />
+  );
 }
-
-export default ProductionTable;
