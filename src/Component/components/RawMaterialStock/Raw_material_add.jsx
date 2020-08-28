@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 const Raw_material_add = ({cb}) => {
   const [formData, setFormData] = React.useState({
-    product_name: "",
+    product_name:"",
     unit:"",
     qty:"",
     rate:"",
@@ -23,7 +23,6 @@ const Raw_material_add = ({cb}) => {
   
 const handleSubmit = (e)=>{
   e.preventDefault();
-
   //Toastify Validation
   if (formData["product_name"].length < 3) {
     toast.error("🦄 Product Name Should be Minimum 3 Charaters !", {
@@ -78,7 +77,6 @@ const handleSubmit = (e)=>{
     console.log(res.data);
     $("#add-vendor").slideToggle();
     // clean the from after submitting
-    setFormData({})
     // Submit Toastify
     toast.success("🦄 Added Successfully !", {
       position: "top-center",
@@ -178,7 +176,7 @@ const handleSubmit = (e)=>{
                           name="rate"
                           placeholder="Rate"
                           onChange={onChange}
-                          value={formData["rate"]}
+                          value={formData["rate"]||''}
                         />
                       </div>
                     </div>
@@ -187,7 +185,6 @@ const handleSubmit = (e)=>{
                         Entry Now
                       </button>
                       <button
-                        type="submit"
                         className="btn btn-default float-right cancle mx-3"
                       >
                         Cancel

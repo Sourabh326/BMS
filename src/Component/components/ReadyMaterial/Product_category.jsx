@@ -36,6 +36,13 @@ const Product_category =()=> {
     })
 
    },[])
+
+   let deleteProduct = (id)=>{
+     axios.delete(`product_category/${id}`).then((res)=>{
+       console.log(res.data);
+       loadTableData();
+     }).catch(err=>{ console.log(err); })
+   }
     return (
         <>
         <Navbar />
@@ -94,7 +101,7 @@ const Product_category =()=> {
                   <td>{product.id}</td>
                     <td>{product.category_name}</td>
                      <td><i class="fas fa-edit btn btn-success btn-xs" data-id={product.id} data-toggle="modal" data-target="#CategoryModal"> Edit</i>
-                      <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button>
+                      <button className="btn btn-danger btn-xs ml-3" onClick={()=>deleteProduct(product.id)} ><i class="fas fa-trash"></i> Delete</button>
                      </td>
                 </tr>
                     )))

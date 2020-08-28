@@ -26,7 +26,12 @@ const Product_sub_category =()=> {
         setProductCategoris(product_categories);
       })
     } 
-
+    let deleteSubCategory = (id)=>{
+      axios.delete(`ready_stocks/${id}`).then((res)=>{
+        console.log(res.data);
+        loadTableData();
+      }).catch((err)=>{  console.log(err); })
+    }
     useEffect(()=>{
       getProductCategoris();
       loadTableData();
@@ -104,7 +109,7 @@ const Product_sub_category =()=> {
                       <td>{ready_product.product_category_id}</td>
                     <td>{ready_product.product_name}</td>
                       <td><i class="fas fa-edit btn btn-success btn-xs"  data-id={ready_product.product_id} data-toggle="modal" data-target="#SubCategoryModal"> Edit</i>
-                       <button className="btn btn-danger btn-xs ml-3"><i class="fas fa-trash"></i> Delete</button></td>
+                       <button className="btn btn-danger btn-xs ml-3" onClick={()=>deleteSubCategory(ready_product.product_id)}><i class="fas fa-trash"></i> Delete</button></td>
                  </tr>
                     ))
                   }

@@ -118,8 +118,8 @@ function Ready_material_stock() {
                       >
                         <option value="none" disabled>Select</option>
                        {
-                         category.map((cat=>
-                         <option value={cat.id}>{cat.category_name}</option>
+                         category.map(((cat,i)=>
+                         <option key={i} value={cat.id}>{cat.category_name}</option>
                          ))
                        }
                       </select>
@@ -268,7 +268,7 @@ function Ready_material_stock() {
                
               <tbody>
                 {tableData.map((cat) => (
-                  <tr>
+                  <tr key={cat.product_category_id}>
                     <td>{cat.product_category_id}</td>
                     <td>{cat.product_name}</td>
                     <td>{cat.qty}</td>
