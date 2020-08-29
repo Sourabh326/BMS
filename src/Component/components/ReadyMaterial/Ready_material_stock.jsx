@@ -12,11 +12,15 @@ toast.configure();
 
 function Ready_material_stock() {
   const [formData, setFormData] = React.useState({});
-  const [tableData, setTableDate] = React.useState([]);
+  const [form2Data, setForm2Data] = React.useState({});
+  
+  const [tableData, setTableData] = React.useState([]);
+  const [table2Data, setTable2Data] = React.useState([]);
   const [id, setId] = React.useState(0);
 
   const [category, setCategory] = React.useState([]);
   const [sub_category, setSub_Category] = React.useState([]);
+
 
   let getCategories = () => {
     axios
@@ -49,7 +53,7 @@ function Ready_material_stock() {
     axios.get("/ready_stocks/forTable").then((res) => {
       const { tableData } = res.data;
       console.log(tableData);
-      setTableDate(tableData);
+      setTableData(tableData);
     });
   };
 
@@ -114,18 +118,50 @@ function Ready_material_stock() {
     let product_name = formData.product_name;
     let t = sub_category.find((p) => p.product_name === product_name);
     let id = t.product_id;
-    console.log(id);
 
-    axios
-      .patch(`/ready_stocks/${id}`, { ready_product: formData })
-      .then((res) => {
-        console.log(res);
-        loadTableData();
-        setFormData({});
+    let required_data = [];
+
+    console.log(form2Data);
+
+    Object.entries(form2Data).forEach((e)=>{
+      let key = e[0].split('-')[0];
+      let index = e[0].split('-')[1];
+      let value =e[1];
+      if(key==='product_id'){
+        let id = e[0].split('-')[2];
+        required_data[index]={
+          ...required_data[index],
+          ['raw_material_id']:id,
+          ['ready_product_id']:t.product_id
+         }
+      }
+      else{
+      required_data[index]={
+        ...required_data[index],
+        [key]:value,
+       }
+      }
+    });
+
+    console.log(required_data);
+    required_data.map((data)=>{
+      axios.post('/manufacturing',{manufacturing_raw_qty:data}).then((res)=>{
+        if(res.status===200){
+          console.log('send');
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+    })
+
+    // axios
+    //   .patch(`/ready_stocks/${id}`, { ready_product: formData })
+    //   .then((res) => {
+    //     console.log(res);
+    //     loadTableData();
+    //     setFormData({});
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   let onChange = (e) => {
@@ -157,9 +193,18 @@ function Ready_material_stock() {
     backgroundColor: "#0f4c75",
   };
 
+  let getRawStocks = ()=>{
+    axios.get('/raw_stocks').then((res)=>{
+      const {raw_materials} = res.data;
+      console.log(raw_materials);
+      setTable2Data(raw_materials);
+    })
+  }
+
   useEffect(() => {
     getCategories();
     loadTableData();
+    getRawStocks();
   }, []);
 
   return (
@@ -312,7 +357,7 @@ function Ready_material_stock() {
               </div>
 
               {/* Raw Material Product */}
-              <Raw_material_product  />
+              <Raw_material_product formData={form2Data} setFormData={setForm2Data} tableData={table2Data} />
 
               <div className="card-footer">
                 <button
