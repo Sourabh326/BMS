@@ -29,22 +29,22 @@ export const Ready_material_modal = () => {
       <form action="">
         {/*Update Popup Model */}
         <div
-          class="modal fade bd-example-modal-lg"
+          className="modal fade bd-example-modal-lg"
           id="ReadyMaterialStockModal"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header bg-info">
-                <h5 class="modal-title" id="CategoryModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header bg-info">
+                <h5 className="modal-title" id="CategoryModalLabel">
                   Edit Ready Material Stock
                 </h5>
                 <button
                   type="button"
-                  class="close"
+                  className="close"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
@@ -52,12 +52,12 @@ export const Ready_material_modal = () => {
                 </button>
               </div>
               <div className="container-fluid">
-                <div class="modal-body">
+                <div className="modal-body">
                   <div className="row">
                     <div className="col-md-6">
-                      <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                      <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                         <label
-                          for="default-outline-select"
+                          htmlFor="default-outline-select"
                           className=" col-sm-10 col-form-label"
                         >
                           Product Category
@@ -65,7 +65,7 @@ export const Ready_material_modal = () => {
                         <select
                           id="default-outline-select"
                           name="product_category_id"
-                          class="form-control col-sm-10"
+                          className="form-control col-sm-10"
                         >
                           <option disabled>Select</option>
                           <option value="">1</option>
@@ -73,9 +73,9 @@ export const Ready_material_modal = () => {
                         </select>
                       </div>
 
-                      <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                      <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                         <label
-                          for="default-outline-select"
+                          htmlFor="default-outline-select"
                           className=" col-sm-10 col-form-label"
                         >
                           Select Product Name
@@ -83,7 +83,7 @@ export const Ready_material_modal = () => {
                         <select
                           id="default-outline-select"
                           name="product_name"
-                          class="form-control col-sm-10"
+                          className="form-control col-sm-10"
                         >
                           <option disabled>Select</option>
                           <option value="">1</option>
@@ -92,7 +92,7 @@ export const Ready_material_modal = () => {
                       </div>
 
                       <div className="form-group row">
-                        <label for="unit" className=" col-sm-10 col-form-label">
+                        <label htmlFor="unit" className=" col-sm-10 col-form-label">
                           Unit
                         </label>
                         <div className="col-sm-10">
@@ -106,7 +106,7 @@ export const Ready_material_modal = () => {
                       </div>
 
                       <div className="form-group row">
-                        <label for="qty" className=" col-sm-10 col-form-label">
+                        <label htmlFor="qty" className=" col-sm-10 col-form-label">
                           Qty
                         </label>
                         <div className="col-sm-10">
@@ -122,7 +122,7 @@ export const Ready_material_modal = () => {
                     <div className="col-md-6">
                       <div className="form-group row">
                         <label
-                          for="standard_size"
+                          htmlFor="standard_size"
                           className=" col-sm-10 col-form-label"
                         >
                           Standard Size
@@ -139,7 +139,7 @@ export const Ready_material_modal = () => {
 
                       <div className="form-group row">
                         <label
-                          for="standard_weight"
+                          htmlFor="standard_weight"
                           className=" col-sm-10 col-form-label"
                         >
                           Weight Per Unit
@@ -156,7 +156,7 @@ export const Ready_material_modal = () => {
 
                       <div className="form-group row">
                         <label
-                          for="per_qty_selling_cost"
+                          htmlFor="per_qty_selling_cost"
                           className=" col-sm-10 col-form-label"
                         >
                           Cost Per Quantity
@@ -174,15 +174,15 @@ export const Ready_material_modal = () => {
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-dismiss="modal"
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-info">
+                <button type="button" className="btn btn-info">
                   Update
                 </button>
               </div>

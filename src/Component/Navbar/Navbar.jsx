@@ -323,7 +323,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-            <i class="fas fa-money-bill-alt nav-icon"></i>
+            <i className="fas fa-money-bill-alt nav-icon"></i>
               <p>
                 Expense
                 <i className="fas fa-angle-left right"></i>
@@ -341,7 +341,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-            <i class="fas fa-user nav-icon"></i>
+            <i className="fas fa-user nav-icon"></i>
               <p>
                 Customer
                 <i className="fas fa-angle-left right"></i>
@@ -359,7 +359,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-            <i class="fas fa-industry nav-icon"></i>
+            <i className="fas fa-industry nav-icon"></i>
               <p>
                 Manufacturing
                 <i className="fas fa-angle-left right"></i>
@@ -377,7 +377,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item has-treeview">
             <a href="#" className="nav-link">
-            <i class="fas fa-dolly nav-icon"></i>
+            <i className="fas fa-dolly nav-icon"></i>
               <p>
                 Transportaion
                 <i className="fas fa-angle-left right"></i>
