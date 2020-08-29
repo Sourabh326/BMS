@@ -11,6 +11,7 @@ import { useEffect } from "react";
 toast.configure();
 
 function Ready_material_stock() {
+  
   const [formData, setFormData] = React.useState({});
   const [form2Data, setForm2Data] = React.useState({});
   
@@ -357,7 +358,7 @@ function Ready_material_stock() {
               </div>
 
               {/* Raw Material Product */}
-              <Raw_material_product formData={form2Data} setFormData={setForm2Data} tableData={table2Data} />
+              <Raw_material_product formData={form2Data} setFormData={setForm2Data} tableData={table2Data}  />
 
               <div className="card-footer">
                 <button

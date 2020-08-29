@@ -1,20 +1,25 @@
 import React from "react";
-import Axios from "axios";
+import axios from "axios";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { useEffect } from "react";
 
-const Production_form = () => {
-  const [formData, setFormData] = React.useState([]);
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-
+const Production_form = ({
+  handleSubmit,
+  onChange,
+  formData,
+  category,
+  setSub_Category,
+  sub_category,
+  selectedItemId,
+}) => {
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    onChange({ currentTarget: { name: "production_date", value: date } });
   };
+
   let button = {
     color: "#fff",
     fontSize: "18px",
@@ -35,23 +40,42 @@ const Production_form = () => {
     backgroundColor: "#0f4c75",
   };
 
-  let onChange = (e) => {
-    let { name, value } = e.currentTarget;
-    setFormData((state) => ({
-      ...state,
-      [name]: value,
-    }));
-  };
-  let handleSubmit = (e) => {
-    e.preventDefault();
-    Axios.post("/productions", { production: formData })
+  // let handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios.post("/productions", { production: formData })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  let getSubCategories = (id) => {
+    axios
+      .get(`/ready_stocks/subs/${id}`)
       .then((res) => {
-        console.log(res);
+        const { ready_products } = res.data;
+        console.log(ready_products);
+        setSub_Category(ready_products);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   };
+
+  let onCategorySelected = (e) => {
+    const { name, value } = e.currentTarget;
+    getSubCategories(value);
+  };
+
+  const today = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + "/" + dd + "/" + yyyy;
+  };
+
   return (
     <>
       <div className="card card-info">
@@ -63,43 +87,58 @@ const Production_form = () => {
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
-                <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                   <label
-                    for="default-outline-select"
+                    htmlFor="default-outline-select"
                     className=" col-sm-10 col-form-label"
                   >
-                    Product category
+                    Product Category
                   </label>
                   <select
                     id="default-outline-select"
-                    onChange={onChange}
-                    name="ready_product_id"
-                    class="form-control col-sm-10"
+                    name="product_category_id"
+                    className="form-control col-sm-10"
+                    value={formData["product_category_id"] || "none"}
+                    onChange={(e) => {
+                      onChange(e);
+                      onCategorySelected(e);
+                    }}
                   >
-                    <option disabled>Select</option>
-                    <option value="">Brick</option>
-                    <option value="1">Fly Aish</option>
+                    <option value="none">Select</option>
+                    {category.map((cat, i) => (
+                      <option key={i} value={cat.id}>
+                        {cat.category_name}
+                      </option>
+                    ))}
                   </select>
                 </div>
-                <div class="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                   <label
-                    for="default-outline-select"
+                    htmlFor="default-outline-select"
                     className=" col-sm-10 col-form-label"
                   >
-                    Product Name
+                    Select Product Name
                   </label>
                   <select
                     id="default-outline-select"
-                    onChange={onChange}
                     name="product_name"
-                    class="form-control col-sm-10"
+                    className="form-control col-sm-10"
+                    value={formData["product_name"] || "none"}
+                    onChange={(e) => {
+                      onChange(e);
+                      selectedItemId(e);
+                    }}
                   >
-                    <option disabled>Select</option>
-                    <option value="">Rope Brick</option>
-                    <option value="1">Fly Brick</option>
+                    <option value="none">Select</option>
+                    {sub_category.map((cat, i) => (
+                      <option
+                        key={i}
+                        value={cat.product_id}
+                      >{`${cat.product_name}`}</option>
+                    ))}
                   </select>
                 </div>
-                
+
                 {/* datepicker */}
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
@@ -108,7 +147,7 @@ const Production_form = () => {
                     id="date-picker-dialog"
                     label="Choose Date"
                     format="MM/dd/yyyy"
-                    value={selectedDate}
+                    value={formData["production_date"] || today() }
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
@@ -119,7 +158,7 @@ const Production_form = () => {
               <div className="col-md-6">
                 <div className="form-group row">
                   <label
-                    for="production_qty"
+                    htmlFor="production_qty"
                     className=" col-sm-10  col-form-label"
                   >
                     Production Quantity
@@ -131,12 +170,13 @@ const Production_form = () => {
                       name="production_qty"
                       onChange={onChange}
                       placeholder="Production Quantity"
+                      value={formData["production_qty"] || ""}
                     />
                   </div>
                 </div>
                 <div className="form-group row">
                   <label
-                    for="total_production_cost"
+                    htmlFor="total_production_cost"
                     className=" col-sm-10  col-form-label"
                   >
                     Total Production Cost
@@ -148,25 +188,26 @@ const Production_form = () => {
                       defaultValue="2000"
                       onChange={onChange}
                       name="total_production_cost"
+                      value={formData["total_production_cost"]||''}
                     />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-           {/* Raw Material Table Under Form . Fetch data from Raw material Stock Table*/}
-           <RawMaterialStockTable />
+          {/* Raw Material Table Under Form . Fetch data from Raw material Stock Table*/}
+          <RawMaterialStockTable />
 
           <div className="card-footer">
             <button type="submit" style={button} className="btn btn-info">
-              Submit <i class="fa fa-paper-plane" aria-hidden="true"></i>
+              Submit <i className="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
             <button
               type="submit"
               style={canclebutton}
               className="btn btn-dark cancle ml-4"
             >
-              Cancel <i class="fa fa-times" aria-hidden="true"></i>
+              Cancel <i className="fa fa-times" aria-hidden="true"></i>
             </button>
           </div>
         </form>
@@ -176,35 +217,34 @@ const Production_form = () => {
 };
 
 // Raw material Stock Table . Fetch data from Raw material Stock Table.
-const RawMaterialStockTable = () =>{
-  return(
+const RawMaterialStockTable = () => {
+  return (
     <>
-          <table class="table table-responsive-sm table-bordered">
-  <thead style={{backgroundColor:'#0f3460',color:'#fff'}}>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Raw Product name</th>
-      <th scope="col">Raw Material Per Unit Qty</th>
-      <th scope="col">Raw Material Total Qty</th>
-      <th scope="col">Raw Material Per Unit Rate</th>
-      <th scope="col">Raw Material Total Rate</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    
-  </tbody>
-</table><hr/>
+      <table className="table table-responsive-sm table-bordered">
+        <thead style={{ backgroundColor: "#0f3460", color: "#fff" }}>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Raw Product name</th>
+            <th scope="col">Raw Material Per Unit Qty</th>
+            <th scope="col">Raw Material Total Qty</th>
+            <th scope="col">Raw Material Per Unit Rate</th>
+            <th scope="col">Raw Material Total Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
     </>
-  )
-}
-
+  );
+};
 
 export default Production_form;
