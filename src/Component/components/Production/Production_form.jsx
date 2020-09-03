@@ -5,7 +5,6 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { useEffect } from "react";
 
 const Production_form = ({
   handleSubmit,
@@ -15,9 +14,21 @@ const Production_form = ({
   setSub_Category,
   sub_category,
   selectedItemId,
+  tableData={tableData}
 }) => {
+  const today = (date) => {
+    var _today = new Date(date);
+    var dd = String(_today.getDate()).padStart(2, "0");
+    var mm = String(_today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = _today.getFullYear();
+    _today = yyyy+"-"+mm+"-"+dd;
+    // console.log(_today);
+    return _today;
+  }; 
+  
   const handleDateChange = (date) => {
-    onChange({ currentTarget: { name: "production_date", value: date } });
+    let _date = today(date);
+    onChange({ currentTarget: { name: "production_date", value: _date } });
   };
 
   let button = {
@@ -40,23 +51,14 @@ const Production_form = ({
     backgroundColor: "#0f4c75",
   };
 
-  // let handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios.post("/productions", { production: formData })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+
 
   let getSubCategories = (id) => {
     axios
       .get(`/ready_stocks/subs/${id}`)
       .then((res) => {
         const { ready_products } = res.data;
-        console.log(ready_products);
+        // console.log(ready_products);
         setSub_Category(ready_products);
       })
       .catch((err) => console.log(err));
@@ -67,14 +69,7 @@ const Production_form = ({
     getSubCategories(value);
   };
 
-  const today = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
 
-    today = mm + "/" + dd + "/" + yyyy;
-  };
 
   return (
     <>
@@ -121,9 +116,9 @@ const Production_form = ({
                   </label>
                   <select
                     id="default-outline-select"
-                    name="product_name"
+                    name="ready_product_id"
                     className="form-control col-sm-10"
-                    value={formData["product_name"] || "none"}
+                    value={formData["ready_product_id"] || "none"}
                     onChange={(e) => {
                       onChange(e);
                       selectedItemId(e);
@@ -147,7 +142,7 @@ const Production_form = ({
                     id="date-picker-dialog"
                     label="Choose Date"
                     format="MM/dd/yyyy"
-                    value={formData["production_date"] || today() }
+                    value={formData["production_date"]||today(new Date())}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
@@ -170,7 +165,7 @@ const Production_form = ({
                       name="production_qty"
                       onChange={onChange}
                       placeholder="Production Quantity"
-                      value={formData["production_qty"] || ""}
+                      value={formData["production_qty"]}
                     />
                   </div>
                 </div>
@@ -185,10 +180,10 @@ const Production_form = ({
                     <input
                       type="text"
                       className="form-control"
-                      defaultValue="2000"
                       onChange={onChange}
                       name="total_production_cost"
-                      value={formData["total_production_cost"]||''}
+                      value={formData["total_production_cost"]||0}
+                      readOnly
                     />
                   </div>
                 </div>
@@ -196,7 +191,7 @@ const Production_form = ({
             </div>
           </div>
           {/* Raw Material Table Under Form . Fetch data from Raw material Stock Table*/}
-          <RawMaterialStockTable />
+          <RawMaterialStockTable tableData={tableData}/>
 
           <div className="card-footer">
             <button type="submit" style={button} className="btn btn-info">
@@ -217,7 +212,7 @@ const Production_form = ({
 };
 
 // Raw material Stock Table . Fetch data from Raw material Stock Table.
-const RawMaterialStockTable = () => {
+const RawMaterialStockTable = ({tableData}) => {
   return (
     <>
       <table className="table table-responsive-sm table-bordered">
@@ -232,14 +227,18 @@ const RawMaterialStockTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          {
+            tableData.map((data,i)=>(
+              <tr key={i}>
+              <th scope="row">{i+1}</th>
+            <td>{data.product_name}</td>
+            <td>{data.raw_material_per_unit_qty}</td>
+            <td>{data.raw_material_per_total_qty}</td>
+            <td>{data.raw_material_per_unit_rate}</td>
+            <td>{data.raw_material_per_total_rate}</td>
+            </tr>
+            ))
+          }
         </tbody>
       </table>
       <hr />
