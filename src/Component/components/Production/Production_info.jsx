@@ -4,10 +4,14 @@ import ProductionTable from "./Production_table";
 import Production_form from "./Production_form";
 import axios from "axios";
 import { useEffect } from "react";
+import moment from 'moment'
 const Production_info = () => {
   const [formData, setFormData] = React.useState({
-    production_qty:0
+    production_qty:0,
+    production_date:moment().format('YYYY-MM-DD'),
+    entry_date_time:moment().format('YYYY-MM-DD HH:mm:ss')
   });
+  console.log(moment().format('YYYY-MM-DD HH:mm:ss'));
   const [categories, setCategories] = React.useState([]);
   const [sub_categories, setSub_Categories] = React.useState([]);
   const [id, setId] = React.useState(0);
@@ -17,6 +21,7 @@ const Production_info = () => {
   let selectedItemId = (e) => {
     const { name, value } = e.currentTarget;
     setId(value);
+    getProductions(value);
     axios
     .get(`/manufacturing/ready_product/${value}`)
     .then((res) => {
@@ -63,8 +68,8 @@ const Production_info = () => {
       })
       .catch((err) => console.log(err));
   };
-  let getProductions = () => {
-    axios.get("/productions/forTable").then((res) => {
+  let getProductions = (id) => {
+    axios.get(`/productions/forTable/${id}`).then((res) => {
       const { tableData } = res.data;
       console.log(tableData);
       production_setTable2Data(tableData);
@@ -106,6 +111,7 @@ const Production_info = () => {
       .post("/productions", { production: rest })
       .then((res) => {
         console.log(res);
+        getProductions(id);
       })
       .catch((err) => {
         console.log(err);
@@ -162,7 +168,7 @@ const Production_info = () => {
   useEffect(() => {
     getCategories();
     getSubCategories();
-    getProductions();
+    
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import moment from 'moment';
 
 const Production_form = ({
   handleSubmit,
@@ -14,16 +15,10 @@ const Production_form = ({
   setSub_Category,
   sub_category,
   selectedItemId,
-  tableData={tableData}
+  tableData
 }) => {
   const today = (date) => {
-    var _today = new Date(date);
-    var dd = String(_today.getDate()).padStart(2, "0");
-    var mm = String(_today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = _today.getFullYear();
-    _today = yyyy+"-"+mm+"-"+dd;
-    // console.log(_today);
-    return _today;
+    return moment(date).format('YYYY-MM-DD');
   }; 
   
   const handleDateChange = (date) => {
