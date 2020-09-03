@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 
-export default function MaterialTableDemo() {
+export default function MaterialTableDemo({tableData}) {
   const [state, setState] = React.useState({
     columns: [
-      { title: 'Product Category', field: 'product_category' },
-      { title: 'Product Name', field: 'prduct_name' },
-      { title: 'Production Quantity', field: 'production_quantity', type: 'numeric' },
+      { title: 'Product Category', field: 'category_name' },
+      { title: 'Product Name', field: 'product_name' },
+      { title: 'Production Quantity', field: 'production_qty', type: 'numeric' },
       {title: 'Total Production Cost',field: 'total_production_cost' },
     ],
-    data: [
-      { product_category: 'Mehmet', prduct_name: 'Baran', production_quantity: 1987, total_production_cost: 12000 },
-     
-    ],
+    data: [],
   });
+
+  useEffect(()=>{
+    setState(state=>({
+      ...state,
+      data:[...tableData]
+    }))
+  },[tableData])
 
   return (
     <MaterialTable

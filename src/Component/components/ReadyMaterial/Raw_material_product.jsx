@@ -1,18 +1,18 @@
-import React from 'react'
-import { useState } from 'react';
-import Axios from 'axios';
-import { useEffect } from 'react';
+import React from "react";
+import { useState } from "react";
+import Axios from "axios";
+import { useEffect } from "react";
 
-
-const Raw_material_product = ({formData,setFormData,tableData}) => {
+const Raw_material_product = ({ formData, setFormData, tableData }) => {
+  // console.log(formData, tableData);
   let onChange = (e) => {
-    let { name, value ,type,checked} = e.currentTarget;
-    if(type==='checkbox'){
+    let { name, value, type, checked } = e.currentTarget;
+    if (type === "checkbox") {
       setFormData((state) => ({
         ...state,
         [name]: checked,
       }));
-      return ;
+      return;
     }
     setFormData((state) => ({
       ...state,
@@ -32,7 +32,6 @@ const Raw_material_product = ({formData,setFormData,tableData}) => {
               </div>
               <div className="card-block">
                 <div className="table-responsive">
-                
                   <table
                     className="table display bg-light table-hover table-bordered"
                     id="table_id"
@@ -45,13 +44,23 @@ const Raw_material_product = ({formData,setFormData,tableData}) => {
                         <th>Used Material Per Unit Rate</th>
                       </tr>
                     </thead>
-                    <tbody> 
-                      {
-                        tableData.map((data,i)=>(
-                          <tr key={i}>
-                          <td><input name={`product_id-${i}-${data.product_id}`} type="checkbox" id="checkbox" style={{width:'50px',height:'20px'}}onChange={onChange}  /></td>
+                    <tbody>
+                      {tableData.map((data, i) => (
+                        <tr key={i}>
+                          <td>
+                            <input
+                              name={`product_id-${i}-${data.product_id}`}
+                              type="checkbox"
+                              id="checkbox"
+                              style={{ width: "50px", height: "20px" }}
+                              onChange={onChange}
+                              value={formData[`product_id-${i}-${data.product_id}`]}
+                            />
+                          </td>
                           <td className="tabledit-view-mode">
-                        <span className="tabledit-span">{data.product_name}</span>
+                            <span className="tabledit-span">
+                              {data.product_name}
+                            </span>
                           </td>
                           <td>
                             <input
@@ -60,28 +69,27 @@ const Raw_material_product = ({formData,setFormData,tableData}) => {
                               name="raw_material_per_unit_qty"
                               name={`raw_material_per_unit_qty-${i}`}
                               onChange={onChange}
-                              value={formData[`raw_material_per_unit_qty-${i}`]||''}
+                              value={formData[`raw_material_per_unit_qty-${i}`]}
                               placeholder="0.00"
-                              />
+                            />
                           </td>
-                          
+
                           <td>
                             <input
                               type="Number"
                               className="form-control used_material_per_unit_rate"
-                              name={`raw_material_per_unit_rate-${i}`||''}
-
+                              name={`raw_material_per_unit_rate-${i}`}
                               placeholder="0.00"
-                              value={formData[`raw_material_per_unit_rate-${i}`]||''}
+                              value={
+                                formData[`raw_material_per_unit_rate-${i}`]
+                              }
                               onChange={onChange}
-                               />
+                            />
                           </td>
                         </tr>
-                        ))
-                      }
+                      ))}
                     </tbody>
                   </table>
-                  
                 </div>
               </div>
             </div>
