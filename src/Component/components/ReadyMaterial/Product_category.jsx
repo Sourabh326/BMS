@@ -27,6 +27,7 @@ const Product_category =()=> {
       setFormData({});
       loadTableData();
     }).catch(err=>{ console.log(err); })
+     
   }
   useEffect(()=>{ 
     loadTableData();
@@ -70,7 +71,7 @@ const Product_category =()=> {
                   </div>
                 </div>
                 <div className="card-footer">
-                  <button type="submit" className="btn btn-info" onClick={handleSubmit} >Add Category</button>
+                  <button type="submit"  className="btn btn-info" onClick={handleSubmit} >Add Category</button>
                   <button type="submit" className="btn btn-default ml-4 cancle">Cancel</button>
                 </div>
               </form>

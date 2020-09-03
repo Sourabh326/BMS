@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import $ from 'jquery';
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -22,6 +23,7 @@ const Production_form = () => {
     backgroundColor: "#e11d74",
     border: "none",
     boxShadow: "10px 5px -3px (#ccc)",
+    
   };
   let canclebutton = {
     color: "#fff",
@@ -34,6 +36,7 @@ const Production_form = () => {
   let formHeader = {
     backgroundColor: "#0f4c75",
   };
+  
 
   let onChange = (e) => {
     let { name, value } = e.currentTarget;
@@ -51,15 +54,16 @@ const Production_form = () => {
       .catch((err) => {
         console.log(err);
       });
+     
   };
   return (
     <>
       <div className="card card-info">
         <div className="card-header" style={formHeader}>
-          <h3 className="card-title">Production Info</h3>
+          <h3 className="card-title">Production Info  </h3>
         </div>
 
-        <form className="form-horizontal" onSubmit={handleSubmit}>
+        <form className="form-horizontal" onSubmit={handleSubmit} >
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
@@ -71,7 +75,7 @@ const Production_form = () => {
                     Product category
                   </label>
                   <select
-                    id="default-outline-select"
+                    
                     onChange={onChange}
                     name="ready_product_id"
                     class="form-control col-sm-10"
@@ -89,7 +93,7 @@ const Production_form = () => {
                     Product Name
                   </label>
                   <select
-                    id="default-outline-select"
+                    
                     onChange={onChange}
                     name="product_name"
                     class="form-control col-sm-10"
@@ -158,7 +162,7 @@ const Production_form = () => {
            <RawMaterialStockTable />
 
           <div className="card-footer">
-            <button type="submit" style={button} className="btn btn-info">
+            <button  type="submit" style={button} className="btn btn-info">
               Submit <i class="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
             <button

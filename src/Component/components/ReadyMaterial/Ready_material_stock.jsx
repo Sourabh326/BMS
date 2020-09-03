@@ -152,16 +152,16 @@ function Ready_material_stock() {
       })
     })
 
-    // axios
-    //   .patch(`/ready_stocks/${id}`, { ready_product: formData })
-    //   .then((res) => {
-    //     console.log(res);
-    //     loadTableData();
-    //     setFormData({});
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .patch(`/ready_stocks/${id}`, { ready_product: formData })
+      .then((res) => {
+        console.log(res);
+        loadTableData();
+        setFormData({});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let onChange = (e) => {
@@ -414,7 +414,7 @@ function Ready_material_stock() {
                 <td>{data.per_qty_selling_cost}</td>
                 <td>
                   <i className="fa fa-trash" aria-hidden="true"></i>
-                  <i className="fas fa-pencil-alt ml-3 "></i>{" "}
+                  <i className="fas fa-pencil-alt ml-3 " data-toggle="modal" data-target="#ReadyMaterialStockModal"></i>{" "}
                 </td>
               </tr>:null
             ))}
