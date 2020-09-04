@@ -13,14 +13,13 @@ toast.configure();
 function Ready_material_stock() {
   const [formData, setFormData] = React.useState({});
   const [form2Data, setForm2Data] = React.useState({});
-  
+
   const [tableData, setTableData] = React.useState([]);
   const [table2Data, setTable2Data] = React.useState([]);
   const [id, setId] = React.useState(0);
 
   const [category, setCategory] = React.useState([]);
   const [sub_category, setSub_Category] = React.useState([]);
-
 
   let getCategories = () => {
     axios
@@ -123,35 +122,35 @@ function Ready_material_stock() {
 
     console.log(form2Data);
 
-    Object.entries(form2Data).forEach((e)=>{
-      let key = e[0].split('-')[0];
-      let index = e[0].split('-')[1];
-      let value =e[1];
-      if(key==='product_id'){
-        let id = e[0].split('-')[2];
-        required_data[index]={
+    Object.entries(form2Data).forEach((e) => {
+      let key = e[0].split("-")[0];
+      let index = e[0].split("-")[1];
+      let value = e[1];
+      if (key === "product_id") {
+        let id = e[0].split("-")[2];
+        required_data[index] = {
           ...required_data[index],
-          ['raw_material_id']:id,
-          ['ready_product_id']:t.product_id
-         }
-      }
-      else{
-      required_data[index]={
-        ...required_data[index],
-        [key]:value,
-       }
+          ["raw_material_id"]: id,
+          ["ready_product_id"]: t.product_id,
+        };
+      } else {
+        required_data[index] = {
+          ...required_data[index],
+          [key]: value,
+        };
       }
     });
 
     console.log(required_data);
-    required_data.map((data)=>{
-      axios.post('/manufacturing',{manufacturing_raw_qty:data}).then((res)=>{
-        if(res.status===200){
-          console.log('send');
-        }
-      })
-    })
-
+    required_data.map((data) => {
+      axios
+        .post("/manufacturing", { manufacturing_raw_qty: data })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("send");
+          }
+        });
+    });
     axios
       .patch(`/ready_stocks/${id}`, { ready_product: formData })
       .then((res) => {
@@ -193,19 +192,29 @@ function Ready_material_stock() {
     backgroundColor: "#0f4c75",
   };
 
-  let getRawStocks = ()=>{
-    axios.get('/raw_stocks').then((res)=>{
-      const {raw_materials} = res.data;
-      console.log(raw_materials);
+  let getRawStocks = () => {
+    axios.get("/raw_stocks").then((res) => {
+      const { raw_materials } = res.data;
+      // console.log(raw_materials);
+      let required_data = {};
+      raw_materials.forEach((data, i) => {
+        required_data= {...required_data, 
+          [`raw_material_per_unit_rate-${i}`]: data.rate ,
+          [`raw_material_per_unit_qty-${i}`]:data.qty,
+          [`product_id-${i}-${data.product_id}`]:data.product_id,
+        };
+      });
+      // console.log(required_data);
+      setForm2Data(required_data);
       setTable2Data(raw_materials);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     getCategories();
     loadTableData();
     getRawStocks();
-  }, []);
+  },[]);
 
   return (
     <>
@@ -357,7 +366,12 @@ function Ready_material_stock() {
               </div>
 
               {/* Raw Material Product */}
-              <Raw_material_product formData={form2Data} setFormData={setForm2Data} tableData={table2Data} />
+               <Raw_material_product
+                formData={form2Data}
+                setFormData={setForm2Data}
+                tableData={table2Data}
+              />
+             
 
               <div className="card-footer">
                 <button
@@ -403,21 +417,22 @@ function Ready_material_stock() {
           </thead>
 
           <tbody>
-            {tableData.map((data, i) => (
-              (data.id===data.product_category_id)?
-                 <tr key={i}>
-                <td>{data.category_name}</td>
-                <td>{data.product_name}</td>
-                <td>{data.qty}</td>
-                <td>{data.standard_weight}</td>
-                <td>{data.standard_size}</td>
-                <td>{data.per_qty_selling_cost}</td>
-                <td>
-                  <i className="fa fa-trash" aria-hidden="true"></i>
-                  <i className="fas fa-pencil-alt ml-3 " data-toggle="modal" data-target="#ReadyMaterialStockModal"></i>{" "}
-                </td>
-              </tr>:null
-            ))}
+            {tableData.map((data, i) =>
+              data.id === data.product_category_id ? (
+                <tr key={i}>
+                  <td>{data.category_name}</td>
+                  <td>{data.product_name}</td>
+                  <td>{data.qty}</td>
+                  <td>{data.standard_weight}</td>
+                  <td>{data.standard_size}</td>
+                  <td>{data.per_qty_selling_cost}</td>
+                  <td>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                    <i className="fas fa-pencil-alt ml-3 "></i>{" "}
+                  </td>
+                </tr>
+              ) : null
+            )}
           </tbody>
         </table>
       </div>
