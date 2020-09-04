@@ -51,7 +51,6 @@ function Ready_material_stock() {
   const loadTableData = () => {
     axios.get("/ready_stocks/forTable").then((res) => {
       const { tableData } = res.data;
-      console.log(tableData);
       setTableData(tableData);
     });
   };
@@ -122,22 +121,33 @@ function Ready_material_stock() {
 
     console.log(form2Data);
 
+    let should_be_included = [];
+    Object.entries(form2Data).forEach((e) => {
+      let index = e[0].split("-")[1];
+      let value = e[1];
+      if (value === true) {
+        should_be_included.push(index);
+      }
+    });
+console.log(should_be_included);
     Object.entries(form2Data).forEach((e) => {
       let key = e[0].split("-")[0];
       let index = e[0].split("-")[1];
       let value = e[1];
-      if (key === "product_id") {
-        let id = e[0].split("-")[2];
-        required_data[index] = {
-          ...required_data[index],
-          ["raw_material_id"]: id,
-          ["ready_product_id"]: t.product_id,
-        };
-      } else {
-        required_data[index] = {
-          ...required_data[index],
-          [key]: value,
-        };
+      if (should_be_included.includes(index)) {
+        if (key === "product_id") {
+          let id = e[0].split("-")[2];
+          required_data[index] = {
+            ...required_data[index],
+            ["raw_material_id"]: id,
+            ["ready_product_id"]: t.product_id,
+          };
+        } else {
+          required_data[index] = {
+            ...required_data[index],
+            [key]: value,
+          };
+        }
       }
     });
 
@@ -149,6 +159,9 @@ function Ready_material_stock() {
           if (res.status === 200) {
             console.log("send");
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     });
     axios
@@ -198,10 +211,11 @@ function Ready_material_stock() {
       // console.log(raw_materials);
       let required_data = {};
       raw_materials.forEach((data, i) => {
-        required_data= {...required_data, 
-          [`raw_material_per_unit_rate-${i}`]: data.rate ,
-          [`raw_material_per_unit_qty-${i}`]:data.qty,
-          [`product_id-${i}-${data.product_id}`]:data.product_id,
+        required_data = {
+          ...required_data,
+          [`raw_material_per_unit_rate-${i}`]: data.rate,
+          [`raw_material_per_unit_qty-${i}`]: data.qty,
+          [`product_id-${i}-${data.product_id}`]: data.product_id,
         };
       });
       // console.log(required_data);
@@ -214,7 +228,7 @@ function Ready_material_stock() {
     getCategories();
     loadTableData();
     getRawStocks();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -366,12 +380,11 @@ function Ready_material_stock() {
               </div>
 
               {/* Raw Material Product */}
-               <Raw_material_product
+              <Raw_material_product
                 formData={form2Data}
                 setFormData={setForm2Data}
                 tableData={table2Data}
               />
-             
 
               <div className="card-footer">
                 <button
