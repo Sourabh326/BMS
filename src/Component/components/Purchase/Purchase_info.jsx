@@ -300,10 +300,11 @@ const Purchase_info = () => {
         
         {/* Tansport Info Table */}
         <Transport_info_table />
-
+       
         {/* Purchase Main Table */}
+        <div className="mt-5">
         <Purchase_table />
-
+        </div>
       </div>
     </>
   );

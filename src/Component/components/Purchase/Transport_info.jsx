@@ -4,23 +4,15 @@ import MaterialTable from 'material-table';
 export default function Transport_info_table() {
   const [state, setState] = React.useState({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
+      { title: 'Vehicle Name', field: 'vehicle_name' },
+      { title: 'Vehicle No.', field: 'vehicle_no' },
+      { title: 'Driver Name', field: 'driver_name' },
+      { title: 'Driver Contact', field: 'driver_contact_no' },
+      { title: 'No. of Trip / Per day', field: 'no_of_trip_a_day' },
     ],
     data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
+      { vehicle_name: 'Tata Motors', vehicle_no: 'MP50 3233',driver_name: 'Mukesh',driver_contact_no:'78347347',no_of_trip_a_day: '2' },
+      
     ],
   });
 

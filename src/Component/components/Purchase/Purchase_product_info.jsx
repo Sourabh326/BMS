@@ -12,12 +12,15 @@ const Purchase_product_info=()=> {
   <thead style={{backgroundColor:'#f1f3de',border:'none'}}>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Vendor</th>
+      <th scope="col">Purchase date</th>
+      <th scope="col">Purchase time</th>
+      <th scope="col">Raw Material</th>
+      <th scope="col">Unit</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">GST(%)</th>
+      <th scope="col">GST Amount</th>
+      <th scope="col">Total Amount</th>
     </tr>
   </thead>
   <tbody>
@@ -29,9 +32,15 @@ const Purchase_product_info=()=> {
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
     </tr>
     <tr>
       <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
       <td>Mark</td>
       <td>Otto</td>
       <td>@mdo</td>
