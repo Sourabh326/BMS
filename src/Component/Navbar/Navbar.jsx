@@ -266,15 +266,7 @@ const Navbar = () => {
                   <p>Purchase Info</p>
                 </Link>
               </li>
-              <li className="nav-item">
-              <Link to="/purchase_product_info" className="nav-link">
-              <i className="far fa-circle nav-icon"></i>
-              <p>
-                Purchase Product Info
-                <i className="fas fa-angle-left right"></i>
-              </p>
-              </Link>
-             </li>
+              
             
              
              </ul>

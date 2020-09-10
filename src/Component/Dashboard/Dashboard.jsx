@@ -4,7 +4,6 @@ import VendorEntry from "../components/Vendor/VendorEntry";
 import Raw_material from "../components/RawMaterialStock/Raw_material";
 import Ready_material_stock from "../components/ReadyMaterial/Ready_material_stock";
 import Purchase_info from "../components/Purchase/Purchase_info";
-import Purchase_product_info from "../components/Purchase/Purchase_product_info";
 import Product_category from "../components/ReadyMaterial/Product_category";
 import Product_sub_category from "../components/ReadyMaterial/Product_sub_category";
 import Production_info from "../components/Production/Production_info";
@@ -38,11 +37,7 @@ const Dashboard = () => {
           component={Ready_material_stock}
         />
         <Route exact path="/purchase_info" component={Purchase_info} />
-        <Route
-          exact
-          path="/purchase_product_info"
-          component={Purchase_product_info}
-        />
+        
         <Route exact path="/product_category" component={Product_category} />
         <Route exact path="/production_info" component={Production_info} />
         <Route

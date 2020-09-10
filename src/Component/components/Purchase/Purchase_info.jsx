@@ -1,10 +1,11 @@
 import React from "react";
 import Navbar from "../../Navbar/Navbar";
-import Purchase_table from "./Purchase_table";
+import Purchase_Billing_table from "./Purchase_Billing_table";
 import DateFnsUtils from "@date-io/date-fns";
-import Purchase_product_info from "./Purchase_product_info";
-import Transport_info_table from './Transport_info';
+import Purchase_info_table from "./Purchase_info_table";
+import Purchase_transportation from "./Purchase_transportation";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Add_vendor_modal from './Add_vendor_modal';
 import Radio from "@material-ui/core/Radio";
 
 import {
@@ -12,7 +13,6 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-
 
 const Purchase_info = () => {
   const [selectedDate, setSelectedDate] = React.useState(
@@ -23,6 +23,9 @@ const Purchase_info = () => {
     setSelectedDate(date);
   };
 
+  let formHeader = {
+    backgroundColor: "#0f4c75",
+  };
   let button = {
     color: "#fff",
     fontSize: "18px",
@@ -31,17 +34,6 @@ const Purchase_info = () => {
     border: "none",
     boxShadow: "10px 5px -3px (#ccc)",
   };
-  let canclebutton = {
-    color: "#fff",
-    fontSize: "18px",
-    fontFamily: "sans-serif",
-    backgroundColor: "#2d4059",
-    border: "none",
-    boxShadow: "10px 5px -3px (#ccc)",
-  };
-  let formHeader = {
-    backgroundColor: "#0f4c75",
-  };
 
   return (
     <>
@@ -49,8 +41,10 @@ const Purchase_info = () => {
       <div className="main-footer">
         <div className="card card-info">
           <div className="card-header" style={formHeader}>
-            <h3 className="card-title">Personal Info</h3>
+            <h3 className="card-title">Purchase Info</h3>
           </div>
+
+          {/* Insert Data Into Parchase_info Table in Databse */}
 
           <form className="form-horizontal">
             <div className="card-body">
@@ -64,7 +58,7 @@ const Purchase_info = () => {
                       htmlFor="default-outline-select"
                       className=" col-sm-10 col-form-label"
                     >
-                      Product Category
+                      Vendor
                     </label>
                     <select
                       id="default-outline-select"
@@ -76,6 +70,13 @@ const Purchase_info = () => {
                       </option>
                       <option>Mukesh</option>
                     </select>
+                    <div class="input-group-append">
+                      <h6 className="ml-2 mt-2">Or</h6>
+                      <button data-toggle="modal" data-target="#CategoryModal" style={{background:'#b7efcd',color:'black'}} class="btn btn-xs ml-2 rounded-pill" type="button">
+                        Add New Vendor
+                      </button>
+                      <Add_vendor_modal />
+                    </div>
                   </div>
                 </div>
                 <div className="col-md-4">
@@ -110,7 +111,7 @@ const Purchase_info = () => {
                       htmlFor="production_qty"
                       className=" col-sm-10  col-form-label"
                     >
-                      Purchase date
+                      Purchase Time
                     </label>
                     <div className="col-sm-10">
                       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -132,7 +133,7 @@ const Purchase_info = () => {
               <hr style={{ border: "1px solid #e0ece4", width: "100%" }} />
 
               {/* 2nd Row Purchase From */}
-              {/* Insert data into Purchase_product_info table */}
+              {/* Insert data into Purchase_info_table table */}
 
               <div className="row">
                 <div className="col-md-4">
@@ -199,7 +200,7 @@ const Purchase_info = () => {
               {/* 3rd Row */}
               {/* Insert data into Purchase_info */}
 
-              <div className="row p-2" style={{backgroundColor:'#f1f3de'}}>
+              <div className="row p-2" style={{ backgroundColor: "#f1f3de" }}>
                 <div className="col-md-4">
                   <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                     <div className="col-md-6">
@@ -278,32 +279,24 @@ const Purchase_info = () => {
                 </div>
               </div>
             </div>
-           
-            <div className="card-footer">
+
+            {/* Purchase Table Component */}
+            <Purchase_info_table />
+
+            <div className="card-footer bg-white">
               <button type="submit" style={button} className="btn btn-info">
-                Submit <i className="fa fa-paper-plane" aria-hidden="true"></i>
-              </button>
-              <button
-                type="submit"
-                style={canclebutton}
-                className="btn btn-dark cancle ml-4"
-              >
-                Cancel <i className="fa fa-times" aria-hidden="true"></i>
+                Add in List
               </button>
             </div>
           </form>
         </div>
 
-         {/* Temprerily Table Component */}
-         <Purchase_product_info />
+        {/* Transportation  */}
+        <Purchase_transportation />
 
-        
-        {/* Tansport Info Table */}
-        <Transport_info_table />
-       
-        {/* Purchase Main Table */}
+        {/* Purchase Main Billing Table */}
         <div className="mt-5">
-        <Purchase_table />
+          <Purchase_Billing_table />
         </div>
       </div>
     </>

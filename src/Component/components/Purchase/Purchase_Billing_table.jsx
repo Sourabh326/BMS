@@ -1,24 +1,32 @@
-import React from 'react';
-import MaterialTable from 'material-table';
+// Fetch the Data From Purchse_info Table from Database
 
-export default function Transport_info_table() {
+import React from "react";
+import MaterialTable from "material-table";
+
+export default function Purchase_Billing_table() {
   const [state, setState] = React.useState({
     columns: [
-      { title: 'Vehicle Name', field: 'vehicle_name' },
-      { title: 'Vehicle No.', field: 'vehicle_no' },
-      { title: 'Driver Name', field: 'driver_name' },
-      { title: 'Driver Contact', field: 'driver_contact_no' },
-      { title: 'No. of Trip / Per day', field: 'no_of_trip_a_day' },
+      { title: "Vendor", field: "Vendor" },
+      { title: "Purchase Date", field: "Purchase_Date" },
+      { title: "Purchase Time", field: "Purchase_Time" },
+      { title: "Vendor Bill No.", field: "Vendor_Bill" },
+      { title: "GST (%)", field: "GST" },
+      { title: "GST Amount", field: "GST_Amount" },
     ],
     data: [
-      { vehicle_name: 'Tata Motors', vehicle_no: 'MP50 3233',driver_name: 'Mukesh',driver_contact_no:'78347347',no_of_trip_a_day: '2' },
-      
+      {
+        Vendor: "Vendor",
+        Purchase_Date: "Baran",
+        Purchase_Time: "23:39pm",
+        Vendor_Bill: "2323",
+        GST: "18%",
+        GST_Amount: "233",
+      },
     ],
   });
-
   return (
     <MaterialTable
-      title="Transport Info"
+      title="Billing Info"
       columns={state.columns}
       data={state.data}
       editable={{

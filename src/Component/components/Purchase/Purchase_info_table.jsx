@@ -1,30 +1,41 @@
+// Fetch Te Data From Purchase_info Table from Databse
+
 import React from "react";
 import MaterialTable from "material-table";
 
-export default function Purchase_table() {
+export default function Purchase_product_info() {
   const [state, setState] = React.useState({
     columns: [
       { title: "Vendor", field: "Vendor" },
       { title: "Purchase Date", field: "Purchase_Date" },
       { title: "Purchase Time", field: "Purchase_Time" },
+      { title: "Raw Material", field: "Raw_material" },
+      { title: "Unit", field: "Unit" },
+      { title: "Quantity", field: "Quantity" },
       { title: "Vendor Bill No.", field: "Vendor_Bill" },
       { title: "GST (%)", field: "GST" },
       { title: "GST Amount", field: "GST_Amount" },
+      { title: "Total Amount", field: "Net_amount" },
+      
     ],
     data: [
       {
         Vendor: "Vendor",
         Purchase_Date: "Baran",
         Purchase_Time: "23:39pm",
+        Raw_material: "Brick",
+        Unit: "Kg",
+        Quantity:"23",
         Vendor_Bill: "2323",
         GST: "18%",
         GST_Amount: "233",
+        Net_amount:"3434"
       },
     ],
   });
   return (
     <MaterialTable
-      title="Billing Info"
+      title="Purchase Info"
       columns={state.columns}
       data={state.data}
       editable={{
