@@ -24,6 +24,7 @@ export default function Transport_info_table() {
       },
     ],
   });
+  
 
   return (
     <MaterialTable

@@ -1,9 +1,33 @@
+import axios from "axios";
 // Insert Data Into Purchase_transportation_info Table In Databse
 
-import React from "react";
+import React, { useEffect } from "react";
 import Transport_info_table from "./Transport_info_table";
+import $ from "jquery"
 
 const Purchase_transportation = () => {
+
+const[formData , setFormData]=React.useState({})
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  axios.post("/purchase_transport_info",{purchases_transport:formData}).then((res)=>{
+    console.log(res);
+  }).catch((err)=>{ console.log(err); })
+
+}
+
+// onChnage 
+const onChange = (e) => {
+  let { name, value } = e.currentTarget;
+  setFormData((state) => ({
+    ...state,
+    [name]: value,
+  }));
+
+};
+
+
   let formHeader = {
     backgroundColor: "#0f4c75",
   };
@@ -24,7 +48,7 @@ const Purchase_transportation = () => {
           <h3 className="card-title">Transport Entry </h3>
         </div>
 
-        <form className="form-horizontal">
+        <form className="form-horizontal" onSubmit={handleSubmit}>
           <div className="card-body">
             <div className="row">
               {/* 1st Row */}
@@ -40,9 +64,11 @@ const Purchase_transportation = () => {
                   <select
                     id="default-outline-select"
                     name="raw_material_id"
-                    className="form-control col-sm-10"
+                    onChange={onChange}
+                    className=" col-sm-10"
                   >
                     <option value="none">Select</option>
+                    <option value="2">Gypsum</option>
                     ))
                   </select>
                 </div>
@@ -56,9 +82,10 @@ const Purchase_transportation = () => {
                   <div className="col-sm-10">
                     <input
                       type="text"
-                      className="form-control"
+                      className=""
                       name="driver_name"
                       placeholder="Driver Name"
+                      onChange={onChange}
                     />
                   </div>
                 </div>
@@ -77,9 +104,10 @@ const Purchase_transportation = () => {
                   <div className="col-sm-10">
                     <input
                       type="text"
-                      className="form-control"
+                      className="vehicle_name"
                       name="vehicle_name"
                       placeholder="Vehicle Name"
+                      onChange={onChange}
                     />
                   </div>
                 </div>
@@ -93,9 +121,10 @@ const Purchase_transportation = () => {
                   <div className="col-sm-10">
                     <input
                       type="text"
-                      className="form-control"
+                      className=""
                       name="driver_contact_no"
                       placeholder="Driver Mobile Number"
+                      onChange={onChange}
                     />
                   </div>
                 </div>
@@ -114,9 +143,10 @@ const Purchase_transportation = () => {
                   <div className="col-sm-10">
                     <input
                       type="text"
-                      className="form-control"
+                      className=""
                       name="vehicle_no"
                       placeholder="Vehicle No."
+                      onChange={onChange}
                     />
                   </div>
                 </div>
@@ -130,9 +160,10 @@ const Purchase_transportation = () => {
                   <div className="col-sm-10">
                     <input
                       type="text"
-                      className="form-control"
+                      className=""
                       placeholder="Ex: 2"
                       name="no_of_trip_a_day"
+                      onChange={onChange}
                     />
                   </div>
                 </div>
