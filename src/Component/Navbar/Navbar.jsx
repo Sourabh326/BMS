@@ -281,18 +281,12 @@ const Navbar = () => {
             </a>
             <ul className="nav nav-treeview">
               <li className="nav-item">
-                <a href="pages/UI/general.html" className="nav-link">
+                <Link to="/sales" className="nav-link">
                   <i className="far fa-circle nav-icon"></i>
-                  <p>General</p>
-                </a>
+                  <p>Sales</p>
+                </Link>
               </li>
-              <li className="nav-item">
-                <a href="#" className="nav-link">
-                  <i className="far fa-circle nav-icon"></i>
-                  <p>Icons</p>
-                </a>
-              </li>
-              
+             
             </ul>
           </li>
           <li className="nav-item has-treeview">

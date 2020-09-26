@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
-import $ from "jquery";
+import Employee_table from "./Employee_table"
 import axios from "axios";
 import Navbar from "../../Navbar/Navbar";
 import EditModel from "./EditModel";
 import Category_modal from "./Category_modal";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+
+
 
 function Employee() {
   const [formData, setFormData] = React.useState({});
@@ -19,6 +26,11 @@ function Employee() {
       setTableDate(employees);
     });
   };
+  // for date
+  const [selectedDate, setSelectedDate] = React.useState(
+    new Date("2014-08-18T21:11:54")
+  );
+
   const AddCategory = (categories) => {
     axios
       .post("/employees/categories", {categories})
@@ -31,14 +43,9 @@ function Employee() {
       });
   };
 
-  useEffect(() => {
-    $("#add-vendor").hide();
-    $("#addVendorBtn").click(() => {
-      $("#add-vendor").slideToggle();
-    });
-    getCategories();
-    loadTableData();
-  }, []);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const Edit = (id) => {
     setShowEditModal(state=>!state);
@@ -73,7 +80,7 @@ function Employee() {
       .post("/employees", { employee: formData })
       .then((res) => {
         loadTableData();
-        $("#add-vendor").slideToggle();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -87,24 +94,33 @@ function Employee() {
       [name]: value,
     }));
   };
-
+  let formHeader = {
+    backgroundColor: "#0f4c75",
+  };
+  let button = {
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "sans-serif",
+    backgroundColor: "#e11d74",
+    border: "none",
+    boxShadow: "10px 5px -3px (#ccc)",
+    
+  };
   return (
     <>
       <Navbar />
       <div className="main-footer">
         <div className="container-fluid">
-          <button className="btn btn-danger  mb-5" id="addVendorBtn">
-            Add Employee
-          </button>
-          <div className="card card-info" id="add-vendor">
-            <div className="card-header">
-              <h3 className="card-title">Employee Entry</h3>
+          
+          <div className="card">
+            <div className="card-header" style={formHeader} >
+              <h3 className="card-title text-white">Employee Entry</h3>
             </div>
 
             <form className="form-horizontal" onSubmit={handleSubmit}>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div className="form-group row">
                       <div className="col-sm-10">
                         <button
@@ -125,6 +141,8 @@ function Employee() {
                         <select
                           value={formData["cat_id"]||'none'}
                           name="cat_id"
+                          className=" col-md-10 col-sm-4 "
+                          
                           style={{
                             width: "100%",
                             height: "40px",
@@ -157,7 +175,7 @@ function Employee() {
                       <div className="col-sm-10">
                         <input
                           type="text"
-                          className="form-control"
+                          className=""
                           value={formData["employee_name"]||''}
                           name="employee_name"
                           placeholder="Company name"
@@ -165,41 +183,10 @@ function Employee() {
                         />
                       </div>
                     </div>
-                    <div className="form-group row">
-                      <label for="city" className=" col-sm-10  col-form-label">
-                        City
-                      </label>
-                      <div className="col-sm-10">
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={formData["city"] ||''}
-                          name="city"
-                          placeholder="City Name"
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label
-                        for="address"
-                        className=" col-sm-10  col-form-label"
-                      >
-                        Address
-                      </label>
-                      <div className="col-sm-10">
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={formData["address"]||''}
-                          name="address"
-                          placeholder="Address"
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div>
+                    
+                    
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div className="form-group row">
                       <label
                         for="contact_one"
@@ -210,7 +197,7 @@ function Employee() {
                       <div className="col-sm-10">
                         <input
                           type="text"
-                          className="form-control"
+                          className=""
                           value={formData["contact_one"] ||''}
                           name="contact_one"
                           placeholder="Contact Number"
@@ -228,10 +215,28 @@ function Employee() {
                       <div className="col-sm-10">
                         <input
                           type="text"
-                          className="form-control"
+                          className=""
                           value={formData["contact_two"]||''}
                           name="contact_two"
                           placeholder="Alternet Contact Number"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div className="col-md-4">
+                  <div className="form-group row">
+                      <label for="city" className=" col-sm-10  col-form-label">
+                        City
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className=""
+                          value={formData["city"] ||''}
+                          name="city"
+                          placeholder="City Name"
                           onChange={handleChange}
                         />
                       </div>
@@ -246,7 +251,7 @@ function Employee() {
                       <div className="col-sm-10">
                         <input
                           type="Number"
-                          className="form-control"
+                          className=""
                           value={formData["basic_salary"]||'0'}
                           name="basic_salary"
                           placeholder="Basic Salary"
@@ -255,13 +260,62 @@ function Employee() {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
+                <div className="row">
+                  <div className="col-md-6">
+                  <div className="form-group row">
+                      <label
+                        for="address"
+                        className=" col-sm-10  col-form-label"
+                      >
+                        Address
+                      </label>
+                      <div className="col-sm-12">
+                        <textarea
+                          className="form-control"
+                          value={formData["address"]||''}
+                          name="address"
+                          placeholder="Address"
+                          onChange={handleChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                  <div className="form-group row">
+                    <label
+                      htmlFor="production_qty"
+                      className=" col-sm-10  col-form-label"
+                    >
+                      Purchase date
+                    </label>
+                    <div className="col-sm-10">
+                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                          margin="normal"
+                          name="purchase_date"
+                          id="date-picker-dialog"
+                          label="Date picker dialog"
+                          format="MM/dd/yyyy"
+                          value={selectedDate}
+                          onChange={handleDateChange}
+                          KeyboardButtonProps={{
+                            "aria-label": "change date",
+                          }}
+                        />
+                      </MuiPickersUtilsProvider>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
               </div>
               <div className="card-footer">
                 <button
                   type="submit"
                   className="btn btn-info"
                   onClick={handleSubmit}
+                  style={button}
                 >
                   Add Employee
                 </button>
@@ -283,98 +337,10 @@ function Employee() {
             setshowAddCategoryModal={setshowAddCategoryModal}
           />
         ) : null}
-        {/* Vendor Table */}
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card bg-info">
-                <div className="card-header ">
-                  <h3 className="card-title">Employee Details</h3>
-                </div>
+        {/* Employee Table */}
+        <Employee_table />
+          
 
-                <div className="card-body">
-                  <table
-                    className="table table-striped table-responsive-lg bg-white"
-                    id="vendorTable"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Cat Id</th>
-                        <th>Employee Name</th>
-                        <th>City</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Alternate Number</th>
-                        <th>Basic Salary</th>
-                        <th colSpan="2">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tableData.map((employee) => (
-                        <tr key={employee.id}>
-                          <td>{employee.id}</td>
-                          <td>{employee.employee_name}</td>
-                          <td>{employee.city}</td>
-                          <td>{employee.address}</td>
-                          <td>{employee.contact_one}</td>
-                          <td>{employee.contact_two}</td>
-                          <td>{employee.basic_salary}</td>
-                          <td>
-                            <i
-                              class="fas fa-edit btn btn-success btn-xs"
-                              onClick={() => Edit(employee.id)}
-                            >
-                              {" "}
-                              Edit
-                            </i>{" "}
-                          </td>
-                          <td>
-                            <button
-                              className="btn btn-danger btn-xs"
-                              onClick={() => deleteEmployee(employee.id)}
-                            >
-                              <i class="fas fa-trash"></i> Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="card-footer clearfix">
-                  <ul className="pagination pagination-sm m-0 float-right">
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        &laquo;
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        &raquo;
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Edit Model */}

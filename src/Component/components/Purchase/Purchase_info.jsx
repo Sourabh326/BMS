@@ -5,18 +5,18 @@ import DateFnsUtils from "@date-io/date-fns";
 import Purchase_info_table from "./Purchase_info_table";
 import Purchase_transportation from "./Purchase_transportation";
 
+
 // purchase product info form
 import Purchase_product_info from "./purchase_product_info/Purchase_product_info";
-
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Add_vendor_modal from "./Add_vendor_modal";
-import Radio from "@material-ui/core/Radio";
+
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import axios from "axios";
+
 
 const Purchase_info = () => {
   // for date
@@ -26,8 +26,6 @@ const Purchase_info = () => {
 
   // For purchass
   const [formData, setFormData] = React.useState({});
-  // For purchase Product
-  const [puchaseProductData, setPuchaseProductData] = React.useState({});
 
   // onChnage
   const onChange = (e) => {
@@ -37,17 +35,6 @@ const Purchase_info = () => {
       [name]: value,
     }));
   };
-
-  // onChnage for purchase_product_info
-  const onPurchaseProductChange = (e) => {
-    let { name, value } = e.currentTarget;
-    setPuchaseProductData((state) => ({
-      ...state,
-      [name]: value,
-    }));
-  };
-  console.log(puchaseProductData)
-  
 
   // get vendor only
   const [vendor, setVendor] = useState([]);
@@ -73,16 +60,6 @@ const Purchase_info = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    axios
-      .post("/purchase_product_info", { purchases_product: puchaseProductData })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    
   };
 
   const handleDateChange = (date) => {
@@ -90,9 +67,7 @@ const Purchase_info = () => {
   };
 
   //for Form Design
-  let formHeader = {
-    backgroundColor: "#0f4c75",
-  };
+  
   let button = {
     color: "#fff",
     fontSize: "18px",
@@ -101,7 +76,10 @@ const Purchase_info = () => {
     border: "none",
     boxShadow: "10px 5px -3px (#ccc)",
   };
-
+  let formHeader = {
+    backgroundColor: "#0f4c75",
+  };
+  
   return (
     <>
       <Navbar />
@@ -111,15 +89,21 @@ const Purchase_info = () => {
             <h3 className="card-title">Purchase Info</h3>
           </div>
 
-          {/* Insert Data Into Parchase_info Table in Databse */}
+          {/*  Purchase product info From */}
+          {/* Insert data into Purchase_product_info Component table */}
+          <div className="card-body" >
+            <h5>Purchase Product Info</h5>
+            <Purchase_product_info />
+          </div>
 
-          <form className="form-horizontal" onSubmit={handleSubmit}>
+          {/* Insert Data Into Parchase_info Table in Databse */}
+          <form className="form-horizontal"   onSubmit={handleSubmit}>
             <div className="card-body">
               {/* 1st Row Vendor (Personal Info) */}
               {/* Insert data in Purchase_info table */}
               <h5>Personal Info</h5>
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
                     <label
                       htmlFor="default-outline-select"
@@ -131,11 +115,11 @@ const Purchase_info = () => {
                       id="default-outline-select"
                       name="vendor_id"
                       onChange={onChange}
-                      className=" col-md-10 col-sm-4 mt-2"
+                      className=" col-md-10 col-sm-4 "
                     >
                       <option disabled>Select</option>
-                      {vendor.map((res) => (
-                        <option value={res.vendor_id}>
+                      {vendor.map((res, index) => (
+                        <option key={index} value={res.vendor_id}>
                           {" "}
                           {res.person_name}{" "}
                         </option>
@@ -156,7 +140,33 @@ const Purchase_info = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4">
+
+                <div className="col-md-3">
+                  <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+                    <label
+                      htmlFor="default-outline-select"
+                      className=" col-sm-10 col-form-label"
+                    >
+                      Transportation Type
+                    </label>
+                    <select
+                      id="default-outline-select"
+                      name="transporting_type"
+                      onChange={onChange}
+                      className=" col-md-10 col-sm-4 "
+                    >
+                      <option disabled value="none">
+                        Select
+                      </option>
+                      <option value="self">Self</option>
+                      <option value="company">By Company</option>
+                      <option value="third party vehicle">
+                        Third Party vehicle
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="col-md-3">
                   <div className="form-group row">
                     <label
                       htmlFor="production_qty"
@@ -182,8 +192,8 @@ const Purchase_info = () => {
                     </div>
                   </div>
                 </div>
-                <hr />
-                <div className="col-md-4">
+
+                <div className="col-md-3">
                   <div className="form-group row">
                     <label
                       htmlFor="production_qty"
@@ -209,17 +219,7 @@ const Purchase_info = () => {
                   </div>
                 </div>
               </div>
-              <hr style={{ border: "1px solid #e0ece4", width: "100%" }} />
-
-              {/* 2nd Row Purchase product info From */}
-              {/* Insert data into Purchase_product_info Component table */}
-              <div>
-                <h5>Purchase Product Info</h5>
-                <Purchase_product_info onChange={onPurchaseProductChange} />
-              </div>
-
               {/* 3rd Row*/}
-
               <div className="row">
                 <div className="col-md-3">
                   <div className="form-group row">
@@ -240,25 +240,7 @@ const Purchase_info = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-3">
-                  <div className="form-group row">
-                    <label
-                      htmlFor="production_qty"
-                      className=" col-sm-12  col-form-label"
-                    >
-                      Total Transport and Handling Charges
-                    </label>
-                    <div className="col-sm-10">
-                      <input
-                        type="text"
-                        className=""
-                        name="total_transport_and_handling_charges"
-                        placeholder="Ex: 334"
-                        onChange={onChange}
-                      />
-                    </div>
-                  </div>
-                </div>
+
                 <div className="col-md-3">
                   <div className="form-group row">
                     <label
@@ -273,6 +255,25 @@ const Purchase_info = () => {
                         className=""
                         name="other_charges"
                         placeholder="Ex: 876"
+                        onChange={onChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <div className="form-group row">
+                    <label
+                      htmlFor="production_qty"
+                      className=" col-sm-10  col-form-label"
+                    >
+                      Total GST Amount
+                    </label>
+                    <div className="col-sm-10">
+                      <input
+                        type="text"
+                        className=""
+                        name="total_gst_amount"
+                        placeholder="GST Amount"
                         onChange={onChange}
                       />
                     </div>
@@ -299,159 +300,112 @@ const Purchase_info = () => {
                   </div>
                 </div>
               </div>
-
               {/* 4th Row */}
               {/* Insert data into Purchase_info */}
-
               <div className="row p-2">
-                <div className="col-md-8">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="form-group row">
-                        <label
-                          htmlFor="production_qty"
-                          className=" col-sm-10  col-form-label"
-                        >
-                          GST (%)
-                        </label>
-                        <div className="col-sm-10">
-                          <input
-                            type="text"
-                            className=""
-                            name="gst_percent"
-                            placeholder="Ex: 18%"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group row">
-                        <label
-                          htmlFor="production_qty"
-                          className=" col-sm-10  col-form-label"
-                        >
-                          Total GST Amount
-                        </label>
-                        <div className="col-sm-10">
-                          <input
-                            type="text"
-                            className=""
-                            name="total_gst_amount"
-                            placeholder="GST Amount"
-                            onChange={onChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group row">
-                        <label
-                          htmlFor="production_qty"
-                          className=" col-sm-10  col-form-label"
-                        >
-                          Total Net Amount
-                        </label>
-                        <div className="col-sm-10">
-                          <input
-                            type="text"
-                            className=""
-                            name="total_net_amount"
-                            placeholder="Ex: 12333 /-"
-                            onChange={onChange}
-                          />
-                        </div>
+                <div className="row">
+                  <div className="col-md-3">
+                    <div className="form-group row">
+                      <label
+                        htmlFor="production_qty"
+                        className=" col-sm-10  col-form-label"
+                      >
+                        Total Net Amount
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className=""
+                          name="total_net_amount"
+                          placeholder="Ex: 12333 /-"
+                          onChange={onChange}
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
-                    <div className="col-md-6">
-                      <FormControlLabel
-                        value="including_gst"
-                        name="gst_including_excluding_type"
-                        onChange={onChange}
-                        control={<Radio />}
-                        label="Including Gst"
-                      />
+                  <div className="col-md-6">
+                    <div className="form-group row">
+                      <label
+                        htmlFor="production_qty"
+                        className=" col-sm-12  col-form-label"
+                      >
+                        Total Transport and Handling Charges
+                      </label>
+                      <div className="col-sm-12">
+                        <input
+                          type="text"
+                          className=""
+                          name="total_transport_and_handling_charges"
+                          placeholder="Ex: 334"
+                          onChange={onChange}
+                        />
+                      </div>
                     </div>
-                    <div className="col-md-6">
-                      <FormControlLabel
-                        value="excluding_gst"
-                        name="gst_including_excluding_type"
-                        onChange={onChange}
-                        control={<Radio />}
-                        label="Excluding Gst"
-                      />
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-group row">
+                      <label
+                        htmlFor="production_qty"
+                        className=" col-sm-10  col-form-label"
+                      >
+                        Vendor Bill No
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          type="text"
+                          className=""
+                          name="	vendor_bill_no"
+                          placeholder="Ex: 12333 /-"
+                          onChange={onChange}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* 5th Row */}
+              {/* Submit Button */}
               <div className="row">
-                <div className="col-md-4">
-                  <div className="form-group row">
-                    <label
-                      htmlFor="production_qty"
-                      className=" col-sm-10  col-form-label"
-                    >
-                      Vendor Bill No
-                    </label>
-                    <div className="col-sm-10">
-                      <input
-                        type="text"
-                        className=""
-                        name="	vendor_bill_no"
-                        placeholder="Ex: 12333 /-"
-                        onChange={onChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
-                    <label
-                      htmlFor="default-outline-select"
-                      className=" col-sm-10 col-form-label"
-                    >
-                      Transportation Type
-                    </label>
-                    <select
-                      id="default-outline-select"
-                      name="transporting_type"
-                      onChange={onChange}
-                      className=" col-md-10 col-sm-4 "
-                    >
-                      <option disabled value="none">
-                        Select
-                      </option>
-                      <option value="self">Self</option>
-                      <option value="company">By Company</option>
-                      <option value="third party vehicle">
-                        Third Party vehicle
-                      </option>
-                    </select>
-                  </div>
-                </div>
                 <div className="col-md-4">
                   <button
                     type="submit"
                     style={button}
-                    className="btn btn-block mt-5 p-2 shadow"
+                    className="btn btn-block shadow purchse_info_submit"
                   >
                     Add in List
                   </button>
                 </div>
-              </div>
-            </div>
+              </div>{" "}
+                {/* Purchase Info Table */}
+                <div className="my-2">
+                <Purchase_info_table />
+                </div>
+              <hr style={{ border: "1px solid #e0ece4", width: "100%" }} />
 
-            {/* Purchase Table Component */}
-            <Purchase_info_table />
+             
+
+              {/* Transportation form */}
+              <Purchase_transportation />
+
+              
+            </div>
+             {/* Final Submit Button */}
+        <button
+          style={{
+            backgroundColor: "#00bcd4",
+            color: "#fff",
+            fontFamily: "sans-serif",
+            fontSize: "20px",
+          }}
+          type="submit"
+          className="btn btn-block shadow"
+        >
+          Submit
+        </button>
           </form>
         </div>
+       
 
-        {/* Transportation  */}
-        <Purchase_transportation />
+       
 
         {/* Purchase Main Billing Table */}
         <div className="mt-5">

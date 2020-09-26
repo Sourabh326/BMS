@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-toast.configure();
-const Purchase_product_info = () => {
-  const [rawStock, setRawStock] = useState([]);
-  useEffect(() => {
-    axios.get("/raw_stocks").then((res) => {
-      setRawStock(res.data.raw_materials);
-    });
-  }, []);
+const Sales_product_info = () => {
+ 
+  
 
   // For purchase Product
   const [puchaseProductData, setPuchaseProductData] = React.useState({
@@ -34,36 +27,13 @@ const Purchase_product_info = () => {
       ...state,
       [name]: value,
     }));
-    
+    console.clear();
+    console.log(puchaseProductData)
   };
   
   
   
-  // onSubmit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("/purchase_product_info", { purchases_product: puchaseProductData })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      
-
-    // Tostify
-    toast("🦄 Purchase Product Added !", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
+  
   let button = {
     color: "#fff",
     fontSize: "18px",
@@ -75,7 +45,10 @@ const Purchase_product_info = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} >
+        <div className="pt-3">
+            <h5>Sales Product Info</h5>
+        </div>
+      <form >
         <div className="row">
           <div className="col-md-6">
             <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
@@ -83,46 +56,40 @@ const Purchase_product_info = () => {
                 htmlFor="default-outline-select"
                 className=" col-sm-10 col-form-label"
               >
-                Raw Material
+               Unit
               </label>
               <select
                 id="default-outline-select"
-                name="raw_material_id"
+                name="qty"
                 onChange={()=>onPurchaseProductChange}
                 className=" col-md-10 col-sm-4 "
-                value={puchaseProductData['raw_material_id']}
+                value={puchaseProductData['qty']}
               >
                 <option value="none">Select</option>
-                {rawStock.map((row) => (
-                  <option value={row.product_id}> {row.product_name} </option>
-                ))}
+                
+                  <option value=""> kg </option>
+                
               </select>
             </div>
           </div>
           <div className="col-md-6">
-            <div className="form-group row pmd-textfield pmd-textfield-outline pmd-textfield-floating-label">
+          <div className="form-group row">
               <label
-                htmlFor="default-outline-select"
-                className=" col-sm-10 col-form-label"
+                htmlFor="production_qty"
+                className=" col-sm-10  col-form-label"
               >
-                Unit{" "}
-                <span style={{ fontSize: "13px", color: "silver" }}>
-                  {" "}
-                  (Ex: Kg, Little, etc.)
-                </span>
+                Receipt No.
               </label>
-              <select
-                id="default-outline-select"
-                name="unit"
-                onChange={()=>onPurchaseProductChange}
-                className=" col-md-10 col-sm-4 "
-                value={puchaseProductData['unit']}
-              >
-                <option value="none">Select</option>
-                {rawStock.map((row) => (
-                  <option value={row.unit}> {row.unit} </option>
-                ))}
-              </select>
+              <div className="col-sm-10">
+                <input
+                  type="text"
+                  className="qty"
+                  name="Receipt No"
+                  placeholder="Receipt No"
+                  onChange={()=>onPurchaseProductChange}
+                  value={puchaseProductData['Receipt No']}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -139,11 +106,11 @@ const Purchase_product_info = () => {
               <div className="col-sm-10">
                 <input
                   type="text"
-                  className="unit_price"
-                  name="unit_price"
+                  className="per_unit_rate"
+                  name="per_unit_rate"
                   placeholder="Unit price"
                   onChange={()=>onPurchaseProductChange}
-                  value={puchaseProductData['unit_price']}
+                  value={puchaseProductData['per_unit_rate']}
                 />
               </div>
             </div>
@@ -294,4 +261,4 @@ const Purchase_product_info = () => {
   );
 };
 
-export default Purchase_product_info;
+export default Sales_product_info;

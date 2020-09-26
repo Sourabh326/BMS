@@ -26,7 +26,19 @@ function Category_modal({AddCategory,setCategories,setshowAddCategoryModal}) {
       $("#categoryModal").modal("show");
     });
   }, []);
-
+ 
+  let formHeader = {
+    backgroundColor: "#0f4c75",
+  };
+  let button = {
+    color: "#fff",
+    fontSize: "18px",
+    fontFamily: "sans-serif",
+    backgroundColor: "#e11d74",
+    border: "none",
+    boxShadow: "10px 5px -3px (#ccc)",
+    
+  };
 
   return (
     <>
@@ -41,13 +53,13 @@ function Category_modal({AddCategory,setCategories,setshowAddCategoryModal}) {
         >
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header bg-info">
-                <h5 class="modal-title" id="exampleModalLabel">
+              <div class="modal-header" style={formHeader}>
+                <h5 class="modal-title text-white" id="exampleModalLabel">
                   Add New Category
                 </h5>
                 <button
                   type="button"
-                  class="close"
+                  class="close text-white"
                   data-dismiss="modal"
                   aria-label="Close"
                 >
@@ -65,11 +77,11 @@ function Category_modal({AddCategory,setCategories,setshowAddCategoryModal}) {
                         >
                           Category
                         </label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-12">
                           <input
                             value={formData['category_name']||''}
                             type="text"
-                            className="form-control"
+                            className=""
                             name="category_name"
                             placeholder="Enter Category"
                             onChange={handleChange}
@@ -89,7 +101,7 @@ function Category_modal({AddCategory,setCategories,setshowAddCategoryModal}) {
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-info" onClick={handleSubmit}>
+                <button style={button} type="button" class="btn btn-info " onClick={handleSubmit}>
                   Add
                 </button>
               </div>

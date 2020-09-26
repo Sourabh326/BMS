@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import axios from "axios";
-export default function Purchase_product_info() {
+
+export default function Sales_info_table() {
   const [formData, setFormData] = useState([]);
   useEffect(() => {
     axios
-      .get("/purchases") //data source
+      .get("/sales") //data source
       .then((res) => {
         setFormData(res.data.purchases);
       })
@@ -37,7 +38,7 @@ export default function Purchase_product_info() {
   });
   return (
     <MaterialTable
-      title="Purchase Info"
+      title="Sales Info"
       columns={state.columns}
       data={formData}
       editable={{
